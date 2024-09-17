@@ -9,6 +9,8 @@ export default function ApplicationViews() {
  return(
       <Routes>
         <Route path="/" element={<Hello />} />
+        <Route path="/category" element={<CategoryList />} />
+        <Route path="/category" element={<PostList />} />
       </Routes>
    );
  
