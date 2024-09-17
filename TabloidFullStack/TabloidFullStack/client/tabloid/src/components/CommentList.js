@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { getCommentsByPostId } from "../Managers/CommentManager.js";
 
-export default function CommentList() {
+export default function CommentList({ postId }) {
   const [comments, setComments] = useState([]);
 
   const getComments = () => {
-    getCommentsByPostId().then((allComments) => setComments(allComments));
+    getCommentsByPostId(postId).then((allComments) => setComments(allComments));
   };
 
   useEffect(() => {
-    getComments();
-  }, []);
+    if (postId) {
+      getComments();
+    }
+  }, [postId]);
+
   return (
     <>
       {comments.map((comment) => (
