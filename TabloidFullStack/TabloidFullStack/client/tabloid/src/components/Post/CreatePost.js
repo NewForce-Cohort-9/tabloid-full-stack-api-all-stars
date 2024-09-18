@@ -16,8 +16,6 @@ export const CreatePost = () => {
         let postCopy = {...post}
         postCopy.UserProfileId = parsedUser.id
         postCopy.IsApproved = true
-        postCopy.PublishDateTime = new Date()
-        postCopy.CreateDateTime = new Date()
 
         addPost(postCopy).then(postId => navigate(`/post/${postId}`))
     }

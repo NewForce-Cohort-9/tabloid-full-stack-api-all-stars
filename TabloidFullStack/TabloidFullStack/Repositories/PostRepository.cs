@@ -18,7 +18,7 @@ namespace TabloidFullStack.Repositories
                                         FROM Post p
                                         LEFT JOIN Category c On c.Id = p.CategoryId
                                         LEFT JOIN UserProfile up ON up.Id = p.UserProfileId
-                                        WHERE p.IsApproved = 1 AND p.PublishDateTime <= CURRENT_TIMESTAMP + 1
+                                        WHERE p.IsApproved = 1 AND p.PublishDateTime <= CURRENT_TIMESTAMP
                                         ORDER BY p.PublishDateTime DESC";
 
                     var reader = cmd.ExecuteReader();
@@ -64,7 +64,7 @@ namespace TabloidFullStack.Repositories
                                         FROM Post p
                                         LEFT JOIN Category c On c.Id = p.CategoryId
                                         LEFT JOIN UserProfile up ON up.Id = p.UserProfileId
-                                        WHERE p.UserProfileId = @id AND p.IsApproved = 1 AND p.PublishDateTime <= CURRENT_TIMESTAMP + 1
+                                        WHERE p.UserProfileId = @id AND p.IsApproved = 1 AND p.PublishDateTime <= CURRENT_TIMESTAMP
                                         ORDER BY p.PublishDateTime DESC";
 
                     cmd.Parameters.AddWithValue("@id", userId);

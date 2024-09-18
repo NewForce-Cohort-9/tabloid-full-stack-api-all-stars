@@ -52,6 +52,8 @@ namespace TabloidFullStack.Controllers
         [HttpPost]
         public IActionResult Post(Post post)
         {
+            post.CreateDateTime = DateTime.Now;
+            post.PublishDateTime = DateTime.Now;
             _postRepository.Add(post);
             return CreatedAtAction("Get", new { id = post.Id }, post);
         }
