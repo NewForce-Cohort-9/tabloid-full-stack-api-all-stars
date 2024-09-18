@@ -102,7 +102,7 @@ namespace TabloidFullStack.Repositories
             }
          }
 
-    public void Delete(int id)
+        public void Delete(int id)
         {
             using (var conn = Connection)
             {

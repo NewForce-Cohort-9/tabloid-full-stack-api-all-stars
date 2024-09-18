@@ -33,11 +33,11 @@ export const CategoryList = () => {
                                 >{category.name}
                                 </ListGroupItem>
                                 <Button
-                                    color="success"
+                                    color="info"
                                     size="sm"
                                     onClick={() => {navigate(`/editCategory/${category.id}`)}}
                                 >
-                                    Delete
+                                    Edit
                                 </Button>
                                 <Button
                                     color="danger"
