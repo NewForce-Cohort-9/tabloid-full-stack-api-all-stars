@@ -6,7 +6,7 @@ import { CategoryList } from "./CategoryList.js";
 import { TagList } from "./TagList.js";
 import { UserPostList } from "./Post/UserPostList.js";
 import { PostDetails } from "./Post/PostDetails.js";
-import { CategoryForm } from "./CategoryForm.js";n
+import { CategoryForm } from "./CategoryForm.js";
 
 export default function ApplicationViews({ currentUser }) {
 

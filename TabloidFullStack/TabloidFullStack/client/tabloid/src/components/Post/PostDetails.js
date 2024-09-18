@@ -20,23 +20,26 @@ export const PostDetails = () => {
 
     useEffect(() => {
         getPostById(id).then(postObj => setPostDetails(postObj))
-    }, [])
+    }, [id])
 
     useEffect(() => {
         const dateString = createDate(postDetails.publishDateTime)
         setPostDate(dateString)
     }, [postDetails])
 
+    if (!postDetails.id) {
+        return <div>No details yet</div>
+    }
+
     return (
         <>
-            {postDetails.displayName ? 
             <Card className="m-4">
                 <p className="text-left px2">{postDetails.title}</p>
                 <img src={`${postDetails.ImageLocation}`} alt={`Image for ${postDetails.title}`}/>
                 <p className="text-left px2">Content: {postDetails.content}</p>
                 <p className="text-left px2">Published On: {postDate}</p>
                 <p className="text-left px2">Posted By: {postDetails.userProfile.displayName}</p>
-            </Card> : <div>No Details To Show</div>}
+            </Card>
         </>
     )
 }
