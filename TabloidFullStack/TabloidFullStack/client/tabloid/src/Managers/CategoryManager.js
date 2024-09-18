@@ -26,7 +26,7 @@ export const updateCategory = (category) => {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(category)
+        body: JSON.stringify(category),
     })
 }
 export const deleteCategory = (id) => {

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { Button, Container, ListGroupItemHeading } from "reactstrap"
-import { deleteCategory, getCategoryById } from "../../Managers/CategoryManager.js"
+import { Button, Container, Form, Input, ListGroupItemHeading } from "reactstrap"
+import { getCategoryById, updateCategory } from "../../Managers/CategoryManager.js"
 
 export const EditCategory = () => {
 
@@ -15,8 +15,21 @@ export const EditCategory = () => {
         getCategoryById(categoryId).then(categoryObj => setCategory(categoryObj))
     }, [categoryId])
 
-    const handleDelete = () => {
-        deleteCategory(categoryId)
+    const handleInputChange = (e) => {
+      const copy = { ...category }
+        copy[e.target.name] = e.target.value
+        setCategory(copy)
+        }
+
+
+    const handleEdit = () => {
+
+        const editedCategory = {
+            id: category.id,
+            name: category.name,
+        }
+
+        updateCategory(editedCategory)
         .then(() => {
             navigate("/category")
         })
@@ -24,10 +37,17 @@ export const EditCategory = () => {
 
     return(
         <Container>
-
-            <ListGroupItemHeading>
-            Are you sure you want to delete this Category: {category.name}?
-            </ListGroupItemHeading>
+            <Form>
+                <ListGroupItemHeading>
+                    Edit category: '{category.name}'?
+                </ListGroupItemHeading>
+                <Input 
+                    type="text"
+                    name="name"
+                    value={category.name}
+                    onChange={handleInputChange}
+                />
+            </Form>
             <Button
             color="warning"
             size="sm"
@@ -36,11 +56,11 @@ export const EditCategory = () => {
                 Nevermind!
             </Button>
             <Button
-            color="danger"
+            color="success"
             size="sm"
-            onClick={handleDelete}
+            onClick={handleEdit}
             >
-                Delete!!!!!!!!
+                **Save**
             </Button>
         </Container>
     )
