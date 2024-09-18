@@ -12,7 +12,9 @@ export const CreatePost = () => {
         
         let postCopy = {...post}
         postCopy.UserProfileId = parsedUser.id
-        postCopy.IsApproved = 1
+        postCopy.IsApproved = true
+        postCopy.PublishDateTime = new Date()
+        postCopy.CreateDateTime = new Date()
 
         addPost(postCopy)
     }
@@ -21,9 +23,9 @@ export const CreatePost = () => {
         getAllCategories().then(categoryArr => setPostCategories(categoryArr))
     }, [])
 
-    // if (!postCategories.length > 0) {
-    //     return <div>No Data Yet!</div>
-    // }
+    if (!postCategories.length > 0) {
+        return <div>No Data Yet!</div>
+    }
 
     return (
         <>
@@ -49,13 +51,13 @@ export const CreatePost = () => {
                                                                     setPost(postObj)
                         }}></input><br/>
                         <label for="categories">Select Post Category:</label>
-                        <select name="categories" id="createPostCategories">
-                            {postCategories.forEach(category => {
-                                <option value={`${category.id}`} onClick={(e) => {
+                        <select name="categories" id="createPostCategories" onChange={(e) => {
                                     let copy = {...post}
                                     copy.categoryId = e.target.value
-                                    setPost = copy
-                                }}>{category.name}</option>
+                                    setPost(copy)
+                                }}>
+                            {postCategories.map(category => {
+                                return <option value={`${category.id}`} >{category.name}</option>
                             })}
                         </select><br />
 
