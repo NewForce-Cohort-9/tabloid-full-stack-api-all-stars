@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getAllCategories } from "../Managers/CategoryManager.js";
-import { ListGroup, ListGroupItem, ListGroupItemHeading } from "reactstrap";
+import { Button, ListGroup, ListGroupItem, ListGroupItemHeading } from "reactstrap";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export const CategoryList = () => {
     
@@ -14,6 +15,8 @@ export const CategoryList = () => {
         getCategories();
     }, []);
 
+    let navigate = useNavigate();
+
     return(
         <>
             <ListGroup>
@@ -26,6 +29,11 @@ export const CategoryList = () => {
                     >{category.name}</ListGroupItem>
                 ))}
             </ListGroup>
+            <Button
+                onClick={() => {navigate(`/newCategory`)}}
+            >
+                Create Category
+            </Button>
         </>
     );
 };
