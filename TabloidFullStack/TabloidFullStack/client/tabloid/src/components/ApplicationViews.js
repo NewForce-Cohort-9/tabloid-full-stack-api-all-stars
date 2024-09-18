@@ -4,6 +4,7 @@ import Hello from "./Hello";
 import { PostList } from "./Post/PostList.js";
 import { CategoryList } from "./CategoryList.js";
 import { UserPostList } from "./Post/UserPostList.js";
+import { CategoryForm } from "./CategoryForm.js";
 
 export default function ApplicationViews({ currentUser }) {
 
@@ -13,7 +14,7 @@ export default function ApplicationViews({ currentUser }) {
         <Route path="/posts" element={<PostList />} />
         <Route path="/myposts" element={<UserPostList />} />
         <Route path="/category" element={<CategoryList />} />
-
+        <Route path="/newCategory" element={<CategoryForm />} />
       </Routes>
    );
  
