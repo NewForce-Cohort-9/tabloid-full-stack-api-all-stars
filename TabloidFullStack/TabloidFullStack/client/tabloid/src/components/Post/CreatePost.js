@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react"
 import { getAllCategories } from "../../Managers/CategoryManager.js"
 import { addPost } from "../../Managers/PostManager.js"
+import { useNavigate } from "react-router-dom"
 
 export const CreatePost = () => {
     const [postCategories, setPostCategories] = useState([])
     const [post, setPost] = useState({})
+
+    const navigate = useNavigate()
     
     const createPostObj = () => {
         let user = localStorage.getItem("userProfile")
@@ -16,7 +19,7 @@ export const CreatePost = () => {
         postCopy.PublishDateTime = new Date()
         postCopy.CreateDateTime = new Date()
 
-        addPost(postCopy)
+        addPost(postCopy).then(postId => navigate(`/post/${postId}`))
     }
 
     useEffect(() => {
@@ -50,12 +53,12 @@ export const CreatePost = () => {
                                                                     postObj.ImageLocation = e.target.value
                                                                     setPost(postObj)
                         }}></input><br/>
-                        <label for="categories">Select Post Category:</label>
                         <select name="categories" id="createPostCategories" onChange={(e) => {
                                     let copy = {...post}
                                     copy.categoryId = e.target.value
                                     setPost(copy)
                                 }}>
+                                <option selected>Select Post Category:</option>
                             {postCategories.map(category => {
                                 return <option value={`${category.id}`} >{category.name}</option>
                             })}

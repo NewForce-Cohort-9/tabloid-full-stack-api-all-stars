@@ -18,7 +18,7 @@ namespace TabloidFullStack.Repositories
                                         FROM Post p
                                         LEFT JOIN Category c On c.Id = p.CategoryId
                                         LEFT JOIN UserProfile up ON up.Id = p.UserProfileId
-                                        WHERE p.IsApproved = 1 AND p.PublishDateTime <= CURRENT_TIMESTAMP
+                                        WHERE p.IsApproved = 1 AND p.PublishDateTime <= CURRENT_TIMESTAMP + 1
                                         ORDER BY p.PublishDateTime DESC";
 
                     var reader = cmd.ExecuteReader();
@@ -64,7 +64,7 @@ namespace TabloidFullStack.Repositories
                                         FROM Post p
                                         LEFT JOIN Category c On c.Id = p.CategoryId
                                         LEFT JOIN UserProfile up ON up.Id = p.UserProfileId
-                                        WHERE p.UserProfileId = @id AND p.IsApproved = 1 AND p.PublishDateTime <= CURRENT_TIMESTAMP
+                                        WHERE p.UserProfileId = @id AND p.IsApproved = 1 AND p.PublishDateTime <= CURRENT_TIMESTAMP + 1
                                         ORDER BY p.PublishDateTime DESC";
 
                     cmd.Parameters.AddWithValue("@id", userId);
@@ -150,14 +150,15 @@ namespace TabloidFullStack.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"INSERT INTO Post (Title, Content, ImageLocation, 
-                                                                 CreateDateTime, IsApproved, CategoryId, UserProfileId)
+                                                                 CreateDateTime, PublishDateTime, IsApproved, CategoryId, UserProfileId)
                                         OUTPUT INSERTED.ID
                                         VALUES (@Title, @Content, @ImageLocation, 
-                                                @CreateDateTime, @IsApproved, @CategoryId, @UserProfileId)";
+                                                @CreateDateTime, @PublishDateTime, @IsApproved, @CategoryId, @UserProfileId)";
                     DbUtils.AddParameter(cmd, "@Title", post.Title);
                     DbUtils.AddParameter(cmd, "@Content", post.Content);
                     DbUtils.AddParameter(cmd, "@ImageLocation", post.ImageLocation);
                     DbUtils.AddParameter(cmd, "@CreateDateTime", post.CreateDateTime);
+                    DbUtils.AddParameter(cmd, "@PublishDateTime", post.PublishDateTime);
                     DbUtils.AddParameter(cmd, "@IsApproved", post.IsApproved);
                     DbUtils.AddParameter(cmd, "@CategoryId", post.CategoryId);
                     DbUtils.AddParameter(cmd, "@UserProfileId", post.UserProfileId);
