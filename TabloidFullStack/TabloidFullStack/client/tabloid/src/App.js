@@ -7,7 +7,10 @@ import Authorize from './components/Authorize';
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(true);
+    const [currentUser, setCurrentUser] = useState({})
 
+    const user = localStorage.getItem("userProfile")
+    const parsedUser = JSON.parse(user)
 
     useEffect(() => {
         if (!localStorage.getItem("userProfile")) {
@@ -16,11 +19,17 @@ function App() {
         }
     }, [isLoggedIn])
 
+    useEffect(() => {
+        if (parsedUser) {
+            setCurrentUser(parsedUser)
+        }
+    }, [])
+
     return (
         <Router>
             <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
             {isLoggedIn ?
-                <ApplicationViews />
+                <ApplicationViews currentUser={currentUser} />
                 :
                 <Authorize setIsLoggedIn={setIsLoggedIn} />
             }

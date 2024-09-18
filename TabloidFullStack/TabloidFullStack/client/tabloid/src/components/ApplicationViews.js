@@ -4,8 +4,9 @@ import Hello from "./Hello";
 import CommentList from "./CommentList.js";
 import { PostList } from "./Post/PostList.js";
 import { CategoryList } from "./CategoryList.js";
+import { UserPostList } from "./Post/UserPostList.js";
 
-export default function ApplicationViews() {
+export default function ApplicationViews({ currentUser }) {
   return (
     <Routes>
       <Route path="/" element={<Hello />} />
@@ -15,6 +16,7 @@ export default function ApplicationViews() {
         path="/posts/:postId/comments"
         element={<CommentList postId={1} />}
       />
+      <Route path="/myposts" element={<UserPostList />} />
       <Route path="/category" element={<CategoryList />} />
     </Routes>
   );
