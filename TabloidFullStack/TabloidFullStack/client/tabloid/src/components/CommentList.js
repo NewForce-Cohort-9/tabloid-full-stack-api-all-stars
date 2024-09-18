@@ -22,7 +22,7 @@ export default function CommentList() {
     <>
       <h2
         onClick={() => {
-          navigate(`/posts/${id}`);
+          navigate(`/post/${id}`);
         }}
       >
         {comments[0]?.post.title} comments
