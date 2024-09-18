@@ -8,7 +8,7 @@ import { TagList } from "./TagList.js";
 import { UserPostList } from "./Post/UserPostList.js";
 
 export default function ApplicationViews({ currentUser }) {
-  return(
+  return (
     <Routes>
       <Route path="/" element={<Hello />} />
       <Route path="/category" element={<CategoryList />} />
