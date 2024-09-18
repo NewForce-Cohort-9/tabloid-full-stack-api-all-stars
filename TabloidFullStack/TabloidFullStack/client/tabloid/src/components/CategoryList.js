@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getAllCategories } from "../Managers/CategoryManager.js";
-import { Button, ListGroup, ListGroupItem, ListGroupItemHeading } from "reactstrap";
+import { Button, Container, List, ListGroup, ListGroupItem, ListGroupItemHeading, ListInlineItem } from "reactstrap";
 import { Navigate, useNavigate } from "react-router-dom";
 
 export const CategoryList = () => {
@@ -19,21 +19,34 @@ export const CategoryList = () => {
 
     return(
         <>
-            <ListGroup>
-            <ListGroupItemHeading>
-                Categories (A -&gt; Z)
-            </ListGroupItemHeading>
-                {categories.map((category) => (
-                    <ListGroupItem
-                    key={category.id}
-                    >{category.name}</ListGroupItem>
-                ))}
-            </ListGroup>
-            <Button
-                onClick={() => {navigate(`/newCategory`)}}
-            >
-                Create Category
-            </Button>
+            <Container>
+                <List>
+                <ListGroupItemHeading>
+                    Categories (A -&gt; Z)
+                </ListGroupItemHeading>
+                    {categories.map((category) => (
+                        <ListGroup
+                        horizontal
+                        >
+                            <ListGroupItem
+                            key={category.id}
+                            >{category.name}
+                            </ListGroupItem>
+                            <Button
+                                color="danger"
+                                size="sm"
+                            >
+                                Delete
+                            </Button>
+                      </ListGroup>
+                    ))}
+                </List>
+                <Button
+                    onClick={() => {navigate(`/newCategory`)}}
+                >
+                    Create Category
+                </Button>
+            </Container>
         </>
     );
 };
