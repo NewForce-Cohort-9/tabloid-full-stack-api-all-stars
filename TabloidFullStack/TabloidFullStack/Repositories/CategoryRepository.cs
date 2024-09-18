@@ -35,5 +35,22 @@ namespace TabloidFullStack.Repositories
                 }
             }
         }
+
+        public void Add(Category category)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        INSERT INTO Category (Name)
+                        OUTPUT INSERTED.ID
+                        VALUES (@Name)";
+
+                    category.Id = (int)cmd.ExecuteScalar();
+                }
+            }
+        }
     }
 }
