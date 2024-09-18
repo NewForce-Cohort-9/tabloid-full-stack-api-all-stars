@@ -16,9 +16,14 @@ namespace TabloidFullStack.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT c.Id AS 'CommentId', c.PostId, c.UserProfileId, c.[Subject], c.Content, c.CreateDateTime
+                        SELECT c.Id AS 'CommentId', c.PostId, c.UserProfileId, up.DisplayName, c.[Subject], c.Content, c.CreateDateTime, p.Title
                         FROM Comment c
-                        WHERE c.PostId = @id";
+                        JOIN Post p
+                        ON c.PostId = p.Id
+                        JOIN UserProfile up
+                        ON c.UserProfileId = up.Id
+                        WHERE c.PostId = 1
+                        ORDER BY c.CreateDateTime DESC";
 
                     DbUtils.AddParameter(cmd, "@id", id);
 
@@ -32,7 +37,17 @@ namespace TabloidFullStack.Repositories
                         {
                             Id = DbUtils.GetInt(reader, "CommentId"),
                             PostId = DbUtils.GetInt(reader, "PostId"),
+                            Post = new Post()
+                            {
+                                Id = DbUtils.GetInt(reader, "PostId"),
+                                Title = DbUtils.GetString(reader, "Title"),
+                            },
                             UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
+                            UserProfile = new UserProfile()
+                            {
+                                Id = DbUtils.GetInt(reader, "UserProfileId"),
+                                DisplayName = DbUtils.GetString(reader, "DisplayName")
+                            },
                             Subject = DbUtils.GetString(reader, "Subject"),
                             Content = DbUtils.GetString(reader, "Content"),
                             CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime")
