@@ -29,11 +29,18 @@ export const DeleteCategory = () => {
             Are you sure you want to delete this Category: {category.name}?
             </ListGroupItemHeading>
             <Button
+            color="warning"
+            size="sm"
+            onClick={() => {navigate(`/category`)}}
+            >
+                Nevermind!
+            </Button>
+            <Button
             color="danger"
             size="sm"
             onClick={handleDelete}
             >
-                Delete!
+                Delete!!!!!!!!
             </Button>
         </Container>
     )
