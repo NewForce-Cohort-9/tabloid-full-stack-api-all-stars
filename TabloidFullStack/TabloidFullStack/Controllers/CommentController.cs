@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TabloidFullStack.Models;
 using TabloidFullStack.Repositories;
 
 namespace TabloidFullStack.Controllers
@@ -18,6 +19,13 @@ namespace TabloidFullStack.Controllers
         public IActionResult GetByPostId(int id)
         {
             return Ok(_commentRepository.GetByPostId(id));
+        }
+
+        [HttpPost]
+        public IActionResult Comment(Comment comment)
+        {
+            _commentRepository.Add(comment);
+            return CreatedAtAction("Get", new { id = comment.Id }, comment);
         }
     }
 }
