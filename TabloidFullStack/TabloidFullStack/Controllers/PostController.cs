@@ -23,6 +23,17 @@ namespace TabloidFullStack.Controllers
             return Ok(_postRepository.GetAllApprovedPosts());
         }
 
+        [HttpGet("GetAllByUserId/{id}")]
+        public IActionResult GetAllByUserId(int id)
+        {
+            var posts = _postRepository.GetAllByUserId(id);
+            if (posts == null)
+            {
+                return NotFound();
+            }
+            return Ok(posts);
+        }
+
         // GET api/<PostController>/5
         [HttpGet("{id}")]
         public string Get(int id)
