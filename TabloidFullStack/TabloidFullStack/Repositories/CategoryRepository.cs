@@ -36,6 +36,35 @@ namespace TabloidFullStack.Repositories
             }
         }
 
+        public Category GetById(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT Id, Name FROM Category WHERE Id = @Id";
+
+                    DbUtils.AddParameter(cmd, "Id", id);
+
+                    var reader = cmd.ExecuteReader();
+
+                    Category category = null;
+                    if (reader.Read())
+                    {
+                        category = new Category()
+                        {
+                            Id = DbUtils.GetInt(reader, "Id"),
+                            Name = DbUtils.GetString(reader, "Name"),
+                        };
+                    }
+                    reader.Close();
+
+                    return category;
+                }
+            }
+        }
+
         public void Add(Category category)
         {
             using (var conn = Connection)

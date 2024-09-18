@@ -30,12 +30,12 @@ export const CategoryList = () => {
                         >
                             <ListGroupItem
                             key={category.id}
-                            category="category"
                             >{category.name}
                             </ListGroupItem>
                             <Button
                                 color="danger"
                                 size="sm"
+                                onClick={() => {navigate(`/deleteCategory`)}}
                             >
                                 Delete
                             </Button>
