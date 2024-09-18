@@ -45,7 +45,7 @@ namespace TabloidFullStack.Repositories
                 {
                     cmd.CommandText = @"SELECT Id, Name FROM Category WHERE Id = @Id";
 
-                    DbUtils.AddParameter(cmd, "Id", id);
+                    DbUtils.AddParameter(cmd, "@Id", id);
 
                     var reader = cmd.ExecuteReader();
 

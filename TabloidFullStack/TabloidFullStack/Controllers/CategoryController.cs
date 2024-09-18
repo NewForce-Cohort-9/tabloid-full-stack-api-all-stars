@@ -29,6 +29,7 @@ namespace TabloidFullStack.Controllers
         public IActionResult Get(int id)
         {
             var category = _categoryRepository.GetById(id);
+
             if (category == null)
             {
                 return NotFound();
