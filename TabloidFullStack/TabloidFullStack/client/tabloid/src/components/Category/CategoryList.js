@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { getAllCategories } from "../Managers/CategoryManager.js";
-import { Button, Container, List, ListGroup, ListGroupItem, ListGroupItemHeading, ListInlineItem } from "reactstrap";
-import { Navigate, useNavigate } from "react-router-dom";
+import { getAllCategories } from "../../Managers/CategoryManager.js";
+import { Button, Container, List, ListGroup, ListGroupItem, ListGroupItemHeading } from "reactstrap";
+import { useNavigate } from "react-router-dom";
 
 export const CategoryList = () => {
     
@@ -30,6 +30,7 @@ export const CategoryList = () => {
                         >
                             <ListGroupItem
                             key={category.id}
+                            category="category"
                             >{category.name}
                             </ListGroupItem>
                             <Button

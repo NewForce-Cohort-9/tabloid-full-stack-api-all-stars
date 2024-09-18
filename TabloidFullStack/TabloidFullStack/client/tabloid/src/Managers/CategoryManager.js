@@ -14,3 +14,9 @@ export const addCategory = (category) => {
         body: JSON.stringify(category),
     });
 };
+
+export const deleteCategory = (category) => {
+    return fetch(apiUrl, {
+        method: "DELETE",
+    })
+}

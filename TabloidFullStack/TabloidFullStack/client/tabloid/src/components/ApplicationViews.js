@@ -2,10 +2,10 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Hello from "./Hello";
 import { PostList } from "./Post/PostList.js";
-import { CategoryList } from "./CategoryList.js";
+import { CategoryList } from "./Category/CategoryList.js";
 import { TagList } from "./TagList.js";
 import { UserPostList } from "./Post/UserPostList.js";
-import { CategoryForm } from "./CategoryForm.js";
+import { CategoryForm } from "./Category/CategoryForm.js";
 
 export default function ApplicationViews({ currentUser }) {
 
