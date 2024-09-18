@@ -5,6 +5,11 @@ export const getAllCategories = () => {
     .then((res) => res.json())
 };
 
+export const getCategoryById = (id) => {
+    return fetch(`{apiUrl}/${id}`)
+    .then((res) => res.json())
+};
+
 export const addCategory = (category) => {
     return fetch(apiUrl, {
         method: "POST",
@@ -19,4 +24,4 @@ export const deleteCategory = (category) => {
     return fetch(apiUrl, {
         method: "DELETE",
     })
-}
+};
