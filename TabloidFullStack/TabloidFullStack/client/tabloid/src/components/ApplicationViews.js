@@ -7,6 +7,7 @@ import { TagList } from "./TagList.js";
 import { UserPostList } from "./Post/UserPostList.js";
 import { PostDetails } from "./Post/PostDetails.js";
 import { CategoryForm } from "./CategoryForm.js";
+import { CreatePost } from "./Post/CreatePost.js";
 
 export default function ApplicationViews({ currentUser }) {
 
@@ -17,6 +18,7 @@ export default function ApplicationViews({ currentUser }) {
         <Route path="/posts" element={<PostList />} />
         <Route path="/myposts" element={<UserPostList />} />
         <Route path="/post/:id" element={<PostDetails />} />
+        <Route path="/newpost" element={<CreatePost />} />
         <Route path="/newCategory" element={<CategoryForm />} />
         <Route path="/tags" element={<TagList />} />
 

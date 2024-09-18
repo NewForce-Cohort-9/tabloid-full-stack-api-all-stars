@@ -11,3 +11,13 @@ export const getAllApprovedUserPosts = (id) => {
 export const getPostById = (id) => {
     return fetch(`${baseUrl}/post/${id}`).then(res => res.json())
 }
+
+export const addPost = (post) => {
+    return fetch(`${baseUrl}/post`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(post)
+    });
+};
