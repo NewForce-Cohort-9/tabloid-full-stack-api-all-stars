@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getCommentsByPostId } from "../Managers/CommentManager.js";
 import { useNavigate } from "react-router-dom";
+import { Button } from "reactstrap";
 
 export default function CommentList({ postId }) {
   const [comments, setComments] = useState([]);
@@ -26,6 +27,13 @@ export default function CommentList({ postId }) {
       >
         {comments[0]?.post.title} comments
       </h2>
+      <Button
+        onClick={() => {
+          navigate("/posts/1/comments/create");
+        }}
+      >
+        Add New Comment
+      </Button>
       {comments.map((comment) => (
         <div key={comment.id}>
           <p>SUBJECT: {comment.subject}</p>
