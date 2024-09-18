@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Button, Container, Form, FormGroup, Input, Label } from "reactstrap"
-import { addCategory } from "../Managers/CategoryManager.js";
+import { addCategory } from "../../Managers/CategoryManager.js";
 import { useNavigate } from "react-router-dom";
 
 export const CategoryForm = () => {
