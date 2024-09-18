@@ -6,17 +6,22 @@ import { PostList } from "./Post/PostList.js";
 import { CategoryList } from "./CategoryList.js";
 import { TagList } from "./TagList.js";
 import { UserPostList } from "./Post/UserPostList.js";
+import { AddCommentForm } from "./AddCommentForm.js";
 
 export default function ApplicationViews({ currentUser }) {
   return (
     <Routes>
       <Route path="/" element={<Hello />} />
-        <Route path="/category" element={<CategoryList />} />
+      <Route path="/category" element={<CategoryList />} />
       <Route path="/posts" element={<PostList />} />
       {/* hard-coding postid to 1 until post details is done */}
       <Route
         path="/posts/:postId/comments"
         element={<CommentList postId={1} />}
+      />
+      <Route
+        path="/posts/:postId/comments/create"
+        element={<AddCommentForm postId={1} currentUser={currentUser}/>}
       />
       <Route path="/myposts" element={<UserPostList />} />
       <Route path="/tags" element={<TagList />} />
