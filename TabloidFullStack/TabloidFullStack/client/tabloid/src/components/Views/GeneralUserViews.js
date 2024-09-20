@@ -11,6 +11,7 @@ import { UserPostList } from "../Post/UserPostList.js";
 import { PostDetails } from "../Post/PostDetails.js";
 import { CreatePost } from "../Post/CreatePost.js";
 import { DeletePost } from "../Post/DeletePost.js";
+import { EditPost } from "../Post/EditPost.js";
 import { TagList } from "../Tags/TagList.js";
 import { TagForm } from "../Tags/TagForm.js";
 import { CommentList } from "../Comment/CommentList.js";
@@ -37,6 +38,7 @@ export const GeneralUserViews = ({ currentUser }) => {
         element={<CommentList currentUser={currentUser} />}
       />
       <Route path="/posts/delete/:id" element={<DeletePost />} />
+      <Route path="/posts/edit/:id" element={<EditPost />} />
       <Route path="/tags" element={<TagList />} />
       <Route path="/newTagAdded" element={<TagForm />} />
     </Routes>

@@ -12,8 +12,8 @@ export const ApplicationViews = () => {
     setCurrentUser(userObject)
   }, [])
 
-  return currentUser.userTypeId === "1" ? (
-    < AdminViews currentUser={currentUser} />
+  return currentUser.userTypeId === 1 ? (
+    <AdminViews currentUser={currentUser} />
   ) : (
     <GeneralUserViews currentUser={currentUser} />
   )
