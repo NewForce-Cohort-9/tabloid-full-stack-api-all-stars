@@ -21,7 +21,7 @@ export default function ApplicationViews({ currentUser, id }) {
       <Route path="/posts" element={<PostList />} />
       <Route
         path="/posts/:postId/comments/create"
-        element={<AddCommentForm postId={1} currentUser={currentUser}/>}
+        element={<AddCommentForm postId={1} currentUser={currentUser} />}
       />
       <Route path="/myposts" element={<UserPostList />} />
       <Route path="/post/:id" element={<PostDetails />} />
