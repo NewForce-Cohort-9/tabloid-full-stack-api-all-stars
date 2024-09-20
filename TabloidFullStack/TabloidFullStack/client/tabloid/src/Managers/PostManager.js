@@ -7,3 +7,7 @@ export const getAllApprovedPosts = () => {
 export const getAllApprovedUserPosts = (id) => {
     return fetch(`${baseUrl}/post/getallbyuserid/${id}`).then(res => res.json())
 }
+
+export const getPostById = (id) => {
+    return fetch(`${baseUrl}/post/${id}`).then(res => res.json())
+}

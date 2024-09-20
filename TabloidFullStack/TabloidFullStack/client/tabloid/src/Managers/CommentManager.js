@@ -1,7 +1,11 @@
 const baseUrl = "https://localhost:5001/api/Comment";
 
-export const getCommentsByPostId = () => {
-  return fetch(`${baseUrl}?id=1`).then((res) => res.json());
+export const getCommentsByPostId = (id) => {
+  return fetch(`${baseUrl}?id=${id}`)
+    .then((res) => res.json())
+    .catch((error) => {
+      console.error("Error fetching comments:", error);
+    });
 };
 
 export const addComment = (singleComment) => {

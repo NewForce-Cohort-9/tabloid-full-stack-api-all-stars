@@ -1,31 +1,39 @@
 import React, { useState, useEffect } from "react";
 import { getCommentsByPostId } from "../Managers/CommentManager.js";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { Button } from "reactstrap";
 
-export default function CommentList({ postId }) {
+export default function CommentList() {
   const [comments, setComments] = useState([]);
   const navigate = useNavigate();
+  const { id } = useParams();
 
   const getComments = () => {
-    getCommentsByPostId(postId).then((allComments) => setComments(allComments));
+    getCommentsByPostId(id).then((allComments) => setComments(allComments));
   };
 
   useEffect(() => {
-    if (postId) {
+    if (id) {
       getComments();
     }
-  }, [postId]);
+  }, [id]);
 
   return (
     <>
-      {/* will temporarily link back to all posts until post details is finished */}
       <h2
         onClick={() => {
-          navigate("/posts");
+          navigate(`/post/${id}`);
         }}
       >
         {comments[0]?.post.title} comments
       </h2>
+      <Button
+        onClick={() => {
+          navigate(`/posts/${id}/comments/create`);
+        }}
+      >
+        Add New Comment
+      </Button>
       {comments.map((comment) => (
         <div key={comment.id}>
           <p>SUBJECT: {comment.subject}</p>

@@ -1,4 +1,3 @@
-
 using TabloidFullStack.Repositories;
 
 namespace TabloidFullStack
@@ -20,7 +19,7 @@ namespace TabloidFullStack
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -39,7 +38,6 @@ namespace TabloidFullStack
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 
