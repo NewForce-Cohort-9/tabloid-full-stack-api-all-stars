@@ -18,8 +18,6 @@ export default function ApplicationViews({ currentUser, id }) {
     <Routes>
       <Route path="/" element={<Hello />} />
       <Route path="/category" element={<CategoryList />} />
-      <Route path="/category" element={<CategoryList />} />
-      <Route path="/category" element={<CategoryList />} />
       <Route path="/newCategory" element={<CategoryForm />} />
       <Route path="/deleteCategory/:categoryId" element={<DeleteCategory />} />
       <Route path="/editCategory/:categoryId" element={<EditCategory />} />
