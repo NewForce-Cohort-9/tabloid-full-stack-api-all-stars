@@ -18,6 +18,12 @@ export const addComment = (singleComment) => {
   });
 };
 
+export const deleteComment = (commentId) => {
+  return fetch(`${baseUrl}/${commentId}`, {
+    method: "DELETE",
+  });
+};
+
 export const updateComment = (comment) => {
   return fetch(`${baseUrl}/${comment.id}`, {
     method: "PUT",

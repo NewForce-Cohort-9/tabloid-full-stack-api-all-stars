@@ -28,6 +28,13 @@ namespace TabloidFullStack.Controllers
             return CreatedAtAction("Get", new { id = comment.Id }, comment);
         }
 
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            _commentRepository.Delete(id);
+            return NoContent();
+        }
+
         [HttpPut("{id}")]
         public IActionResult Put(int id, Comment comment)
         {

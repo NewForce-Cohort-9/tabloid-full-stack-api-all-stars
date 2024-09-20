@@ -84,6 +84,20 @@ namespace TabloidFullStack.Repositories
             }
         }
 
+        public void Delete(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = "DELETE FROM Comment WHERE Id = @id";
+                    DbUtils.AddParameter(cmd, "@id", id);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
         public void Update(Comment comment)
         {
             using (var conn = Connection)

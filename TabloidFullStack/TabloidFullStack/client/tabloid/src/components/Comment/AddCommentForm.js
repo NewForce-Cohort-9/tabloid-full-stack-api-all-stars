@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
-import { addComment } from "../Managers/CommentManager.js";
 import { useNavigate, useParams } from "react-router-dom";
+import { addComment } from "../../Managers/CommentManager.js";
 
 export const AddCommentForm = ({ currentUser }) => {
   const [comment, setComment] = useState({});
