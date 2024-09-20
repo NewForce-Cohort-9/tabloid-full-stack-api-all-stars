@@ -36,5 +36,14 @@ namespace TabloidFullStack.Controllers
             }
             return Ok(tag);
         }
+
+        //POST api/<TagController>/5
+        [HttpPost]
+        public IActionResult Post(Tag tag)
+        {
+            _tagRepository.Add(tag);
+            return CreatedAtAction("Get", new { id = tag.Id }, tag);
+        }
+
     }
 }
