@@ -17,3 +17,13 @@ export const addComment = (singleComment) => {
     body: JSON.stringify(singleComment),
   });
 };
+
+export const updateComment = (comment) => {
+  return fetch(`${baseUrl}/${comment.id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(comment),
+  });
+};
