@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { getCommentsByPostId } from "../Managers/CommentManager.js";
+import { getCommentsByPostId } from "../../Managers/CommentManager.js";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "reactstrap";
+import DeleteComment from "./DeleteComment.js";
 
-export default function CommentList() {
+export default function CommentList({ currentUser }) {
   const [comments, setComments] = useState([]);
   const navigate = useNavigate();
   const { id } = useParams();
@@ -40,6 +41,11 @@ export default function CommentList() {
           <p>CONTENT: {comment.content}</p>
           <p>AUTHOR: {comment.userProfile?.displayName}</p>
           <p>DATE: {comment.createDateTime}</p>
+          {comment.userProfile?.id === currentUser.id ? (
+            <div>
+              <DeleteComment comment={comment} />
+            </div>
+          ) : null}
           <hr />
         </div>
       ))}
