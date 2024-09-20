@@ -1,21 +1,22 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import Hello from "./Hello";
-import CommentList from "./Comment/CommentList.js";
-import { PostList } from "./Post/PostList.js";
-import { TagList } from "./Tags/TagList.js";
-import { CategoryList } from "./Category/CategoryList.js";
-import { UserPostList } from "./Post/UserPostList.js";
-import { PostDetails } from "./Post/PostDetails.js";
-import { AddCommentForm } from "./Comment/AddCommentForm.js";
-import { CategoryForm } from "./Category/CategoryForm.js";
-import { CreatePost } from "./Post/CreatePost.js";
-import { TagForm } from "./Tags/TagForm.js";
-import { DeleteCategory } from "./Category/DeleteCategory.js";
-import { EditCategory } from "./Category/EditCategory.js";
-import { DeletePost } from "./Post/DeletePost.js";
+import Hello from "../Hello.js";
+import { CategoryList } from "../Category/CategoryList.js";
+import { CategoryForm } from "../Category/CategoryForm.js";
+import { DeleteCategory } from "../Category/DeleteCategory.js";
+import { EditCategory } from "../Category/EditCategory.js";
+import { PostList } from "../Post/PostList.js";
+import { AddCommentForm } from "../Comment/AddCommentForm.js";
+import { UserPostList } from "../Post/UserPostList.js";
+import { PostDetails } from "../Post/PostDetails.js";
+import { CreatePost } from "../Post/CreatePost.js";
+import { DeletePost } from "../Post/DeletePost.js";
+import { TagList } from "../Tags/TagList.js";
+import { TagForm } from "../Tags/TagForm.js";
+import { CommentList } from "../Comment/CommentList.js";
 
-export default function ApplicationViews({ currentUser }) {
+
+export const AdminViews = ({ currentUser }) => {
   return (
     <Routes>
       <Route path="/" element={<Hello />} />

@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "reactstrap";
 import DeleteComment from "./DeleteComment.js";
 
-export default function CommentList({ currentUser }) {
+export const CommentList = ({ currentUser }) => {
   const [comments, setComments] = useState([]);
   const navigate = useNavigate();
   const { id } = useParams();

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
+import { GeneralUserViews } from "./GeneralUserViews.js"
 import { AdminViews } from "./AdminViews.js"
-import GeneralUserViews from "./GeneralUserViews.js"
 
 export const ApplicationViews = () => {
   const [currentUser, setCurrentUser] = useState({})
@@ -12,8 +12,8 @@ export const ApplicationViews = () => {
     setCurrentUser(userObject)
   }, [])
 
-  return currentUser.userType.name === "Admin" ? (
-    <AdminViews currentUser={currentUser} />
+  return currentUser.userTypeId === "1" ? (
+    < AdminViews currentUser={currentUser} />
   ) : (
     <GeneralUserViews currentUser={currentUser} />
   )
