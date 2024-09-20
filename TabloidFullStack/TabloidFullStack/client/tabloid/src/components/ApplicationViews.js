@@ -19,7 +19,7 @@ export default function ApplicationViews({ currentUser, id }) {
       <Route path="/posts" element={<PostList />} />
       <Route path="/myposts" element={<UserPostList />} />
       <Route path="/post/:id" element={<PostDetails />} />
-      <Route path="/posts/:id/comments">{<CommentList id={id} />}</Route>
+      <Route path="/posts/:id/comments" element={<CommentList id={id} />} />
       <Route path="/newCategory" element={<CategoryForm />} />
       <Route path="/tags" element={<TagList />} />
     </Routes>
