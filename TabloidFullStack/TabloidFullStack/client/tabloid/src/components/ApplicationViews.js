@@ -8,7 +8,6 @@ import { TagList } from "./TagList.js";
 import { UserPostList } from "./Post/UserPostList.js";
 import { CategoryForm } from "./Category/CategoryForm.js";
 import { PostDetails } from "./Post/PostDetails.js";
-import { CategoryForm } from "./CategoryForm.js";
 import { DeleteCategory } from "./Category/DeleteCategory.js";
 
 export default function ApplicationViews({ currentUser, id }) {
