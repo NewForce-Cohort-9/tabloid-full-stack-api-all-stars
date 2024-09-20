@@ -2,11 +2,12 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Hello from "./Hello";
 import { PostList } from "./Post/PostList.js";
+import { TagList } from "./Tags/TagList.js";
 import { CategoryList } from "./Category/CategoryList.js";
-import { TagList } from "./TagList.js";
 import { UserPostList } from "./Post/UserPostList.js";
 import { CategoryForm } from "./Category/CategoryForm.js";
 import { PostDetails } from "./Post/PostDetails.js";
+import { TagForm } from "./Tags/TagForm.js";
 import { DeleteCategory } from "./Category/DeleteCategory.js";
 
 export default function ApplicationViews({ currentUser }) {
@@ -19,9 +20,10 @@ export default function ApplicationViews({ currentUser }) {
         <Route path="/post/:id" element={<PostDetails />} />
         <Route path="/category" element={<CategoryList />} />
         <Route path="/newCategory" element={<CategoryForm />} />
+        <Route path="/Tags" element={<TagList />} />
+        <Route path="/newTagAdded" element={<TagForm />} />
         <Route path="/deleteCategory/:categoryId" element={<DeleteCategory />} />
         <Route path="/tags" element={<TagList />} />
-
       </Routes>
    );
  
