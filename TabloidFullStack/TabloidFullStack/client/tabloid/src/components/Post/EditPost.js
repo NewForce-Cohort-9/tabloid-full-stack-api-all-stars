@@ -13,8 +13,10 @@ export const EditPost = () => {
     const { state } = useLocation()
     const navigate = useNavigate()
 
-    const updatePost = () => {
-        submitUpdatePost(post).then(navigate(`/post/${post.id}`))
+    const updatePost = async (e) => {
+        e.preventDefault()
+        await submitUpdatePost(post)
+        navigate(`/post/${post.id}`)
     }
 
     useEffect(() => {
@@ -70,7 +72,7 @@ export const EditPost = () => {
                             })}
                         </select><br />
 
-                        <button id="submitNewPost" type="submit" onClick={() => updatePost()}>Edit Post!</button>
+                        <button id="submitNewPost" type="submit" onClick={(e) => updatePost(e)}>Edit Post!</button>
                     </div>
                 </div>
             </div>
