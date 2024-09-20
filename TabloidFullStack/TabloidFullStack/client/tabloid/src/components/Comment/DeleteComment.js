@@ -17,7 +17,7 @@ function DeleteComment({ args, comment }) {
         Delete
       </Button>
       <Modal isOpen={modal} toggle={toggle} {...args}>
-        <ModalHeader toggle={toggle}>Modal title</ModalHeader>
+        <ModalHeader toggle={toggle}>Delete</ModalHeader>
         <ModalBody>
           Are you sure you want to delete this comment? <br /> <br />
           SUBJECT: {comment?.subject} <br /> CONTENT: {comment?.content}

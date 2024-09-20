@@ -34,5 +34,17 @@ namespace TabloidFullStack.Controllers
             _commentRepository.Delete(id);
             return NoContent();
         }
+
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, Comment comment)
+        {
+            if (id != comment.Id)
+            {
+                return BadRequest();
+            }
+
+            _commentRepository.Update(comment);
+            return NoContent();
+        }
     }
 }

@@ -3,6 +3,7 @@ import { getCommentsByPostId } from "../../Managers/CommentManager.js";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "reactstrap";
 import DeleteComment from "./DeleteComment.js";
+import UpdateComment from "./EditComment.js";
 
 export default function CommentList({ currentUser }) {
   const [comments, setComments] = useState([]);
@@ -41,6 +42,11 @@ export default function CommentList({ currentUser }) {
           <p>CONTENT: {comment.content}</p>
           <p>AUTHOR: {comment.userProfile?.displayName}</p>
           <p>DATE: {comment.createDateTime}</p>
+          {comment.userProfile?.id === currentUser.id ? (
+            <div>
+              <UpdateComment comment={comment} />
+            </div>
+          ) : null}
           {comment.userProfile?.id === currentUser.id ? (
             <div>
               <DeleteComment comment={comment} />
