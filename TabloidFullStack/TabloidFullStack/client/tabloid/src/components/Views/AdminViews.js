@@ -16,7 +16,7 @@ import { EditCategory } from "../Category/EditCategory.js";
 import { DeletePost } from "../Post/DeletePost.js";
 
 
-export default function GeneralUserViews({ currentUser }) {
+export default function AdminViews({ currentUser }) {
   return (
     <Routes>
       <Route path="/" element={<Hello />} />
@@ -35,8 +35,6 @@ export default function GeneralUserViews({ currentUser }) {
       <Route path="/posts/:id/comments" element={<CommentList />} />
       <Route path="/posts/delete/:id" element={<DeletePost />} />
       <Route path="/tags" element={<TagList />} />
-      <Route path="/newTagAdded" element={<TagForm />} />
-
     </Routes>
   );
 }
