@@ -9,18 +9,20 @@ import { UserPostList } from "./Post/UserPostList.js";
 import { CategoryForm } from "./Category/CategoryForm.js";
 import { PostDetails } from "./Post/PostDetails.js";
 import { DeleteCategory } from "./Category/DeleteCategory.js";
+import { EditCategory } from "./Category/EditCategory.js";
 
 export default function ApplicationViews({ currentUser, id }) {
   return (
     <Routes>
       <Route path="/" element={<Hello />} />
       <Route path="/category" element={<CategoryList />} />
+      <Route path="/newCategory" element={<CategoryForm />} />
       <Route path="/deleteCategory/:categoryId" element={<DeleteCategory />} />
+      <Route path="/editCategory/:categoryId" element={<EditCategory />} />
       <Route path="/posts" element={<PostList />} />
       <Route path="/myposts" element={<UserPostList />} />
       <Route path="/post/:id" element={<PostDetails />} />
       <Route path="/posts/:id/comments" element={<CommentList id={id} />} />
-      <Route path="/newCategory" element={<CategoryForm />} />
       <Route path="/tags" element={<TagList />} />
     </Routes>
   );

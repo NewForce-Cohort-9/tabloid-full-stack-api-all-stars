@@ -20,6 +20,15 @@ export const addCategory = (category) => {
     });
 };
 
+export const updateCategory = (category) => {
+    return fetch(`${apiUrl}/${category.id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(category),
+    })
+}
 export const deleteCategory = (id) => {
     return fetch(`${apiUrl}/${id}`, {
         method: "DELETE",
