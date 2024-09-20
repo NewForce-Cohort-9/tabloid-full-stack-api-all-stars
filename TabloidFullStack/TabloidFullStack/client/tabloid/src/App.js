@@ -23,11 +23,11 @@ function App() {
         if (parsedUser) {
             setCurrentUser(parsedUser)
         }
-    }, [])
+    }, [parsedUser])
 
     return (
         <Router>
-            <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+            <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} currentUser={currentUser}/>
             {isLoggedIn ?
                 <ApplicationViews currentUser={currentUser} />
                 :
