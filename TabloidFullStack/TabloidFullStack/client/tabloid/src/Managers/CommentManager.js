@@ -7,3 +7,13 @@ export const getCommentsByPostId = (id) => {
       console.error("Error fetching comments:", error);
     });
 };
+
+export const addComment = (singleComment) => {
+  return fetch(baseUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(singleComment),
+  });
+};

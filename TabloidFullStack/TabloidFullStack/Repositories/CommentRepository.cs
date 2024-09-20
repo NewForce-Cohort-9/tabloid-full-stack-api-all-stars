@@ -22,7 +22,7 @@ namespace TabloidFullStack.Repositories
                         ON c.PostId = p.Id
                         JOIN UserProfile up
                         ON c.UserProfileId = up.Id
-                        WHERE c.PostId = 1
+                        WHERE c.PostId = @id
                         ORDER BY c.CreateDateTime DESC";
 
                     DbUtils.AddParameter(cmd, "@id", id);
@@ -57,6 +57,29 @@ namespace TabloidFullStack.Repositories
                     reader.Close();
 
                     return comments;
+                }
+            }
+        }
+
+        public void Add(Comment comment)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        INSERT INTO Comment (PostId, UserProfileId, [Subject], Content, CreateDateTime)
+                        OUTPUT INSERTED.ID
+                        VALUES (@postId, @userProfileId, @subject, @content, @createDateTime)";
+
+                    DbUtils.AddParameter(cmd, "@postId", comment.PostId);
+                    DbUtils.AddParameter(cmd, "@userProfileId", comment.UserProfileId);
+                    DbUtils.AddParameter(cmd, "@subject", string.IsNullOrEmpty(comment.Subject) ? (object)DBNull.Value : comment.Subject);
+                    DbUtils.AddParameter(cmd, "@content", string.IsNullOrEmpty(comment.Content) ? (object)DBNull.Value : comment.Content);
+                    DbUtils.AddParameter(cmd, "@createDateTime", comment.CreateDateTime);
+
+                    comment.Id = (int)cmd.ExecuteScalar();
                 }
             }
         }
