@@ -109,7 +109,7 @@ namespace TabloidFullStack.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT p.Id, p.Title, p.Content, p.ImageLocation, p.PublishDateTime, p.UserProfileId, up.DisplayName
+                        SELECT p.Id, p.Title, p.Content, p.ImageLocation, p.PublishDateTime, p.UserProfileId, p.CategoryId, up.DisplayName
                           FROM Post p
                                LEFT JOIN UserProfile up on up.Id = p.UserProfileId
                          WHERE p.Id = @id";
@@ -129,6 +129,7 @@ namespace TabloidFullStack.Repositories
                             ImageLocation = DbUtils.GetString(reader, "ImageLocation"),
                             PublishDateTime = DbUtils.GetDateTime(reader, "PublishDateTime"),
                             UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
+                            CategoryId = DbUtils.GetInt(reader, "CategoryId"),
                             UserProfile = new UserProfile()
                             {
                                 DisplayName = DbUtils.GetString(reader, "DisplayName")
@@ -177,6 +178,32 @@ namespace TabloidFullStack.Repositories
                 {
                     cmd.CommandText = "DELETE FROM Post WHERE Id = @Id";
                     DbUtils.AddParameter(cmd, "@id", id);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void Update(Post post)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        UPDATE Post
+                           SET Title = @Title,
+                               Content = @Content,
+                               ImageLocation = @ImageLocation,
+                               CategoryId = @CategoryId
+                         WHERE Id = @Id";
+
+                    DbUtils.AddParameter(cmd, "@Title", post.Title);
+                    DbUtils.AddParameter(cmd, "@Content", post.Content);
+                    DbUtils.AddParameter(cmd, "@ImageLocation", post.ImageLocation);
+                    DbUtils.AddParameter(cmd, "@CategoryId", post.CategoryId);
+                    DbUtils.AddParameter(cmd, "@Id", post.Id);
+
                     cmd.ExecuteNonQuery();
                 }
             }

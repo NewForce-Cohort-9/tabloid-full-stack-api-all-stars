@@ -9,5 +9,6 @@ namespace TabloidFullStack.Repositories
         Post GetById(int id);
         void Add(Post post);
         void Delete(int id);
+        void Update(Post post);
     }
 }

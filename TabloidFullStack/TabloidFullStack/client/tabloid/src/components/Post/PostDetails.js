@@ -54,9 +54,14 @@ export const PostDetails = () => {
           Posted By: {postDetails.userProfile.displayName}
         </p>
         {currentUser.id === postDetails.userProfileId ? 
-          <Button color="danger" onClick={() => navigate(`/posts/delete/${id}`, {state: { post: postDetails }})}>
-            Delete Post
-          </Button>
+          <>
+            <Button color="danger" onClick={() => navigate(`/posts/delete/${id}`, {state: { post: postDetails }})}>
+              Delete Post
+            </Button>
+            <Button color="warning" onClick={() => navigate(`/posts/edit/${id}`, {state: {post: postDetails}})}>
+              Edit Post
+            </Button>
+          </>
           :
           ""
           }

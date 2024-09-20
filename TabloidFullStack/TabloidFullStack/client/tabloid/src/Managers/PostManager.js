@@ -27,3 +27,13 @@ export const deletePost = (postId) => {
         method: "DELETE"
     })
 }
+
+export const submitUpdatePost = (post) => {
+    return fetch(`${baseUrl}/post/${post.id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(post)
+    })
+}
