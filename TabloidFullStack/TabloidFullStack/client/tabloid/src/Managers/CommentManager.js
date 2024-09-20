@@ -17,3 +17,9 @@ export const addComment = (singleComment) => {
     body: JSON.stringify(singleComment),
   });
 };
+
+export const deleteComment = (commentId) => {
+  return fetch(`${baseUrl}/${commentId}`, {
+    method: "DELETE",
+  });
+};
