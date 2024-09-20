@@ -3,11 +3,12 @@ import { Route, Routes } from "react-router-dom";
 import Hello from "./Hello";
 import CommentList from "./CommentList.js";
 import { PostList } from "./Post/PostList.js";
+import { TagList } from "./Tags/TagList.js";
 import { CategoryList } from "./Category/CategoryList.js";
-import { TagList } from "./TagList.js";
 import { UserPostList } from "./Post/UserPostList.js";
 import { CategoryForm } from "./Category/CategoryForm.js";
 import { PostDetails } from "./Post/PostDetails.js";
+import { TagForm } from "./Tags/TagForm.js";
 import { DeleteCategory } from "./Category/DeleteCategory.js";
 import { EditCategory } from "./Category/EditCategory.js";
 
