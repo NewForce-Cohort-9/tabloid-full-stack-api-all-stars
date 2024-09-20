@@ -21,3 +21,9 @@ export const addPost = (post) => {
         body: JSON.stringify(post)
     }).then(res => res.json()).then(data => {return data.id})
 };
+
+export const deletePost = (postId) => {
+    return fetch(`${baseUrl}/post/${postId}`, {
+        method: "DELETE"
+    })
+}

@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import { getPostById } from "../../Managers/PostManager.js";
-import { Link, useParams } from "react-router-dom";
-import { Card } from "reactstrap";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { Button, Card } from "reactstrap";
 
 export const PostDetails = () => {
   const [postDetails, setPostDetails] = useState({});
   const [postDate, setPostDate] = useState("");
+  const [currentUser, setCurrentUser] = useState({})
+
+  const navigate = useNavigate()
 
   const { id } = useParams();
 
@@ -27,6 +30,12 @@ export const PostDetails = () => {
     setPostDate(dateString);
   }, [postDetails]);
 
+  useEffect(() => {
+    const user = localStorage.getItem("userProfile")
+      const parsedUser = JSON.parse(user)
+      setCurrentUser(parsedUser)
+  }, [])
+
   if (!postDetails.id) {
     return <div>No details yet</div>;
   }
@@ -44,6 +53,15 @@ export const PostDetails = () => {
         <p className="text-left px2">
           Posted By: {postDetails.userProfile.displayName}
         </p>
+        {currentUser.id === postDetails.userProfileId ? 
+          <Button color="danger" onClick={() => navigate(`/posts/delete/${id}`, {state: { post: postDetails }})}>
+            Delete Post
+          </Button>
+          :
+          ""
+          }
+          <Link to={"/myposts"}>My Posts</Link>
+          <Link to={"/posts"}>All Posts</Link>
       </Card>
       <Link to={`/posts/${id}/comments`}>View Comments</Link>
     </>

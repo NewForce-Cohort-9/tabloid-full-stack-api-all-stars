@@ -5,6 +5,7 @@ import { Post } from "./Post.js";
 
 export const UserPostList = () => {
     const [userPosts, setUserPosts] = useState([])
+    const [currentUser, setCurrentUser] = useState({})
 
     const getUserPosts = () => {
         const user = localStorage.getItem("userProfile")
