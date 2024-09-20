@@ -13,7 +13,7 @@ import { TagForm } from "./Tags/TagForm.js";
 import { DeleteCategory } from "./Category/DeleteCategory.js";
 import { EditCategory } from "./Category/EditCategory.js";
 
-export default function ApplicationViews({ currentUser, id }) {
+export default function ApplicationViews({ currentUser }) {
   return (
     <Routes>
       <Route path="/" element={<Hello />} />
@@ -23,12 +23,12 @@ export default function ApplicationViews({ currentUser, id }) {
       <Route path="/editCategory/:categoryId" element={<EditCategory />} />
       <Route path="/posts" element={<PostList />} />
       <Route
-        path="/posts/:postId/comments/create"
-        element={<AddCommentForm postId={1} currentUser={currentUser} />}
+        path="/posts/:id/comments/create"
+        element={<AddCommentForm currentUser={currentUser} />}
       />
       <Route path="/myposts" element={<UserPostList />} />
       <Route path="/post/:id" element={<PostDetails />} />
-      <Route path="/posts/:id/comments" element={<CommentList id={id} />} />
+      <Route path="/posts/:id/comments" element={<CommentList />} />
       <Route path="/tags" element={<TagList />} />
     </Routes>
   );

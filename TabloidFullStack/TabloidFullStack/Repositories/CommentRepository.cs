@@ -22,7 +22,7 @@ namespace TabloidFullStack.Repositories
                         ON c.PostId = p.Id
                         JOIN UserProfile up
                         ON c.UserProfileId = up.Id
-                        WHERE c.PostId = 1
+                        WHERE c.PostId = @id
                         ORDER BY c.CreateDateTime DESC";
 
                     DbUtils.AddParameter(cmd, "@id", id);

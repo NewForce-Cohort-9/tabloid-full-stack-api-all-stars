@@ -1,19 +1,20 @@
 import { useState } from "react";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import { addComment } from "../Managers/CommentManager.js";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const AddCommentForm = ({ currentUser }) => {
   const [comment, setComment] = useState({});
 
+  const { id } = useParams();
+
   const navigate = useNavigate();
 
-  //   post id hard-coded to 1 until post details is complete
   const handleSave = (event) => {
     event.preventDefault();
     if (comment.subject) {
       const singleComment = {
-        postId: 1,
+        postId: parseInt(id),
         userProfileId: currentUser.id,
         subject: comment.subject,
         content: comment.content,
@@ -21,7 +22,7 @@ export const AddCommentForm = ({ currentUser }) => {
       };
 
       addComment(singleComment).then((c) => {
-        navigate("/posts/1/Comments");
+        navigate(`/posts/${id}/Comments`);
       });
     } else {
       window.alert("Please give your comment a subject!");
