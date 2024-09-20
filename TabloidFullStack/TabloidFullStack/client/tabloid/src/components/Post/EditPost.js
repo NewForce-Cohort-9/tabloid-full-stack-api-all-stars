@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useLocation, useNavigate } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import { getAllCategories } from "../../Managers/CategoryManager.js"
 import { submitUpdatePost } from "../../Managers/PostManager.js"
 
@@ -72,7 +72,8 @@ export const EditPost = () => {
                             })}
                         </select><br />
 
-                        <button id="submitNewPost" type="submit" onClick={(e) => updatePost(e)}>Edit Post!</button>
+                        <button id="submitNewPost" type="submit" onClick={(e) => updatePost(e)}>Edit Post!</button><br/>
+                        <Link to={`/post/${post.id}`}>Back to post details!</Link>
                     </div>
                 </div>
             </div>
