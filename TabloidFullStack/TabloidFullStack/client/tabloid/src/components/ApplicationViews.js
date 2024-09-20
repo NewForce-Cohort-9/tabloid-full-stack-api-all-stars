@@ -14,6 +14,7 @@ import { TagForm } from "./Tags/TagForm.js";
 import { DeleteCategory } from "./Category/DeleteCategory.js";
 import { EditCategory } from "./Category/EditCategory.js";
 import { DeletePost } from "./Post/DeletePost.js";
+import { EditPost } from "./Post/EditPost.js";
 
 export default function ApplicationViews({ currentUser }) {
   return (
@@ -36,6 +37,7 @@ export default function ApplicationViews({ currentUser }) {
         element={<CommentList currentUser={currentUser} />}
       />
       <Route path="/posts/delete/:id" element={<DeletePost />} />
+      <Route path="/posts/edit/:id" element={<EditPost />} />
       <Route path="/tags" element={<TagList />} />
       <Route path="/newTagAdded" element={<TagForm />} />
     </Routes>
