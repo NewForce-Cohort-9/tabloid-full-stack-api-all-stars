@@ -13,6 +13,7 @@ import { CreatePost } from "./Post/CreatePost.js";
 import { TagForm } from "./Tags/TagForm.js";
 import { DeleteCategory } from "./Category/DeleteCategory.js";
 import { EditCategory } from "./Category/EditCategory.js";
+import { DeletePost } from "./Post/DeletePost.js";
 
 
 export default function ApplicationViews({ currentUser }) {
@@ -32,6 +33,7 @@ export default function ApplicationViews({ currentUser }) {
       <Route path="/post/:id" element={<PostDetails />} />
       <Route path="/newpost" element={<CreatePost />} />
       <Route path="/posts/:id/comments" element={<CommentList />} />
+      <Route path="/posts/delete/:id" element={<DeletePost />} />
       <Route path="/tags" element={<TagList />} />
     </Routes>
   );
