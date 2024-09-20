@@ -60,8 +60,15 @@ namespace TabloidFullStack.Controllers
 
         // PUT api/<PostController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Put(int id, Post post)
         {
+            if (id != post.Id)
+            {
+                return BadRequest();
+            }
+
+            _postRepository.Update(post);
+            return NoContent();
         }
 
         // DELETE api/<PostController>/5
