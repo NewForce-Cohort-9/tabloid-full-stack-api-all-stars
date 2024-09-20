@@ -36,7 +36,7 @@ export const PostDetails = () => {
       <Card className="m-4">
         <p className="text-left px2">{postDetails.title}</p>
         <img
-          src={`${postDetails.ImageLocation}`}
+          src={`${postDetails.imageLocation}`}
           alt={`Image for ${postDetails.title}`}
         />
         <p className="text-left px2">Content: {postDetails.content}</p>
