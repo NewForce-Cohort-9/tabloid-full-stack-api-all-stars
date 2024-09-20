@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
-import { getAllTags } from "../Managers/TagManager.js";
-import { ListGroup, ListGroupItem, ListGroupItemHeading } from "reactstrap";
+import { getAllTags } from "../../Managers/TagManager.js";
+import { Button, ListGroup, ListGroupItem, ListGroupItemHeading } from "reactstrap";
+import { useNavigate } from "react-router-dom";
 
 export const TagList = () => {
   const [tags, setTags] = useState([]);
@@ -9,7 +10,10 @@ export const TagList = () => {
     getAllTags().then(allTags => setTags(allTags));
   }, [])
 
+  let navigate = useNavigate();
+
   return (
+    <>
     <ListGroup numbered>
       <ListGroupItemHeading>
         Tags
@@ -21,5 +25,11 @@ export const TagList = () => {
         </ListGroupItem>
       ))}
     </ListGroup>
-  )
+    <Button
+    onClick={() => {navigate(`/newTagAdded`)}}
+>
+    Create Tag
+</Button>
+</>
+  );
 }

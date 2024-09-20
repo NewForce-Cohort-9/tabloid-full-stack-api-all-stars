@@ -1,5 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Hosting;
 using TabloidFullStack.Models;
+using TabloidFullStack.Utils;
 
 namespace TabloidFullStack.Repositories
 {
@@ -27,8 +29,8 @@ namespace TabloidFullStack.Repositories
                     {
                         Tag tag = new Tag
                         {
-                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                            Name = reader.GetString(reader.GetOrdinal("Name")),
+                            Id = DbUtils.GetInt(reader, "Id"),
+                            Name = DbUtils.GetString(reader, "Name"),
                         };
 
                         reader.Close();
@@ -62,8 +64,8 @@ namespace TabloidFullStack.Repositories
                     {
                         tags.Add(new Tag()
                         {
-                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                            Name = reader.GetString(reader.GetOrdinal("Name")),
+                            Id = DbUtils.GetInt(reader, "Id"),
+                            Name = DbUtils.GetString(reader, "Name"),
                         });
                     }
 
@@ -73,5 +75,25 @@ namespace TabloidFullStack.Repositories
                 }
             }
         }
+        public void Add(Tag tag)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        INSERT INTO Tag ( Name )
+                        OUTPUT INSERTED.ID
+                        VALUES ( @Name )"
+                    ;
+
+                    DbUtils.AddParameter(cmd, "@Name", tag.Name);
+
+                    tag.Id = (int)cmd.ExecuteScalar();
+                }
+            }
+        }
+
     }
 }
