@@ -18,7 +18,6 @@ export const CategoryList = () => {
     let navigate = useNavigate();
 
     return(
-        <>
             <Container>
                 <List>
                     <ListGroupItemHeading>
@@ -55,6 +54,5 @@ export const CategoryList = () => {
                         Create Category
                     </Button>
             </Container>
-        </>
     );
 };

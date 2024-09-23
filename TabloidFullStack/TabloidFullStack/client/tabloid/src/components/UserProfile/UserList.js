@@ -21,7 +21,9 @@ export const UserList = () => {
                     All Users
                 </ListGroup>
                 {users.map((user) => (
-                    <ListGroupItem>
+                    <ListGroupItem
+                    key={user.id}
+                    >
                         {user.displayName} {user.fullName} {user.userType.name}
                     </ListGroupItem>
                 ))}

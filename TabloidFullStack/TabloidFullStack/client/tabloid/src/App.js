@@ -23,7 +23,7 @@ function App() {
         if (parsedUser) {
             setCurrentUser(parsedUser)
         }
-    }, [parsedUser])
+    }, [isLoggedIn])
 
     return (
         <Router>
