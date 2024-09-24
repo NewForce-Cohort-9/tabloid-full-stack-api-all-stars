@@ -13,7 +13,7 @@ export const TagForm = () => {
         const newTag = {
             name: brandNewTag,
         }
-        addTag(newTag).then((c) => {
+        addTag(newTag).then((taco) => {
             navigate("/Tags");
         });
     };

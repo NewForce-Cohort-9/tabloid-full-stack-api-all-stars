@@ -18,7 +18,7 @@ export const EditTag = () => {
     const handleInputChange = (e) => {
       const copy = { ...tag }
         copy[e.target.name] = e.target.value
-        setTag(copy)
+        setNewTag(copy)
         }
 
 

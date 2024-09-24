@@ -21,7 +21,7 @@ export const addTag = (tag) => {
 };
 
 export const updateTag = (tag) => {
-    return fetch(`${apiUrl}/Tags/${tag.id}`, {
+    return fetch(`${apiUrl}/${tag.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -30,8 +30,8 @@ export const updateTag = (tag) => {
     });
   };
 
-  export const deleteTag = (tagId) => {
-    return fetch(`${apiUrl}/Tags/${tagId}`, {
+  export const deleteTag = (id) => {
+    return fetch(`${apiUrl}/${id}`, {
         method: "DELETE"
     })
 };

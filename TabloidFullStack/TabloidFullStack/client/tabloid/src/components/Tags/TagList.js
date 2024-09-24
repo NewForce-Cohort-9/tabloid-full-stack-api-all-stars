@@ -27,22 +27,22 @@ export const TagList = () => {
         <Button
         color="dark"
         size="sm"
-        onClick={() => {navigate(`/editTags/${tag.id}`)}}
+        onClick={() => {navigate(`/editTag/${tag.id}`)}}
     >
         Edit
         </Button>
         <Button
-                                    color="danger"
-                                    size="sm"
-                                    onClick={() => {navigate(`/deleteTag/${tag.id}`)}}
-                                >
-                                    Delete
-                                </Button>
+          color="danger"
+          size="sm"
+          onClick={() => {navigate(`/deleteTag/${tag.id}`)}}
+          >
+            Delete
+       </Button>
     </ListGroup>
           ))}
     </ListGroup>
     <Button
-    onClick={() => {navigate(`/newTagAdded`)}}
+    onClick={() => {navigate(`/newTag`)}}
     color="primary"
 >
     Create Tag
