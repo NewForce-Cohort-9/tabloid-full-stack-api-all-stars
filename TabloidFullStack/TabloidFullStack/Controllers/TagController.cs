@@ -2,8 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using TabloidFullStack.Models;
 using TabloidFullStack.Repositories;
-using TabloidFullStack.Models;
-using TabloidFullStack.Repositories;
 
 namespace TabloidFullStack.Controllers
 {

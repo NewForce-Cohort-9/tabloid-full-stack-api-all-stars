@@ -27,7 +27,7 @@ export const TagList = () => {
         <Button
         color="dark"
         size="sm"
-        onClick={() => {navigate(`/updateTags/${tag.id}`)}}
+        onClick={() => {navigate(`/editTags/${tag.id}`)}}
     >
         Edit
         </Button>
