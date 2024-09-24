@@ -15,8 +15,9 @@ import { EditPost } from "../Post/EditPost.js";
 import { TagList } from "../Tags/TagList.js";
 import { TagForm } from "../Tags/TagForm.js";
 import { CommentList } from "../Comment/CommentList.js";
-import { UserList } from "../UserProfile/UserList.js";
-import { PostTags } from "../Post/PostTags.js";
+import { UserList } from "../UserProfile/UserList.js";l
+import { PostTags } from "../Post/PostTags.js";l
+import { UserDetails } from "../UserProfile/UserDetails.js";l
 
 
 export const AdminViews = ({ currentUser }) => {
@@ -44,7 +45,8 @@ export const AdminViews = ({ currentUser }) => {
       <Route path="/posts/tags/:id" element={<PostTags />} />
       <Route path="/tags" element={<TagList />} />
       <Route path="/newTagAdded" element={<TagForm />} />
-      <Route path = "/users" element={<UserList />} />
+      <Route path="/users" element={<UserList />} />
+      <Route path="/users/:userId" element={<UserDetails />} />
     </Routes>
   );
 }
