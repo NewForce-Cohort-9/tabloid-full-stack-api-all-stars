@@ -2,13 +2,26 @@ import { useEffect, useState } from "react"
 import { getAllTags } from "../../Managers/TagManager.js"
 import { Button, Table } from "reactstrap"
 import { useLocation, useNavigate } from "react-router-dom"
+import { getPostTagsByPostId, submitPostTag } from "../../Managers/PostTagManager.js"
 
 export const PostTags = () => {
     const [tagList, setTagList] = useState([])
     const [postTags, setPostTags] = useState([])
+    const [postTagsForSubmit, setPostTagsForSubmit] = useState([])
 
     const { state } = useLocation()
     const navigate = useNavigate()
+
+    const submitTags = () => {
+        postTagsForSubmit.forEach(postTag => {
+            submitPostTag(postTag)
+        });
+        navigate(`/post/${state.post.id}`)
+    }
+    
+    useEffect(() => {
+        getPostTagsByPostId(state.post.id).then(postTagsArr => setPostTags(postTagsArr))
+    }, [])
 
     useEffect(() => {
         getAllTags().then(tagArr => setTagList(tagArr))
@@ -29,31 +42,55 @@ export const PostTags = () => {
                 </thead>
                 <tbody>
                     {tagList.map(tag => {
-                        <>
-                            <td>
-                                {tag.name}
-                            </td>
-                            <td>
-                                <input type="checkbox" onClick={(e) => {
-                                    if (e.target.value = checked) {
-                                        let copyTagList = {...tagList}
-                                        let tagObj = {
-                                            postId: state.post.postId,
-                                            tagId: tag.id
-                                        }
-                                        copyTagList.push(tagObj)
-                                        setPostTags(copyTagList)
-                                    } else {
-                                        let copyTagList = tagList.filter(tagListObj => tagListObj.id != tag.id)
-                                        setPostTags(copyTagList)
+                        return <>
+                            <tr>
+                                <td>
+                                    {tag.name}
+                                </td>
+                                <td>
+                                    {postTags.find(postTag => postTag.id === tag.id) ?  
+                                        <input type="checkbox"
+                                            checked
+                                            onClick={(e) => {
+                                                if (e.target.checked) {
+                                                    let copyTagList = [...postTagsForSubmit]
+                                                    let tagObj = {
+                                                        postId: state.post.id,
+                                                        tagId: tag.id
+                                                    }
+                                                    copyTagList.push(tagObj)
+                                                    setPostTagsForSubmit(copyTagList)
+                                                } else {
+                                                    let copyTagList = postTagsForSubmit.filter(tagListObj => tagListObj.tagId != tag.id)
+                                                    setPostTagsForSubmit(copyTagList)
+                                                }
+                                            }}
+                                        />
+                                    :
+                                        <input type="checkbox"
+                                            onClick={(e) => {
+                                                if (e.target.checked) {
+                                                    let copyTagList = [...postTagsForSubmit]
+                                                    let tagObj = {
+                                                        postId: state.post.id,
+                                                        tagId: tag.id
+                                                    }
+                                                    copyTagList.push(tagObj)
+                                                    setPostTagsForSubmit(copyTagList)
+                                                } else {
+                                                    let copyTagList = postTagsForSubmit.filter(tagListObj => tagListObj.tagId != tag.id)
+                                                    setPostTagsForSubmit(copyTagList)
+                                                }
+                                            }}
+                                        />
                                     }
-                                }}/>
-                            </td>
+                                </td>
+                            </tr>
                         </>
                     })}
                 </tbody>
             </Table>
-            <Button color="info" onClick={submitPostTags().then(navigate(`/post`))}></Button>
+            <Button color="info" onClick={() => submitTags()}>Submit!</Button>
         </>
     )
 }
