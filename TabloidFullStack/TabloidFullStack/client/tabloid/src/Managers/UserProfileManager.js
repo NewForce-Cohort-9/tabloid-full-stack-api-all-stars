@@ -32,6 +32,10 @@ export const register = (userObject, password) => {
     });
 };
 
+export const getAllUsers = () => {
+  return fetch(`${apiUrl}/api/UserProfile`)
+          .then((res) => res.json())
+};
 
 
 
