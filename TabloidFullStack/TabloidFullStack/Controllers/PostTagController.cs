@@ -39,6 +39,7 @@ namespace TabloidFullStack.Controllers
         [HttpPost]
         public IActionResult Post(PostTag postTag)
         {
+            postTag.Tag = null;
             _postTagRepository.Add(postTag);
             return CreatedAtAction("Get", new { id = postTag.Id }, postTag);
         }

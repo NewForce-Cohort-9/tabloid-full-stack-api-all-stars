@@ -176,8 +176,10 @@ namespace TabloidFullStack.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = "DELETE FROM Post WHERE Id = @Id";
-                    DbUtils.AddParameter(cmd, "@id", id);
+                    cmd.CommandText = "DELETE FROM Post WHERE Id = @Id;" +
+                                        "DELETE FROM PostTag WHERE PostId = @PostId";
+                    DbUtils.AddParameter(cmd, "@Id", id);
+                    DbUtils.AddParameter(cmd, "@PostId", id);
                     cmd.ExecuteNonQuery();
                 }
             }

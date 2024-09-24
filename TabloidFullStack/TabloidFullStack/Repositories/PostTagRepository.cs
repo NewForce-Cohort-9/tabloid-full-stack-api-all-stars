@@ -7,7 +7,7 @@ namespace TabloidFullStack.Repositories
     public class PostTagRepository : BaseRepository, IPostTagRepository
     {
         public PostTagRepository(IConfiguration configuration) : base(configuration) { }
-        public List<Tag> GetByPostId(int id)
+        public List<PostTag> GetByPostId(int id)
         {
             using (var conn = Connection)
             {
@@ -23,21 +23,26 @@ namespace TabloidFullStack.Repositories
 
                     DbUtils.AddParameter(cmd, "@id", id);
 
-                    List<Tag> tags = new List<Tag> ();
+                    List<PostTag> postTags = new List<PostTag> ();
 
                     var reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        tags.Add(new Tag()
+                        postTags.Add(new PostTag()
                         {
                             Id = DbUtils.GetInt(reader, "Id"),
-                            Name = DbUtils.GetString(reader, "Name")
+                            PostId = DbUtils.GetInt(reader, "PostId"),
+                            TagId = DbUtils.GetInt(reader, "TagId"),
+                            Tag = new Tag()
+                            {
+                                Name = DbUtils.GetString(reader, "Name")
+                            }
                         });
                         
                     }
                     reader.Close();
 
-                    return tags;
+                    return postTags;
                 }
             }
         }
