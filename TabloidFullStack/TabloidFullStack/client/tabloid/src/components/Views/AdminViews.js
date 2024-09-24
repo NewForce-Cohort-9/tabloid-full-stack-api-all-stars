@@ -16,8 +16,11 @@ import { TagList } from "../Tags/TagList.js";
 import { TagForm } from "../Tags/TagForm.js";
 import { CommentList } from "../Comment/CommentList.js";
 import { UserList } from "../UserProfile/UserList.js";
+import { DeleteTag } from "../Tags/DeleteTag.js";
+import { EditTag } from "../Tags/EditTag.js";
 import { PostTags } from "../Post/PostTags.js";
 import { UserDetails } from "../UserProfile/UserDetails.js";
+
 
 
 export const AdminViews = ({ currentUser }) => {
@@ -44,6 +47,10 @@ export const AdminViews = ({ currentUser }) => {
       <Route path="/posts/edit/:id" element={<EditPost />} />
       <Route path="/posts/tags/:id" element={<PostTags />} />
       <Route path="/tags" element={<TagList />} />
+      <Route path="/newTag" element={<TagForm />} />
+      <Route path="/deleteTag/:tagId" element={<DeleteTag />} />
+      <Route path="/editTag/:tagId" element={<EditTag />} />
+      <Route path = "/users" element={<UserList />} />
       <Route path="/newTagAdded" element={<TagForm />} />
       <Route path="/users" element={<UserList />} />
       <Route path="/users/:userId" element={<UserDetails />} />
