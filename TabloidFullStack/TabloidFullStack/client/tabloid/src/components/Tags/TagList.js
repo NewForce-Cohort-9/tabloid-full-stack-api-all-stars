@@ -31,6 +31,13 @@ export const TagList = () => {
     >
         Edit
         </Button>
+        <Button
+                                    color="danger"
+                                    size="sm"
+                                    onClick={() => {navigate(`/deleteTag/${tag.id}`)}}
+                                >
+                                    Delete
+                                </Button>
     </ListGroup>
           ))}
     </ListGroup>
