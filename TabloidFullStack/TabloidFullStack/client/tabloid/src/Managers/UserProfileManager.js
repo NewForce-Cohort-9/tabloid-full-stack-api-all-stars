@@ -24,7 +24,7 @@ export const register = (userObject, password) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(userObject),
+    body: JSON.stringify(userObject, password),
   })
   .then((response) => response.json())
     .then((savedUserProfile) => {
@@ -34,6 +34,11 @@ export const register = (userObject, password) => {
 
 export const getAllUsers = () => {
   return fetch(`${apiUrl}/api/UserProfile`)
+          .then((res) => res.json())
+};
+
+export const getUserById = async (id) => {
+  return fetch(`${apiUrl}/api/UserProfile/${id}`)
           .then((res) => res.json())
 };
 

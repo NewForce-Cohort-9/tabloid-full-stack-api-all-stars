@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { getAllUsers } from "../../Managers/UserProfileManager.js";
-import { Container, List, ListGroup, ListGroupItem } from "reactstrap";
+import { Button, Container, List, ListGroup, ListGroupItem } from "reactstrap";
+import { useNavigate } from "react-router-dom";
 
 export const UserList = () => {
 
@@ -14,6 +15,8 @@ export const UserList = () => {
         getUsers();
     }, []);
 
+    const navigate = useNavigate();
+
     return(
         <Container>
             <List>
@@ -24,7 +27,14 @@ export const UserList = () => {
                     <ListGroupItem
                     key={user.id}
                     >
-                        {user.displayName} {user.fullName} {user.userType.name}
+                        Display Name: {user.displayName} 
+                        Full Name: {user.fullName}
+                        User Type: {user.userType.name}
+                    <Button
+                    onClick={() => {navigate(`/users/${user.id}`)}}
+                    >
+                        View Details
+                    </Button>
                     </ListGroupItem>
                 ))}
             </List>
