@@ -24,7 +24,7 @@ export const register = (userObject, password) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(userObject),
+    body: JSON.stringify(userObject, password),
   })
   .then((response) => response.json())
     .then((savedUserProfile) => {
