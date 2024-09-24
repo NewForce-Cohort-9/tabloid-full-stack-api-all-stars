@@ -15,7 +15,7 @@ export const CategoryList = () => {
         getCategories();
     }, []);
 
-    let navigate = useNavigate();
+    const navigate = useNavigate();
 
     return(
             <Container>
