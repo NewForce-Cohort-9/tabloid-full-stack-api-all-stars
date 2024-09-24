@@ -61,6 +61,9 @@ export const PostDetails = () => {
             <Button color="warning" onClick={() => navigate(`/posts/edit/${id}`, {state: {post: postDetails}})}>
               Edit Post
             </Button>
+            <Button color="info" onClick={() => navigate(`/posts/tags/${id}`, {state: {post: postDetails}})} >
+              Manage Tags
+            </Button>
           </>
           :
           ""
