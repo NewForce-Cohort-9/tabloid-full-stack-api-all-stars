@@ -37,6 +37,11 @@ export const getAllUsers = () => {
           .then((res) => res.json())
 };
 
+export const getUserById = async (id) => {
+  return fetch(`${apiUrl}/api/UserProfile/${id}`)
+          .then((res) => res.json())
+};
+
 
 
 
