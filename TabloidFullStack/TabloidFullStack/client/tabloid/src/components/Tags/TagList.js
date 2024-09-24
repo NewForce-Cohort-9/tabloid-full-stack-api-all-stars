@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { getAllTags } from "../../Managers/TagManager.js";
-import { Button, ListGroup, ListGroupItem, ListGroupItemHeading } from "reactstrap";
+import { Button, Container, ListGroup, ListGroupItem, ListGroupItemHeading } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 
 export const TagList = () => {
@@ -13,23 +13,33 @@ export const TagList = () => {
   let navigate = useNavigate();
 
   return (
-    <>
+    <Container>
     <ListGroup numbered>
       <ListGroupItemHeading>
         Tags
       </ListGroupItemHeading>
       {tags.map((tag) => (
+        <ListGroup>
         <ListGroupItem 
         key={tag.id}>
           {tag.name}
         </ListGroupItem>
-      ))}
+        <Button
+        color="dark"
+        size="sm"
+        onClick={() => {navigate(`/updateTags/${tag.id}`)}}
+    >
+        Edit
+        </Button>
+    </ListGroup>
+          ))}
     </ListGroup>
     <Button
     onClick={() => {navigate(`/newTagAdded`)}}
+    color="primary"
 >
     Create Tag
 </Button>
-</>
+</Container>
   );
 }
