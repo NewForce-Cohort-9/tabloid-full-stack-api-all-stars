@@ -122,7 +122,9 @@ namespace TabloidFullStack.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = "DELETE FROM Tag WHERE Id = @id";
+                    cmd.CommandText = "" +
+                        "DELETE FROM Tag " +
+                        "WHERE Id = @id";
                     DbUtils.AddParameter(cmd, "@id", id);
                     cmd.ExecuteNonQuery();
                 }
