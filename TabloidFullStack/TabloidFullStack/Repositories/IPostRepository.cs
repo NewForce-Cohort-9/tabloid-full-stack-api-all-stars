@@ -10,5 +10,7 @@ namespace TabloidFullStack.Repositories
         void Add(Post post);
         void Delete(int id);
         void Update(Post post);
+        List<Post> GetAllApprovedPostsByTagId(int id);
+        List<Post> GetAllApprovedPostsByCategoryId(int id);
     }
 }

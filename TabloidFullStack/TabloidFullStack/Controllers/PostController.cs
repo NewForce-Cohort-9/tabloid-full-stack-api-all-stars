@@ -78,5 +78,27 @@ namespace TabloidFullStack.Controllers
             _postRepository.Delete(id);
             return NoContent();
         }
+
+        [HttpGet("GetAllApprovedPostsByTagId/{id}")]
+        public IActionResult GetAllApprovedPostsByTagId(int id)
+        {
+            var posts = _postRepository.GetAllApprovedPostsByTagId(id);
+            if (posts == null)
+            {
+                return NotFound();
+            }
+            return Ok(posts);
+        }
+
+        [HttpGet("GetAllApprovedPostsByCategoryId/{id}")]
+        public IActionResult GetAllApprovedPostsByCategoryId(int id)
+        {
+            var posts = _postRepository.GetAllApprovedPostsByCategoryId(id);
+            if (posts == null)
+            {
+                return NotFound();
+            }
+            return Ok(posts);
+        }
     }
 }
