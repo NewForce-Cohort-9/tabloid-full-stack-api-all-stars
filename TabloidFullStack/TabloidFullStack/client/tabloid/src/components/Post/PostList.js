@@ -1,10 +1,11 @@
 import { useEffect } from "react";
 import { useState } from "react"
-import { getAllApprovedPosts, getAllApprovedPostsByCategoryId, getAllApprovedPostsByTagId } from "../../Managers/PostManager.js";
+import { getAllApprovedPosts, getAllApprovedPostsByCategoryId, getAllApprovedPostsByTagId, getAllApprovedPostsByUserId } from "../../Managers/PostManager.js";
 import { Post } from "./Post.js";
 import { getAllTags } from "../../Managers/TagManager.js";
 import { Button } from "reactstrap";
 import { getAllCategories } from "../../Managers/CategoryManager.js";
+import { getAllUsers } from "../../Managers/UserProfileManager.js";
 
 export const PostList = () => {
     const [posts, setPosts] = useState();
@@ -12,6 +13,8 @@ export const PostList = () => {
     const [tagSelection, setTagSelection] = useState({})
     const [categories, setCategories] = useState([])
     const [categorySelection, setCategorySelection] = useState([])
+    const [users, setUsers] = useState([])
+    const [userSelection, setUserSelection] = useState({})
 
     const getAllPosts = () => {
         getAllApprovedPosts().then(postArr => setPosts(postArr));
@@ -30,12 +33,20 @@ export const PostList = () => {
     }, [])
 
     useEffect(() => {
+        getAllUsers().then(userArr => setUsers(userArr))
+    }, [])
+
+    useEffect(() => {
         getAllApprovedPostsByTagId(tagSelection).then(postArr => setPosts(postArr))
     }, [tagSelection])
 
     useEffect(() => {
         getAllApprovedPostsByCategoryId(categorySelection).then(postArr => setPosts(postArr))
     }, [categorySelection])
+
+    useEffect(() => {
+        getAllApprovedPostsByUserId(userSelection).then(postArr => setPosts(postArr))
+    }, [userSelection])
 
     if (!tags?.length > 0 || !categories.length > 0) {
         return <div>Loading</div>
@@ -53,6 +64,12 @@ export const PostList = () => {
                 <option selected>Filter By Category</option>
                 {categories.map(category => {
                     return <option value={category.id}>{category.name}</option>
+                })}
+            </select>
+            <select name="users" onChange={(e) => setUserSelection(e.target.value)}>
+                <option selected>Filter By User</option>
+                {users.map(users => {
+                    return <option value={users.id}>{users.displayName}</option>
                 })}
             </select>
             <Button onClick={() => getAllPosts()}>View All Posts</Button>

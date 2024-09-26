@@ -328,6 +328,35 @@ namespace TabloidFullStack.Repositories
                                         ORDER BY p.PublishDateTime DESC";
 
                     DbUtils.AddParameter(cmd, "@Id", id);
+
+                    List<Post> posts = new List<Post>();
+
+                    var reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        posts.Add(new Post()
+                        {
+                            Id = DbUtils.GetInt(reader, "Id"),
+                            Title = DbUtils.GetString(reader, "Title"),
+                            PublishDateTime = DbUtils.GetDateTime(reader, "PublishDateTime"),
+                            IsApproved = reader.GetBoolean(reader.GetOrdinal("IsApproved")),
+                            CategoryId = DbUtils.GetInt(reader, "CategoryId"),
+                            UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
+                            Category = new Category()
+                            {
+                                Name = DbUtils.GetString(reader, "Name")
+                            },
+                            UserProfile = new UserProfile()
+                            {
+                                DisplayName = DbUtils.GetString(reader, "DisplayName")
+                            }
+                        });
+                    }
+
+                    reader.Close();
+
+                    return posts;
                 }
             }
         }
