@@ -18,9 +18,9 @@ export const PostDetails = () => {
 
   const createDate = (dateTime) => {
     const date = new Date(dateTime);
-    const day = date.getDay();
-    const month = date.getMonth();
-    const year = date.getFullYear();
+    let temp = {day: 'numeric', month: 'numeric', year: 'numeric'}
+    let dateFormat = date.toLocaleDateString(undefined, temp)
+    let [month, day, year] = dateFormat.split('/')
 
     return `${month}/${day}/${year}`;
   };
@@ -34,7 +34,7 @@ export const PostDetails = () => {
   }, [id]);
 
   useEffect(() => {
-    const dateString = createDate(postDetails.publishDateTime);
+    const dateString = createDate(postDetails?.publishDateTime);
     setPostDate(dateString);
   }, [postDetails]);
 

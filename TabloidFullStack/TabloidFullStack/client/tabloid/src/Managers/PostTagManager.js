@@ -13,3 +13,9 @@ export const submitPostTag = (postTag) => {
         body: JSON.stringify(postTag)
     })
 }
+
+export const removePostTagsByPostTagId = (postTagId) => {
+    return fetch(`${baseUrl}/${postTagId}`, {
+        method: "DELETE"
+    })
+}
