@@ -169,5 +169,24 @@ namespace TabloidFullStack.Repositories
                 }
             }
         }
+
+        public void UpdateType(UserProfile userProfile)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"UPDATE UserProfile
+                                           SET UserTypeId = @UserTypeId
+                                           WHERE Id = @Id";
+
+                    DbUtils.AddParameter(cmd, "@UserTypeId", userProfile.UserTypeId);
+                    DbUtils.AddParameter(cmd, "@Id", userProfile.Id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }
