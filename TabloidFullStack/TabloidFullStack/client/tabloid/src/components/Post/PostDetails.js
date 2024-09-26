@@ -3,14 +3,16 @@ import { getPostById } from "../../Managers/PostManager.js";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Button, Card } from "reactstrap";
 import { getPostTagsByPostId } from "../../Managers/PostTagManager.js";
+import { getReactionsByPostId } from "../../Managers/PostReactionManager.js";
 
 export const PostDetails = () => {
   const [postDetails, setPostDetails] = useState({});
   const [postDate, setPostDate] = useState("");
-  const [currentUser, setCurrentUser] = useState({})
-  const [postTags, setPostTags] = useState([])
+  const [currentUser, setCurrentUser] = useState({});
+  const [postTags, setPostTags] = useState([]);
+  const [postReactions, setPostReactions] = useState([]);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const { id } = useParams();
 
@@ -24,8 +26,8 @@ export const PostDetails = () => {
   };
 
   useEffect(() => {
-    getPostTagsByPostId(id).then(postTagsArr => setPostTags(postTagsArr))
-}, [])
+    getPostTagsByPostId(id).then((postTagsArr) => setPostTags(postTagsArr));
+  }, []);
 
   useEffect(() => {
     getPostById(id).then((postObj) => setPostDetails(postObj));
@@ -37,10 +39,16 @@ export const PostDetails = () => {
   }, [postDetails]);
 
   useEffect(() => {
-    const user = localStorage.getItem("userProfile")
-      const parsedUser = JSON.parse(user)
-      setCurrentUser(parsedUser)
-  }, [])
+    const user = localStorage.getItem("userProfile");
+    const parsedUser = JSON.parse(user);
+    setCurrentUser(parsedUser);
+  }, []);
+
+  useEffect(() => {
+    getReactionsByPostId(id).then((postReactionsArr) =>
+      setPostReactions(postReactionsArr)
+    );
+  }, []);
 
   if (!postDetails.id) {
     return <div>No details yet</div>;
@@ -59,29 +67,62 @@ export const PostDetails = () => {
         <p className="text-left px2">
           Posted By: {postDetails.userProfile.displayName}
         </p>
-        {currentUser.id === postDetails.userProfileId ? 
+        <p>Reactions:</p>
+        {postReactions.map((reactionObj) => {
+          return (
+            <div key={reactionObj.reaction.id}>
+              <span>{reactionObj.reactionCount}</span>
+              <img
+                src={reactionObj.reaction.imageLocation}
+                alt={reactionObj.reaction.name}
+                title={reactionObj.reaction.name}
+                width="25px"
+                height="auto"
+              />
+            </div>
+          );
+        })}
+
+        {currentUser.id === postDetails.userProfileId ? (
           <>
             <div>
               <p>Tags:</p>
-              {postTags.map(tagObj => {
-                return <p>{tagObj.tag.name}</p>
+              {postTags.map((tagObj) => {
+                return <p>{tagObj.tag.name}</p>;
               })}
             </div>
-            <Button color="danger" onClick={() => navigate(`/posts/delete/${id}`, {state: { post: postDetails }})}>
+            <Button
+              color="danger"
+              onClick={() =>
+                navigate(`/posts/delete/${id}`, {
+                  state: { post: postDetails },
+                })
+              }
+            >
               Delete Post
             </Button>
-            <Button color="warning" onClick={() => navigate(`/posts/edit/${id}`, {state: {post: postDetails}})}>
+            <Button
+              color="warning"
+              onClick={() =>
+                navigate(`/posts/edit/${id}`, { state: { post: postDetails } })
+              }
+            >
               Edit Post
             </Button>
-            <Button color="info" onClick={() => navigate(`/posts/tags/${id}`, {state: {post: postDetails}})} >
+            <Button
+              color="info"
+              onClick={() =>
+                navigate(`/posts/tags/${id}`, { state: { post: postDetails } })
+              }
+            >
               Manage Tags
             </Button>
           </>
-          :
+        ) : (
           ""
-          }
-          <Link to={"/myposts"}>My Posts</Link>
-          <Link to={"/posts"}>All Posts</Link>
+        )}
+        <Link to={"/myposts"}>My Posts</Link>
+        <Link to={"/posts"}>All Posts</Link>
       </Card>
       <Link to={`/posts/${id}/comments`}>View Comments</Link>
     </>
