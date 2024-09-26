@@ -41,6 +41,6 @@ namespace TabloidFullStack.Models
             }
         }
 
-        public bool Deactivated { get; set; }
+        public bool? Deactivated { get; set; }
     }
 }
