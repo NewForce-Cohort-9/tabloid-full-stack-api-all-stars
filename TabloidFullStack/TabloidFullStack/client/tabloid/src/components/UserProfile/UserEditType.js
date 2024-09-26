@@ -23,14 +23,18 @@ export const UserEditType = () => {
   
       const handleEdit = () => {
   
-          const editedUser= {
+          const editedUser = {
               id: user.id,
               userTypeId: user.userTypeId,
+              email: user.email,
+              lastName: user.lastName,
+              firstName: user.firstName,
+              displayName: user.displayName
           }
   
           updateUserType(editedUser)
           .then(() => {
-              navigate(`users/${user.id}`)
+              navigate(`/users`)
           })
       }
   
@@ -39,7 +43,7 @@ export const UserEditType = () => {
         <Container>
             <Form>
                 <ListGroupItemHeading>
-                    Edit User
+                    Edit User Type: {user.displayName}
                 </ListGroupItemHeading>
                 <Input
                 type="number"
@@ -51,7 +55,7 @@ export const UserEditType = () => {
             <Button
             color="warning"
             size="sm"
-            onClick={() => {navigate(`/users/${user.id}`)}}
+            onClick={() => {navigate(`/users`)}}
             >
                 Nevermind!
             </Button>
