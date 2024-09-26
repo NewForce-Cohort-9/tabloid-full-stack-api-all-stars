@@ -1,21 +1,21 @@
-const API = "http://localhost:5001/api";
+const apiUrl = "http://localhost:5001/api";
 
 // Fetch all approved posts
-export const getAllApprovedPosts = () => {
-    return fetch(`${api}/posts`)
+export const getApprovedPosts = () => {
+    return fetch(`${apiUrl}/posts`)
         .then(response => response.json());
 };
 
 // Approve a post by ID
 export const approvePost = (postId) => {
-    return fetch(`${api}/posts/${postId}/approve`, {
+    return fetch(`${apiUrl}/posts/${postId}/approve`, {
         method: "PATCH"
     });
 };
 
 // Reject a post by ID
 export const rejectPost = (postId) => {
-    return fetch(`${api}/posts/${postId}/reject`, {
+    return fetch(`${apiUrl}/posts/${postId}/reject`, {
         method: "PATCH"
     });
 };

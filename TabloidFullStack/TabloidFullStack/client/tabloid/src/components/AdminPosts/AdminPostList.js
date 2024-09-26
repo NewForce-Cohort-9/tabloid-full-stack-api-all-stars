@@ -1,20 +1,16 @@
-import { Post } from "./Post.js"; // Reuse the Post component
-import { approvePost, rejectPost } from "./AdminManager.js"; // Import the API functions
+import { getApprovedPosts, rejectPost } from "../../Managers/AdminPostManager.js";
+import { Post } from "../Post/Post.js";
 
-export const PostList = ({ posts, setPosts }) => {
-
-    // Function to handle approving a post
+export const AdminPostList = ({ posts, setPosts }) => {
+  
     const handleApprove = async (postId) => {
-        await approvePost(postId);
-        // Remove the approved post from the list
+        await getApprovedPosts(postId);
         setPosts(posts.filter(post => post.id !== postId));
         alert('Post approved successfully!');
     };
 
-    // Function to handle rejecting a post
     const handleReject = async (postId) => {
         await rejectPost(postId);
-        // Remove the rejected post from the list
         setPosts(posts.filter(post => post.id !== postId));
         alert('Post rejected successfully!');
     };
@@ -26,7 +22,6 @@ export const PostList = ({ posts, setPosts }) => {
                     posts.map((post) => (
                         <div key={post.id} className="post-item">
                             <Post post={post} />
-                            {/* Add Approve and Reject buttons */}
                             <button 
                                 className="btn btn-success" 
                                 onClick={() => handleApprove(post.id)}
