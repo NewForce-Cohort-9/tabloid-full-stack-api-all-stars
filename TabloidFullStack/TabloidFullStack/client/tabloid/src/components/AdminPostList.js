@@ -1,16 +1,14 @@
-import { getApprovedPosts, rejectPost } from "../../Managers/AdminPostManager.js";
-import { Post } from "../Post/Post.js";
+import { getApprovedPosts, rejectPost } from "../Managers/AdminPostManager.js";
+import { Post } from "./Post/Post.js";
 
 export const AdminPostList = ({ posts, setPosts }) => {
   
-    const handleApprove = async (postId) => {
-        await getApprovedPosts(postId);
+    const handleApprove = (postId) => {
         setPosts(posts.filter(post => post.id !== postId));
         alert('Post approved successfully!');
     };
 
     const handleReject = async (postId) => {
-        await rejectPost(postId);
         setPosts(posts.filter(post => post.id !== postId));
         alert('Post rejected successfully!');
     };

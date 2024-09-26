@@ -21,8 +21,8 @@ import { EditTag } from "../Tags/EditTag.js";
 import { PostTags } from "../Post/PostTags.js";
 import { UserDetails } from "../UserProfile/UserDetails.js";
 import { UserEditType } from "../UserProfile/UserEditType.js";
-import { AdminPostList } from "../AdminPosts/AdminPostList.js";
 import { AdminPosts } from "../AdminPosts/AdminPosts.js";
+import { AdminPostList } from "../AdminPostList.js";
 
 
 
@@ -58,8 +58,8 @@ export const AdminViews = ({ currentUser }) => {
       <Route path="/users" element={<UserList />} />
       <Route path="/users/:userId" element={<UserDetails />} />
       <Route path="/users/editType/:userId" element={<UserEditType />} />
-      <Route path="/posts/:postId" element={<AdminPosts />} />
-      <Route path="/posts/:postId" element={<AdminPostList />} />
+      <Route path="/posts/:id" element={<AdminPosts />} />
+      <Route path="/posts/:id" element={<AdminPostList />} />
     </Routes>
   );
 }

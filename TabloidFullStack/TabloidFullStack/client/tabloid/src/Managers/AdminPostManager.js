@@ -7,15 +7,15 @@ export const getApprovedPosts = () => {
 };
 
 // Approve a post by ID
-export const approvePost = (postId) => {
-    return fetch(`${apiUrl}/posts/${postId}/approve`, {
+export const approvePost = (id) => {
+    return fetch(`${apiUrl}/posts/${id}/approve`, {
         method: "PATCH"
     });
 };
 
 // Reject a post by ID
-export const rejectPost = (postId) => {
-    return fetch(`${apiUrl}/posts/${postId}/reject`, {
+export const rejectPost = (id) => {
+    return fetch(`${apiUrl}/posts/${id}/reject`, {
         method: "PATCH"
     });
 };
