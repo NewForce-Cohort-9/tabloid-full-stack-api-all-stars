@@ -18,11 +18,6 @@ export const PostDetails = () => {
     let dateFormat = date.toLocaleDateString(undefined, temp)
     let [month, day, year] = dateFormat.split('/')
 
-    // const day = date.getDay();
-    // const month = date.getMonth();
-    // const year = date.getFullYear();
-    
-
     return `${month}/${day}/${year}`;
   };
 
