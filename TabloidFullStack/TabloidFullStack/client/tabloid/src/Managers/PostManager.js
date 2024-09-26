@@ -37,3 +37,7 @@ export const submitUpdatePost = (post) => {
         body: JSON.stringify(post)
     })
 }
+
+export const getAllApprovedPostsByTagId = (tagId) => {
+    return fetch(`${baseUrl}/post/getallapprovedpostsbytagid/${tagId}`).then(res => res.json())
+}
