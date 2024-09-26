@@ -52,8 +52,10 @@ namespace TabloidFullStack.Controllers
 
         // DELETE api/<PostTagController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            _postTagRepository.Delete(id);
+            return NoContent();
         }
     }
 }
