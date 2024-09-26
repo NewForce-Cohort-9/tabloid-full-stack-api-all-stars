@@ -100,5 +100,16 @@ namespace TabloidFullStack.Controllers
             }
             return Ok(posts);
         }
+
+        [HttpGet("GetAllApprovedPostsByUserId/{id}")]
+        public IActionResult GetAllApprovedPostsByUserId(int id)
+        {
+            var posts = _postRepository.GetAllApprovedPostsByUserId(id);
+            if (posts == null)
+            {
+                return NotFound();
+            }
+            return Ok(posts);
+        }
     }
 }
