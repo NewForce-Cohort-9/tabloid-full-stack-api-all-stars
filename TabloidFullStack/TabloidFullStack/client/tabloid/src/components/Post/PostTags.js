@@ -89,7 +89,7 @@ export const PostTags = () => {
                     })}
                 </tbody>
             </Table>
-            <Button color="info" onClick={() => submitTags()}>Submit!</Button>
+            <Button color="info" onClick={() => submitTags()}>Add Tags!</Button>
             <h2>Remove Tags From Your Post</h2>
             <Table>
                 <thead>
@@ -135,7 +135,7 @@ export const PostTags = () => {
                     })}
                 </tbody>
             </Table>
-            <Button color="info" onClick={() => removeTags()}>Submit!</Button>
+            <Button color="info" onClick={() => removeTags()}>Remove Tags!</Button>
         </>
     )
 }
