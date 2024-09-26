@@ -42,7 +42,7 @@ export const getUserById = async (id) => {
           .then((res) => res.json())
 };
 
-export const updateUserType = (user) => {
+export const updateUser = (user) => {
   return fetch(`${apiUrl}/api/UserProfile/${user.id}`, {
     method: "PUT", 
     headers: {

@@ -161,7 +161,8 @@ namespace TabloidFullStack.Repositories
                                 Id = DbUtils.GetInt(reader, "UserTypeId"),
                                 Name = DbUtils.GetString(reader, "UserTypeName"),
                             },
-                            Deactivated = reader.GetBoolean(reader.GetOrdinal("Deactivated"))
+                            //Deactivated = reader.GetBoolean(reader.GetOrdinal("Deactivated"))
+                            Deactivated = DbUtils.GetBoolean(reader, "Deactivated")
                         };
                     }
                     reader.Close();
