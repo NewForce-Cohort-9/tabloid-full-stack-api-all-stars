@@ -45,6 +45,7 @@ export const PostTags = () => {
 
     return (
         <>
+        <h2>Add Tags To Your Post</h2>
             <Table>
                 <thead>
                     <tr>
@@ -89,6 +90,7 @@ export const PostTags = () => {
                 </tbody>
             </Table>
             <Button color="info" onClick={() => submitTags()}>Submit!</Button>
+            <h2>Remove Tags From Your Post</h2>
             <Table>
                 <thead>
                     <tr>
