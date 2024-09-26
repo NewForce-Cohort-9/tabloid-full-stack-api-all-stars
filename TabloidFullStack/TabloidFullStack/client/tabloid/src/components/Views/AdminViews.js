@@ -21,7 +21,7 @@ import { EditTag } from "../Tags/EditTag.js";
 import { PostTags } from "../Post/PostTags.js";
 import { UserDetails } from "../UserProfile/UserDetails.js";
 import { UserEditType } from "../UserProfile/UserEditType.js";
-import { AdminPosts } from "../AdminPosts/AdminPosts.js";
+import { AdminPosts } from "../AdminPosts.js";
 import { AdminPostList } from "../AdminPostList.js";
 
 

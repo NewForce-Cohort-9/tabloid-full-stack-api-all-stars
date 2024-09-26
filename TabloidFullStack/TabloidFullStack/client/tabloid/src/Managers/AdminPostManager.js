@@ -1,4 +1,4 @@
-const apiUrl = "http://localhost:5001/api";
+const apiUrl = "http://localhost:5001/api/Posts";
 
 // Fetch all approved posts
 export const getApprovedPosts = () => {

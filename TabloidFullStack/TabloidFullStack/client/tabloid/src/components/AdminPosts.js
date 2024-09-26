@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { AdminPostList } from "../AdminPostList.js"; 
-import { getApprovedPosts } from "../../Managers/AdminPostManager.js";
+import { AdminPostList } from "./AdminPostList.js"; 
+import { getApprovedPosts } from "../Managers/AdminPostManager.js";
 
 export const AdminPosts = () => {
     const [posts, setPosts] = useState([]);
