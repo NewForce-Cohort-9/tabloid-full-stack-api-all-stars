@@ -2,12 +2,13 @@ import { useEffect, useState } from "react"
 import { getAllTags } from "../../Managers/TagManager.js"
 import { Button, Table } from "reactstrap"
 import { useLocation, useNavigate } from "react-router-dom"
-import { getPostTagsByPostId, submitPostTag } from "../../Managers/PostTagManager.js"
+import { getPostTagsByPostId, removePostTagsByPostTagId, submitPostTag } from "../../Managers/PostTagManager.js"
 
 export const PostTags = () => {
     const [postTags, setPostTags] = useState([])
     const [filteredPostTags, setFilteredPostTags] = useState([])
     const [postTagsForSubmit, setPostTagsForSubmit] = useState([])
+    const [postTagsForRemove, setPostTagsForRemove] = useState([])
 
     const { state } = useLocation()
     const navigate = useNavigate()
@@ -16,6 +17,13 @@ export const PostTags = () => {
         postTagsForSubmit.forEach(postTag => {
             submitPostTag(postTag)
         });
+        navigate(`/post/${state.post.id}`)
+    }
+
+    const removeTags = () => {
+        postTagsForRemove.forEach(postTag => {
+            removePostTagsByPostTagId(postTag.postTagId)
+        })
         navigate(`/post/${state.post.id}`)
     }
     
@@ -81,6 +89,51 @@ export const PostTags = () => {
                 </tbody>
             </Table>
             <Button color="info" onClick={() => submitTags()}>Submit!</Button>
+            <Table>
+                <thead>
+                    <tr>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Remove Tag From Post
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {postTags.map(tagEntry => {
+                        return <>
+                            <tr>
+                                <td>
+                                    {tagEntry.tag.name}
+                                </td>
+                                <td>
+                                    <input type="checkbox"
+                                        onClick={(e) => {
+                                            if (e.target.checked) {
+                                                let copyTagList = [...postTagsForRemove]
+                                                let tagObj = {
+                                                    postId: state.post.id,
+                                                    tagId: tagEntry.tagId,
+                                                    postTagId: tagEntry.id,
+                                                    tag: null
+                                                }
+                                                copyTagList.push(tagObj)
+                                                setPostTagsForRemove(copyTagList)
+                                            } else {
+                                                let copyTagList = postTagsForRemove.filter(tagListObj => tagListObj.tagId != tagEntry.id)
+                                                setPostTagsForRemove(copyTagList)
+                                            }
+                                        }}
+                                    />
+                                        
+                                </td>
+                            </tr>
+                        </>
+                    })}
+                </tbody>
+            </Table>
+            <Button color="info" onClick={() => removeTags()}>Submit!</Button>
         </>
     )
 }
