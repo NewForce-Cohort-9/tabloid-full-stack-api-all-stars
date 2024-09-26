@@ -170,7 +170,7 @@ namespace TabloidFullStack.Repositories
             }
         }
 
-        public void UpdateType(UserProfile userProfile)
+        public void Update(UserProfile userProfile)
 
         {
             using (var conn = Connection)
@@ -179,18 +179,20 @@ namespace TabloidFullStack.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"UPDATE UserProfile
-
-                                           SET UserTypeId = @UserTypeId
-                                           WHERE Id = @Id";
+                                       SET UserTypeId = @UserTypeId,
+                                           Deactivated = @Deactivated,
+                                           ImageLocation = @ImageLocation
+                                      WHERE Id = @Id";
 
                     DbUtils.AddParameter(cmd, "@UserTypeId", userProfile.UserTypeId);
-
                     DbUtils.AddParameter(cmd, "@Id", userProfile.Id);
+                    DbUtils.AddParameter(cmd, "@Deactivated", userProfile.Deactivated);
+                    DbUtils.AddParameter(cmd, "@ImageLocation", userProfile.ImageLocation);
 
                     cmd.ExecuteNonQuery();
                 }
             }
-         
         }
+
     }
 }
