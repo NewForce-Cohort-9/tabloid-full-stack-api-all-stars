@@ -58,5 +58,21 @@ namespace TabloidFullStack.Controllers
             }
             return Ok(user);
         }
+
+
+        //PUT update userType
+        [HttpPut("{id}")]
+
+        public IActionResult Put(int id, UserProfile userProfile)
+        {
+            if (id != userProfile.Id)
+            {
+                return BadRequest();
+            }
+
+            _userRepository.UpdateType(userProfile);
+            return NoContent();
+        }
+
     }
 }
