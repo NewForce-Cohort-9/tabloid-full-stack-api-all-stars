@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import { getPostById } from "../../Managers/PostManager.js";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Button, Card } from "reactstrap";
+import { getPostTagsByPostId } from "../../Managers/PostTagManager.js";
 
 export const PostDetails = () => {
   const [postDetails, setPostDetails] = useState({});
   const [postDate, setPostDate] = useState("");
   const [currentUser, setCurrentUser] = useState({})
+  const [postTags, setPostTags] = useState([])
 
   const navigate = useNavigate()
 
@@ -20,6 +22,10 @@ export const PostDetails = () => {
 
     return `${month}/${day}/${year}`;
   };
+
+  useEffect(() => {
+    getPostTagsByPostId(id).then(postTagsArr => setPostTags(postTagsArr))
+}, [])
 
   useEffect(() => {
     getPostById(id).then((postObj) => setPostDetails(postObj));
@@ -55,11 +61,20 @@ export const PostDetails = () => {
         </p>
         {currentUser.id === postDetails.userProfileId ? 
           <>
+            <div>
+              <p>Tags:</p>
+              {postTags.map(tagObj => {
+                return <p>{tagObj.tag.name}</p>
+              })}
+            </div>
             <Button color="danger" onClick={() => navigate(`/posts/delete/${id}`, {state: { post: postDetails }})}>
               Delete Post
             </Button>
             <Button color="warning" onClick={() => navigate(`/posts/edit/${id}`, {state: {post: postDetails}})}>
               Edit Post
+            </Button>
+            <Button color="info" onClick={() => navigate(`/posts/tags/${id}`, {state: {post: postDetails}})} >
+              Manage Tags
             </Button>
           </>
           :
