@@ -28,7 +28,8 @@ export const updateCategory = (category) => {
         },
         body: JSON.stringify(category),
     })
-}
+};
+
 export const deleteCategory = (id) => {
     return fetch(`${apiUrl}/${id}`, {
         method: "DELETE",

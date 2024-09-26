@@ -31,6 +31,12 @@ export const UserList = () => {
                         Full Name: {user.fullName}
                         User Type: {user.userType.name}
                     <Button
+                    color="success"
+                    onClick={() => {navigate(`/users/editType/${user.id}`)}}
+                    >
+                        Edit
+                    </Button>
+                    <Button
                     onClick={() => {navigate(`/users/${user.id}`)}}
                     >
                         View Details
