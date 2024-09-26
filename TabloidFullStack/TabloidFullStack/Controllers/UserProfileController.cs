@@ -58,5 +58,6 @@ namespace TabloidFullStack.Controllers
             }
             return Ok(user);
         }
+
     }
 }

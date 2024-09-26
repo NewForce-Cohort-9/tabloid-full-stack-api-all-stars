@@ -169,5 +169,24 @@ namespace TabloidFullStack.Repositories
                 }
             }
         }
+
+        public void UpdateActiveStatus(UserProfile userProfile)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"UPDATE UserProfile
+                                           SET Deactivated = @Deactivated
+                                           WHERE Id = @Id";
+
+                    DbUtils.AddParameter(cmd, "@Deactivated", userProfile.Deactivated);
+                    DbUtils.AddParameter(cmd, "@Id", userProfile.Id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+         }
     }
 }
