@@ -8,6 +8,10 @@ namespace TabloidFullStack.Repositories
         UserProfile GetByEmail(string email);
         List<UserProfile> GetAll();
         UserProfile GetById(int id);
+<<<<<<< HEAD
         void UpdateActiveStatus(UserProfile userProfile);
+=======
+        void UpdateType(UserProfile userProfile);
+>>>>>>> main
     }
 }
