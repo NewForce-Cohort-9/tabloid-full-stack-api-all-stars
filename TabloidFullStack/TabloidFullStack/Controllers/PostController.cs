@@ -89,5 +89,16 @@ namespace TabloidFullStack.Controllers
             }
             return Ok(posts);
         }
+
+        [HttpGet("GetAllApprovedPostsByCategoryId/{id}")]
+        public IActionResult GetAllApprovedPostsByCategoryId(int id)
+        {
+            var posts = _postRepository.GetAllApprovedPostsByCategoryId(id);
+            if (posts == null)
+            {
+                return NotFound();
+            }
+            return Ok(posts);
+        }
     }
 }

@@ -262,5 +262,55 @@ namespace TabloidFullStack.Repositories
                 }
             }
         }
+
+        public List<Post> GetAllApprovedPostsByCategoryId(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                                        SELECT p.Id, p.Title, p.PublishDateTime, p.IsApproved, p.CategoryId, p.UserProfileId, c.Name, up.DisplayName
+                                        FROM Post p
+                                        LEFT JOIN Category c On c.Id = p.CategoryId
+                                        LEFT JOIN UserProfile up ON up.Id = p.UserProfileId
+                                        WHERE p.IsApproved = 1 AND p.PublishDateTime <= CURRENT_TIMESTAMP AND c.Id = @Id
+                                        ORDER BY p.PublishDateTime DESC"
+                    ;
+
+                    DbUtils.AddParameter(cmd, "@Id", id);
+
+                    List<Post> posts = new List<Post>();
+
+                    var reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        posts.Add(new Post()
+                        {
+                            Id = DbUtils.GetInt(reader, "Id"),
+                            Title = DbUtils.GetString(reader, "Title"),
+                            PublishDateTime = DbUtils.GetDateTime(reader, "PublishDateTime"),
+                            IsApproved = reader.GetBoolean(reader.GetOrdinal("IsApproved")),
+                            CategoryId = DbUtils.GetInt(reader, "CategoryId"),
+                            UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
+                            Category = new Category()
+                            {
+                                Name = DbUtils.GetString(reader, "Name")
+                            },
+                            UserProfile = new UserProfile()
+                            {
+                                DisplayName = DbUtils.GetString(reader, "DisplayName")
+                            }
+                        });
+                    }
+
+                    reader.Close();
+
+                    return posts;
+                }
+            }
+        }
     }
 }
