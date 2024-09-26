@@ -5,15 +5,15 @@ import { addTag } from "../../Managers/TagManager.js";
 
 export const TagForm = () => {
 
-    const [newTag, setNewTag] = useState("");
+    const [brandNewTag, setNewTag] = useState("");
 
     const navigate = useNavigate();
 
     const save = (e) => {
-        const newTagAdded = {
-            name: newTag,
+        const newTag = {
+            name: brandNewTag,
         }
-        addTag(newTagAdded).then((c) => {
+        addTag(newTag).then((taco) => {
             navigate("/Tags");
         });
     };
@@ -33,6 +33,7 @@ export const TagForm = () => {
                 </FormGroup>
                 <Button
                     onClick={save}
+                    color="success"
                 >
                     Save
                 </Button>
