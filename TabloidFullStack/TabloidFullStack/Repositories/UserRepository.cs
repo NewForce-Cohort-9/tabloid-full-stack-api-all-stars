@@ -170,11 +170,8 @@ namespace TabloidFullStack.Repositories
             }
         }
 
-<<<<<<< HEAD
-        public void UpdateActiveStatus(UserProfile userProfile)
-=======
         public void UpdateType(UserProfile userProfile)
->>>>>>> main
+
         {
             using (var conn = Connection)
             {
@@ -182,26 +179,18 @@ namespace TabloidFullStack.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"UPDATE UserProfile
-<<<<<<< HEAD
-                                           SET Deactivated = @Deactivated
-                                           WHERE Id = @Id";
 
-                    DbUtils.AddParameter(cmd, "@Deactivated", userProfile.Deactivated);
-=======
                                            SET UserTypeId = @UserTypeId
                                            WHERE Id = @Id";
 
                     DbUtils.AddParameter(cmd, "@UserTypeId", userProfile.UserTypeId);
->>>>>>> main
+
                     DbUtils.AddParameter(cmd, "@Id", userProfile.Id);
 
                     cmd.ExecuteNonQuery();
                 }
             }
-<<<<<<< HEAD
-         }
-=======
+         
         }
->>>>>>> main
     }
 }
