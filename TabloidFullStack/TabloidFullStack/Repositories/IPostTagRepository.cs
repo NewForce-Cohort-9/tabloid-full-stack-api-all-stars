@@ -6,5 +6,6 @@ namespace TabloidFullStack.Repositories
     {
         List<PostTag> GetByPostId(int id);
         void Add(PostTag postTag);
+        void Delete(int id);
     }
 }
