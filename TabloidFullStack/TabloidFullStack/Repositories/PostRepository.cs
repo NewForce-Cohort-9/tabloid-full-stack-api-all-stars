@@ -312,5 +312,24 @@ namespace TabloidFullStack.Repositories
                 }
             }
         }
+
+        public List<Post> GetAllApprovedPostsByUserId(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT p.Id, p.Title, p.PublishDateTime, p.IsApproved, p.CategoryId, p.UserProfileId, c.Name, up.DisplayName
+                                        FROM Post p
+                                        LEFT JOIN Category c On c.Id = p.CategoryId
+                                        LEFT JOIN UserProfile up ON up.Id = p.UserProfileId
+                                        WHERE p.IsApproved = 1 AND p.PublishDateTime <= CURRENT_TIMESTAMP AND up.Id = @Id
+                                        ORDER BY p.PublishDateTime DESC";
+
+                    DbUtils.AddParameter(cmd, "@Id", id);
+                }
+            }
+        }
     }
 }
