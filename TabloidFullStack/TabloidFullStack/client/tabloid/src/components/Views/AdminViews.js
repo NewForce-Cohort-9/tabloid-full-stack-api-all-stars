@@ -20,6 +20,7 @@ import { DeleteTag } from "../Tags/DeleteTag.js";
 import { EditTag } from "../Tags/EditTag.js";
 import { PostTags } from "../Post/PostTags.js";
 import { UserDetails } from "../UserProfile/UserDetails.js";
+import { AdminPostApproval } from "../AdminPosts.js";
 
 
 
@@ -54,6 +55,7 @@ export const AdminViews = ({ currentUser }) => {
       <Route path="/newTagAdded" element={<TagForm />} />
       <Route path="/users" element={<UserList />} />
       <Route path="/users/:userId" element={<UserDetails />} />
+      <Route path="/posts/:id" element={<AdminPostApproval />} />
     </Routes>
   );
 }
