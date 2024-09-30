@@ -14,16 +14,16 @@ namespace TabloidFullStack.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-SELECT 
-    pr.PostId,
-    pr.ReactionId, 
-    r.Name, 
-    r.ImageLocation, 
-    COUNT(pr.ReactionId) as ReactionCount
-FROM PostReaction pr
-LEFT JOIN Reaction r ON r.Id = pr.ReactionId
-WHERE pr.PostId = @id
-GROUP BY pr.PostId, pr.ReactionId, r.Name, r.ImageLocation";
+                        SELECT 
+                            pr.PostId,
+                            pr.ReactionId, 
+                            r.Name, 
+                            r.ImageLocation, 
+                            COUNT(pr.ReactionId) as ReactionCount
+                        FROM PostReaction pr
+                        LEFT JOIN Reaction r ON r.Id = pr.ReactionId
+                        WHERE pr.PostId = @id
+                        GROUP BY pr.PostId, pr.ReactionId, r.Name, r.ImageLocation";
 
                     DbUtils.AddParameter(cmd, "@id", id);
 
@@ -49,6 +49,24 @@ GROUP BY pr.PostId, pr.ReactionId, r.Name, r.ImageLocation";
                     reader.Close();
 
                     return postReactions;
+                }
+            }
+        }
+        public void Add(PostReaction postReaction)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"INSERT INTO PostReaction (PostId, ReactionId, UserProfileId)
+                                    OUTPUT INSERTED.ID
+                                    VALUES (@PostId, @ReactionId, @UserProfileId)";
+                    DbUtils.AddParameter(cmd, "@PostId", postReaction.PostId);
+                    DbUtils.AddParameter(cmd, "@ReactionId", postReaction.ReactionId);
+                    DbUtils.AddParameter(cmd, "@UserProfileId", postReaction.UserProfileId);
+
+                    postReaction.Id = (int)cmd.ExecuteScalar();
                 }
             }
         }

@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { Button, Card } from "reactstrap";
 import { getPostTagsByPostId } from "../../Managers/PostTagManager.js";
 import { getReactionsByPostId } from "../../Managers/PostReactionManager.js";
+import AddReactionToPost from "./AddPostReaction.js";
 
 export const PostDetails = () => {
   const [postDetails, setPostDetails] = useState({});
@@ -18,9 +19,9 @@ export const PostDetails = () => {
 
   const createDate = (dateTime) => {
     const date = new Date(dateTime);
-    let temp = {day: 'numeric', month: 'numeric', year: 'numeric'}
-    let dateFormat = date.toLocaleDateString(undefined, temp)
-    let [month, day, year] = dateFormat.split('/')
+    let temp = { day: "numeric", month: "numeric", year: "numeric" };
+    let dateFormat = date.toLocaleDateString(undefined, temp);
+    let [month, day, year] = dateFormat.split("/");
 
     return `${month}/${day}/${year}`;
   };
@@ -67,7 +68,7 @@ export const PostDetails = () => {
         <p className="text-left px2">
           Posted By: {postDetails.userProfile.displayName}
         </p>
-        <p>Reactions:</p>
+        <p>Reactions:</p> <AddReactionToPost />
         {postReactions.map((reactionObj) => {
           return (
             <div key={reactionObj.reaction.id}>
@@ -82,7 +83,6 @@ export const PostDetails = () => {
             </div>
           );
         })}
-
         {currentUser.id === postDetails.userProfileId ? (
           <>
             <div>
