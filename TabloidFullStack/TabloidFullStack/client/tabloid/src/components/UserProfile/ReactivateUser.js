@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import { Button, Container, ListGroupItemHeading } from "reactstrap"
 import { getUserById, updateUser } from "../../Managers/UserProfileManager.js";
 
-export const DeactivateUser = () => {
+export const ReactivateUser = () => {
 
     const [user, setUser] = useState({});
 
@@ -16,7 +16,7 @@ export const DeactivateUser = () => {
     }, [userId])
   
   
-      const handleDeactivate = () => {
+      const handleReactivate = () => {
   
           const editedUser = {
               id: user.id,
@@ -25,33 +25,33 @@ export const DeactivateUser = () => {
               lastName: user.lastName,
               firstName: user.firstName,
               displayName: user.displayName,
-              deactivated: true
+              deactivated: false
           }
   
           updateUser(editedUser)
           .then(() => {
-              navigate(`/users/deactivated`)
+              navigate(`/users`)
           })
       }
 
     return(
         <Container>
             <ListGroupItemHeading>
-                Are you sure you want to DEACTIVATE {user.displayName}???
+                Are you sure you want to reactivate {user.displayName}???
             </ListGroupItemHeading>
             <Button
             color="warning"
             size="sm"
-            onClick={() => {navigate(`/users`)}}
+            onClick={() => {navigate(`/users/deactivated`)}}
             >
                 Nevermind!
             </Button>
             <Button
             color="danger"
             size="sm"
-            onClick={handleDeactivate}
+            onClick={handleReactivate}
             >
-                DEACTIVATE
+                REACTIVATE
             </Button>
         </Container>
     )
