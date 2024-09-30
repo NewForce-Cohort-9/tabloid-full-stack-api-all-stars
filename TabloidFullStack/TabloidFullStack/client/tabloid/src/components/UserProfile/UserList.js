@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 export const UserList = () => {
 
     const [users, setUsers] = useState([]);
+    const [activeUsers, setActiveUsers] = useState([]);
 
     const getUsers = () => {
         getAllUsers().then(usersObj => setUsers(usersObj))
@@ -15,15 +16,20 @@ export const UserList = () => {
         getUsers();
     }, []);
 
+    useEffect(() => {
+        const active = users.filter((user) => user.deactivated === false)
+        setActiveUsers(active)
+    }, [users])
+
     const navigate = useNavigate();
 
     return(
         <Container>
             <List>
                 <ListGroup>
-                    All Users
+                    All Active Users
                 </ListGroup>
-                {users.map((user) => (
+                {activeUsers.map((user) => (
                     <ListGroupItem
                     key={user.id}
                     >
@@ -41,13 +47,24 @@ export const UserList = () => {
                     >
                         View Details
                     </Button>
-                    <button
+                    <Button
+                    color="danger"
                     onClick={() => {navigate(`/users/deactivate/${user.id}`)}}
                     >
                         Deactivate User
-                    </button>
+                    </Button>
                     </ListGroupItem>
                 ))}
+                <ListGroup>
+                    <ListGroupItem>
+                        <Button
+                        color="warning"
+                        onClick={() => {navigate(`/users/deactivated`)}}
+                        >
+                            Deactivated Users
+                        </Button>
+                    </ListGroupItem>
+                </ListGroup>
             </List>
         </Container>
     )
