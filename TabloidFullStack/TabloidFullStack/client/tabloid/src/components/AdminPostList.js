@@ -5,11 +5,14 @@ import { Post } from "./Post/Post.js";
 export const AdminPostList = ({ isAdmin }) => { 
     const [allPosts, setAllPosts] = useState([]);
 
+    //Fetching & filtering posts on whether or not they have been approved or unapproved (No decision yet? will appear here)
     const getAllPosts = () => {
         getApprovedPosts().then(postList => {
-            const approvedPostIds = JSON.parse(localStorage.getItem('approvedPosts')) || [];
-            const filteredPosts = postList.filter(post => !approvedPostIds.includes(post.id));
-            setAllPosts(filteredPosts);
+            //Retrieving posts from backend
+            const approvedPostIds = JSON.parse(localStorage.getItem('approvedPosts')) || []
+            //Filtering through posts to exclude the ones that are in the approvedPostIds array
+            const filteredPosts = postList.filter(post => !approvedPostIds.includes(post.id))
+            setAllPosts(filteredPosts)
         })
     };
 
@@ -33,18 +36,20 @@ export const AdminPostList = ({ isAdmin }) => {
     
         approvedPosts(approvedPost) 
         .then(() => {
-            const approvedPostIds = JSON.parse(localStorage.getItem('approvedPosts')) || [];
-
-            const updatedPostIds = new Set(approvedPostIds);
-        updatedPostIds.add(post.id); 
-
+            //retrieves approved posts array
+            const approvedPostIds = JSON.parse(localStorage.getItem('approvedPosts')) || []
+            //Creates a Set from the approvedPostIds array, ensuring that no duplicate IDs exist
+            const updatedPostIds = new Set(approvedPostIds)
+            //Adds newly approved post (post.id) to the Set of approved post IDs
+        updatedPostIds.add(post.id)
+        //Converts Set back into an array and then stores the updated list
         localStorage.setItem('approvedPosts', JSON.stringify(Array.from(updatedPostIds)));
 
-            // Removing approved post from state and then the list in order for post to disappear from Admin Post Management upon refresh
+            //Post being removed from state, effectively removing the newly approved post the Admin Post Management list
             setAllPosts(allPosts.filter(p => p.id !== post.id)); 
         })
     };
-    
+
     return (
         <div className="container">
             <h2>Admin Post Management</h2>
@@ -55,14 +60,15 @@ export const AdminPostList = ({ isAdmin }) => {
                             <div key={post.id} className="post-item">
                                 <Post post={post} />  
                                 {isAdmin && (
-                                    <div>
-                                        <button 
-                                            className="btn btn-success" 
-                                            onClick={() => handleApproval(post)}
-                                        >
-                                            Approve
-                                        </button>
-                                    </div>
+                                     <div>
+                                     {/* Approval Button */}
+                                     <button 
+                                         className="btn btn-success" 
+                                         onClick={() => handleApproval(post)}
+                                     >
+                                         Approve
+                                     </button>
+                                 </div>
                                 )}
                                 <hr />
                             </div>

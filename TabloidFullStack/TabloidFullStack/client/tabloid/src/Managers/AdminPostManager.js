@@ -18,12 +18,12 @@ export const approvedPosts = (post) => {
 };
 
 
-export const rejectedPosts = (post) => {
-    return fetch(`${apiUrl}/post/${post.id}`, {
-        method: "PUT",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(post)
-    });
-};
+// export const rejectedPosts = (post) => {
+//     return fetch(`${apiUrl}/post/${post.id}`, {
+//         method: "PUT",
+//     headers: {
+//       "Content-Type": "application/json"
+//     },
+//     body: JSON.stringify(post)
+//     });
+// };
