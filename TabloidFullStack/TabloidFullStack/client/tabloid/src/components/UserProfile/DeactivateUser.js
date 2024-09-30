@@ -30,7 +30,7 @@ export const DeactivateUser = () => {
   
           updateUser(editedUser)
           .then(() => {
-              navigate(`/users`)
+              navigate(`/users/deactivated`)
           })
       }
 
