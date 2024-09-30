@@ -58,8 +58,8 @@ export const AdminViews = ({ currentUser }) => {
       <Route path="/users" element={<UserList />} />
       <Route path="/users/:userId" element={<UserDetails />} />
       <Route path="/users/editType/:userId" element={<UserEditType />} />
-      <Route path="/posts/:id" element={<AdminPosts />} />
-      <Route path="/posts/:id" element={<AdminPostList />} />
+      <Route path="/posts" element={<AdminPosts />} />
+      <Route path="/adminPosts" element={<AdminPostList isAdmin={true} />} />
     </Routes>
   );
 }
