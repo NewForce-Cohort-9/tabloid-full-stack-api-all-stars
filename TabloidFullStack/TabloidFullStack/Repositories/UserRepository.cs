@@ -16,7 +16,7 @@ namespace TabloidFullStack.Repositories
                 {
                     cmd.CommandText = @"
                         SELECT up.Id, up.FirstName, up.LastName, up.DisplayName, 
-                               up.Email, up.CreateDateTime, up.ImageLocation, up.UserTypeId,
+                               up.Email, up.CreateDateTime, up.ImageLocation, up.UserTypeId, up.Deactivated,
                                ut.Name AS UserTypeName
                           FROM UserProfile up
                                LEFT JOIN UserType ut on up.UserTypeId = ut.Id
@@ -43,7 +43,8 @@ namespace TabloidFullStack.Repositories
                             {
                                 Id = DbUtils.GetInt(reader, "UserTypeId"),
                                 Name = DbUtils.GetString(reader, "UserTypeName"),
-                            }
+                            },
+                            Deactivated = DbUtils.GetBoolean(reader,"Deactivated")
                         };
                     }
                     reader.Close();
@@ -87,7 +88,7 @@ namespace TabloidFullStack.Repositories
                 {
                     cmd.CommandText = @"
                         SELECT up.Id, up.FirstName, up.LastName, up.DisplayName, 
-                               up.Email, up.CreateDateTime, up.ImageLocation, up.UserTypeId,
+                               up.Email, up.CreateDateTime, up.ImageLocation, up.UserTypeId, up.Deactivated,
                                ut.Name AS UserTypeName
                           FROM UserProfile up
                                LEFT JOIN UserType ut on up.UserTypeId = ut.Id
@@ -114,7 +115,8 @@ namespace TabloidFullStack.Repositories
                             {
                                 Id = DbUtils.GetInt(reader, "UserTypeId"),
                                 Name = DbUtils.GetString(reader, "UserTypeName"),
-                            }
+                            },
+                            Deactivated = DbUtils.GetBoolean(reader, "Deactivated")
                         });
                     }
                     reader.Close();
@@ -161,7 +163,6 @@ namespace TabloidFullStack.Repositories
                                 Id = DbUtils.GetInt(reader, "UserTypeId"),
                                 Name = DbUtils.GetString(reader, "UserTypeName"),
                             },
-                            //Deactivated = reader.GetBoolean(reader.GetOrdinal("Deactivated"))
                             Deactivated = DbUtils.GetBoolean(reader, "Deactivated")
                         };
                     }

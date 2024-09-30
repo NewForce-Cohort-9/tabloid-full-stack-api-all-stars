@@ -29,7 +29,8 @@ export const UserEditType = () => {
               email: user.email,
               lastName: user.lastName,
               firstName: user.firstName,
-              displayName: user.displayName
+              displayName: user.displayName,
+              deactivated: user.deactivated
           }
   
           updateUser(editedUser)

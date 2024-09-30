@@ -14,15 +14,9 @@ export const DeactivateUser = () => {
     useEffect(() => {
         getUserById(userId).then(userObj => setUser(userObj))
     }, [userId])
-
-    // const handleInputChange = (e) => {
-    //     const copy = { ...user }
-    //       copy[e.target.name] = e.target.value
-    //       setUser(copy)
-    //       }
   
   
-      const handleEdit = () => {
+      const handleDeactivate = () => {
   
           const editedUser = {
               id: user.id,
@@ -55,7 +49,7 @@ export const DeactivateUser = () => {
             <Button
             color="danger"
             size="sm"
-            onClick={handleEdit}
+            onClick={handleDeactivate}
             >
                 DEACTIVATE
             </Button>
