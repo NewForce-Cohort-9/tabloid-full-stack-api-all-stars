@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { getUserById, updateUserType } from "../../Managers/UserProfileManager.js";
+import { getUserById, updateUser } from "../../Managers/UserProfileManager.js";
 import { Button, Container, Form, FormGroup, Input, Label, ListGroupItemHeading } from "reactstrap";
 
 export const UserEditType = () => {
@@ -29,10 +29,11 @@ export const UserEditType = () => {
               email: user.email,
               lastName: user.lastName,
               firstName: user.firstName,
-              displayName: user.displayName
+              displayName: user.displayName,
+              deactivated: user.deactivated
           }
   
-          updateUserType(editedUser)
+          updateUser(editedUser)
           .then(() => {
               navigate(`/users`)
           })
@@ -45,13 +46,6 @@ export const UserEditType = () => {
                 <ListGroupItemHeading>
                     Edit User Type: {user.displayName}
                 </ListGroupItemHeading>
-                {/* <Input
-                type="number"
-                name="userTypeId"
-                value={user.userTypeId}
-                onChange={handleInputChange}
-                /> */}
-
             <FormGroup>
                 <Label for="userType">
                     User Type

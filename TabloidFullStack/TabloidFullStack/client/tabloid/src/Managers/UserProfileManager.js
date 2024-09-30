@@ -4,7 +4,7 @@ export const login = (userObject) => {
   return fetch(`${apiUrl}/api/userprofile/getbyemail?email=${userObject.email}`)
   .then((r) => r.json())
     .then((userProfile) => {
-      if(userProfile.id){
+      if(userProfile.id && !userProfile.deactivated){
         localStorage.setItem("userProfile", JSON.stringify(userProfile));
         return userProfile
       }
@@ -42,7 +42,7 @@ export const getUserById = async (id) => {
           .then((res) => res.json())
 };
 
-export const updateUserType = (user) => {
+export const updateUser = (user) => {
   return fetch(`${apiUrl}/api/UserProfile/${user.id}`, {
     method: "PUT", 
     headers: {
