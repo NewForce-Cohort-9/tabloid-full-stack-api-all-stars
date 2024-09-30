@@ -3,9 +3,10 @@ import { getAllUsers } from "../../Managers/UserProfileManager.js";
 import { Button, Container, List, ListGroup, ListGroupItem } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 
-export const UserList = () => {
+export const DeactivatedUserList = () => {
 
     const [users, setUsers] = useState([]);
+    const [deactivatedUsers, setDeactivatedUsers] = useState([]);
 
     const getUsers = () => {
         getAllUsers().then(usersObj => setUsers(usersObj))
@@ -13,7 +14,12 @@ export const UserList = () => {
 
     useEffect(() => {
         getUsers();
-    }, []);
+        }, []);
+
+    useEffect(() => {
+        const deactivated = users.filter((user) => user.deactivated === true)
+        setDeactivatedUsers(deactivated)
+    }, [users]);
 
     const navigate = useNavigate();
 
@@ -21,9 +27,9 @@ export const UserList = () => {
         <Container>
             <List>
                 <ListGroup>
-                    All Users
+                    Deactivated Users
                 </ListGroup>
-                {users.map((user) => (
+                {deactivatedUsers.map((user) => (
                     <ListGroupItem
                     key={user.id}
                     >
@@ -31,23 +37,19 @@ export const UserList = () => {
                         Full Name: {user.fullName}
                         User Type: {user.userType.name}
                     <Button
-                    color="success"
-                    onClick={() => {navigate(`/users/editType/${user.id}`)}}
+                    onClick={() => {navigate(`/users/reactivate/${user.id}`)}}
                     >
-                        Edit
+                        Reactivate User
                     </Button>
-                    <Button
-                    onClick={() => {navigate(`/users/${user.id}`)}}
-                    >
-                        View Details
-                    </Button>
-                    <button
-                    onClick={() => {navigate(`/users/deactivate/${user.id}`)}}
-                    >
-                        Deactivate User
-                    </button>
                     </ListGroupItem>
                 ))}
+            <ListGroup>
+                <Button
+                    onClick={() => {navigate(`/users`)}}
+                >
+                    Return to User List
+                </Button>
+            </ListGroup>
             </List>
         </Container>
     )

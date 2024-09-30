@@ -22,6 +22,8 @@ import { PostTags } from "../Post/PostTags.js";
 import { UserDetails } from "../UserProfile/UserDetails.js";
 import { DeactivateUser } from "../UserProfile/DeactivateUser.js";
 import { UserEditType } from "../UserProfile/UserEditType.js";
+import { DeactivatedUserList } from "../UserProfile/DeactivatedUserList.js";
+import { ReactivateUser } from "../UserProfile/ReactivateUser.js";
 
 
 
@@ -58,6 +60,8 @@ export const AdminViews = ({ currentUser }) => {
       <Route path="/users/:userId" element={<UserDetails />} />
       <Route path="/users/deactivate/:userId" element={<DeactivateUser />} />
       <Route path="/users/editType/:userId" element={<UserEditType />} />
-    </Routes>
+      <Route path="/users/deactivated" element={<DeactivatedUserList />} />
+      <Route path="/users/reactivate/:userId" element={<ReactivateUser /> } />
+   </Routes>
   );
 }
