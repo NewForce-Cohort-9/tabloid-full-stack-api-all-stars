@@ -41,6 +41,11 @@ export const UserList = () => {
                     >
                         View Details
                     </Button>
+                    <button
+                    onClick={() => {navigate(`/users/deactivate/${user.id}`)}}
+                    >
+                        Deactivate User
+                    </button>
                     </ListGroupItem>
                 ))}
             </List>
