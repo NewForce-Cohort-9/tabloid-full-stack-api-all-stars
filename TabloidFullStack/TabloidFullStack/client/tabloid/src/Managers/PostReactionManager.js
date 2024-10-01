@@ -7,7 +7,7 @@ export const getReactionsByPostId = (postId) => {
 };
 
 export const addPostReaction = (postReaction) => {
-  return fetch(`${baseUrl}/PostReaction`, {
+  return fetch(`${baseUrl}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

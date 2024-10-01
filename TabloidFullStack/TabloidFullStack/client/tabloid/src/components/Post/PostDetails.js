@@ -68,7 +68,7 @@ export const PostDetails = () => {
         <p className="text-left px2">
           Posted By: {postDetails.userProfile.displayName}
         </p>
-        <p>Reactions:</p> <AddReactionToPost />
+        <p>Reactions:</p> <AddReactionToPost currentUser={currentUser} />
         {postReactions.map((reactionObj) => {
           return (
             <div key={reactionObj.reaction.id}>
@@ -88,7 +88,7 @@ export const PostDetails = () => {
             <div>
               <p>Tags:</p>
               {postTags.map((tagObj) => {
-                return <p>{tagObj.tag.name}</p>;
+                return <p key={tagObj.id}>{tagObj.tag.name}</p>;
               })}
             </div>
             <Button
