@@ -39,7 +39,6 @@ export const AdminPostList = ({ isAdmin }) => {
     
         approvedPosts(post.id) 
         .then(() => {
-            console.log(approvedPosts)
             //retrieves array AFTER post is approved
             const approvedPostIds = JSON.parse(localStorage.getItem('approvedPosts')) || []
 
