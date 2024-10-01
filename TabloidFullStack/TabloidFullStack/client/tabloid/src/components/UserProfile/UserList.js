@@ -7,6 +7,7 @@ export const UserList = () => {
 
     const [users, setUsers] = useState([]);
     const [activeUsers, setActiveUsers] = useState([]);
+    const [adminUserCounter, setAdminUserCounter] = useState(0);
 
     const getUsers = () => {
         getAllUsers().then(usersObj => setUsers(usersObj))
@@ -20,6 +21,16 @@ export const UserList = () => {
         const active = users.filter((user) => user.deactivated === false)
         setActiveUsers(active)
     }, [users])
+
+    useEffect(() => {
+        let counter = 0
+        activeUsers.forEach(user => {
+            if (user.userTypeId === 1) {
+                counter++
+            } 
+        })
+        setAdminUserCounter(counter)
+    }, [activeUsers])
 
     const navigate = useNavigate();
 
@@ -38,7 +49,7 @@ export const UserList = () => {
                         User Type: {user.userType.name}
                     <Button
                     color="success"
-                    onClick={() => {navigate(`/users/editType/${user.id}`)}}
+                    onClick={() => {navigate(`/users/editType/${user.id}`, { state: {adminCount: adminUserCounter}})}}
                     >
                         Edit
                     </Button>
@@ -49,7 +60,7 @@ export const UserList = () => {
                     </Button>
                     <Button
                     color="danger"
-                    onClick={() => {navigate(`/users/deactivate/${user.id}`)}}
+                    onClick={() => {navigate(`/users/deactivate/${user.id}`, { state: {adminCount: adminUserCounter}})}}
                     >
                         Deactivate User
                     </Button>
