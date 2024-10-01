@@ -1,4 +1,5 @@
-﻿using TabloidFullStack.Models;
+﻿using Microsoft.Extensions.Hosting;
+using TabloidFullStack.Models;
 using TabloidFullStack.Utils;
 
 namespace TabloidFullStack.Repositories
@@ -33,6 +34,23 @@ namespace TabloidFullStack.Repositories
                     reader.Close();
 
                     return reactions;
+                }
+            }
+        }
+        public void Add(Reaction reaction)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"INSERT INTO Reaction (Name, ImageLocation)
+                                        OUTPUT INSERTED.ID
+                                        VALUES (@Name, @ImageLocation)";
+                    DbUtils.AddParameter(cmd, "@Name", reaction.Name);
+                    DbUtils.AddParameter(cmd, "@ImageLocation", reaction.ImageLocation);
+
+                    reaction.Id = (int)cmd.ExecuteScalar();
                 }
             }
         }

@@ -31,10 +31,7 @@ export const GeneralUserViews = ({ currentUser }) => {
         element={<AddCommentForm currentUser={currentUser} />}
       />
       <Route path="/myposts" element={<UserPostList />} />
-      <Route
-        path="/post/:id"
-        element={<PostDetails currentUser={currentUser} />}
-      />
+      <Route path="/post/:id" element={<PostDetails />} />
       <Route path="/newpost" element={<CreatePost />} />
       <Route
         path="/posts/:id/comments"
