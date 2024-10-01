@@ -59,8 +59,7 @@ namespace TabloidFullStack.Controllers
             return Ok(user);
         }
 
-
-        //PUT update userType
+        //PUT update user
         [HttpPut("{id}")]
 
         public IActionResult Put(int id, UserProfile userProfile)
@@ -70,7 +69,7 @@ namespace TabloidFullStack.Controllers
                 return BadRequest();
             }
 
-            _userRepository.UpdateType(userProfile);
+            _userRepository.Update(userProfile);
             return NoContent();
         }
 

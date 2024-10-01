@@ -12,6 +12,7 @@ export const PostDetails = () => {
   const [currentUser, setCurrentUser] = useState({});
   const [postTags, setPostTags] = useState([]);
   const [postReactions, setPostReactions] = useState([]);
+  const [readingMin, setReadingMin] = useState("")
 
   const navigate = useNavigate();
 
@@ -25,6 +26,20 @@ export const PostDetails = () => {
 
     return `${month}/${day}/${year}`;
   };
+
+  useEffect(() => {
+    if (postDetails.content) {
+      const wordArr = postDetails.content.split(" ")
+      const wordCount = wordArr.length
+      let minutes = Math.ceil(wordCount /265)
+      console.log(minutes)
+      if (minutes === 1) {
+        setReadingMin("1 minute")
+      } else {
+        setReadingMin(`${minutes} minutes`)
+      }
+    }
+  }, [postDetails])
 
   useEffect(() => {
     getPostTagsByPostId(id).then((postTagsArr) => setPostTags(postTagsArr));
@@ -59,11 +74,11 @@ export const PostDetails = () => {
     <>
       <Card className="m-4">
         <p className="text-left px2">{postDetails.title}</p>
+        <p className="text-left px2"><strong>Estimated reading time: </strong> {readingMin}</p>
         <img
           src={`${postDetails.imageLocation}`}
           alt={`Image for ${postDetails.title}`}
         />
-        <p className="text-left px2">Content: {postDetails.content}</p>
         <p className="text-left px2">Published On: {postDate}</p>
         <p className="text-left px2">
           Posted By: {postDetails.userProfile.displayName}
@@ -83,6 +98,8 @@ export const PostDetails = () => {
             </div>
           );
         })}
+        <p className="text-left px2">Content: {postDetails.content}</p>
+
         {currentUser.id === postDetails.userProfileId ? (
           <>
             <div>
