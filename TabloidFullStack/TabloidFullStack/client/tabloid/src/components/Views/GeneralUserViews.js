@@ -17,7 +17,6 @@ import { TagForm } from "../Tags/TagForm.js";
 import { CommentList } from "../Comment/CommentList.js";
 import { PostTags } from "../Post/PostTags.js";
 
-
 export const GeneralUserViews = ({ currentUser }) => {
   return (
     <Routes>
@@ -32,7 +31,10 @@ export const GeneralUserViews = ({ currentUser }) => {
         element={<AddCommentForm currentUser={currentUser} />}
       />
       <Route path="/myposts" element={<UserPostList />} />
-      <Route path="/post/:id" element={<PostDetails />} />
+      <Route
+        path="/post/:id"
+        element={<PostDetails currentUser={currentUser} />}
+      />
       <Route path="/newpost" element={<CreatePost />} />
       <Route
         path="/posts/:id/comments"
@@ -45,4 +47,4 @@ export const GeneralUserViews = ({ currentUser }) => {
       <Route path="/newTagAdded" element={<TagForm />} />
     </Routes>
   );
-}
+};

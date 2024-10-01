@@ -46,9 +46,11 @@ export const CreatePost = () => {
                                                                     setPost(postObj)
                         }}></input><br/>
                         <label for="addPostImageLocation">Image Url</label>
-                        <input id="addPostImageLocation" onChange={(e) => {
+                        <input id="addPostImageLocation" 
+                            type="file"
+                                                                    onChange={(e) => {
                                                                     let postObj = {...post}
-                                                                    postObj.ImageLocation = e.target.value
+                                                                    postObj.ImageLocation = URL.createObjectURL(e.target.files[0])
                                                                     setPost(postObj)
                         }}></input><br/>
                         <select name="categories" id="createPostCategories" onChange={(e) => {
