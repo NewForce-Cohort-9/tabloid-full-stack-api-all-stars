@@ -54,8 +54,10 @@ export const EditPost = () => {
                                                                     setContent(e.target.value)
                         }}value={content}></input><br/>
                         <label for="addPostImageLocation">Image Url</label>
-                        <input id="addPostImageLocation" onChange={(e) => {
-                                                                    setImageLocation(e.target.value)
+                        <input id="addPostImageLocation" 
+                            type="text"
+                                                    onChange={(e) => {
+                                                                    setImageLocation(URL.createObjectURL(e.target.files[0]))
                         }} value={imageLocation}></input><br/>
                         <select name="categories" id="createPostCategories" onChange={(e) => {
                                     let copy = {...post}

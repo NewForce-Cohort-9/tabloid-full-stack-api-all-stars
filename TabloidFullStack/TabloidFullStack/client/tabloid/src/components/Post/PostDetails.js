@@ -4,6 +4,8 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { Button, Card } from "reactstrap";
 import { getPostTagsByPostId } from "../../Managers/PostTagManager.js";
 import { getReactionsByPostId } from "../../Managers/PostReactionManager.js";
+import AddReactionToPost from "./AddPostReaction.js";
+import CreateNewReaction from "./CreateNewReaction.js";
 
 export const PostDetails = () => {
   const [postDetails, setPostDetails] = useState({});
@@ -11,7 +13,7 @@ export const PostDetails = () => {
   const [currentUser, setCurrentUser] = useState({});
   const [postTags, setPostTags] = useState([]);
   const [postReactions, setPostReactions] = useState([]);
-  const [readingMin, setReadingMin] = useState("")
+  const [readingMin, setReadingMin] = useState("");
 
   const navigate = useNavigate();
 
@@ -19,26 +21,26 @@ export const PostDetails = () => {
 
   const createDate = (dateTime) => {
     const date = new Date(dateTime);
-    let temp = {day: 'numeric', month: 'numeric', year: 'numeric'}
-    let dateFormat = date.toLocaleDateString(undefined, temp)
-    let [month, day, year] = dateFormat.split('/')
+    let temp = { day: "numeric", month: "numeric", year: "numeric" };
+    let dateFormat = date.toLocaleDateString(undefined, temp);
+    let [month, day, year] = dateFormat.split("/");
 
     return `${month}/${day}/${year}`;
   };
 
   useEffect(() => {
     if (postDetails.content) {
-      const wordArr = postDetails.content.split(" ")
-      const wordCount = wordArr.length
-      let minutes = Math.ceil(wordCount /265)
-      console.log(minutes)
+      const wordArr = postDetails.content.split(" ");
+      const wordCount = wordArr.length;
+      let minutes = Math.ceil(wordCount / 265);
+      console.log(minutes);
       if (minutes === 1) {
-        setReadingMin("1 minute")
+        setReadingMin("1 minute");
       } else {
-        setReadingMin(`${minutes} minutes`)
+        setReadingMin(`${minutes} minutes`);
       }
     }
-  }, [postDetails])
+  }, [postDetails]);
 
   useEffect(() => {
     getPostTagsByPostId(id).then((postTagsArr) => setPostTags(postTagsArr));
@@ -73,7 +75,9 @@ export const PostDetails = () => {
     <>
       <Card className="m-4">
         <p className="text-left px2">{postDetails.title}</p>
-        <p className="text-left px2"><strong>Estimated reading time: </strong> {readingMin}</p>
+        <p className="text-left px2">
+          <strong>Estimated reading time: </strong> {readingMin}
+        </p>
         <img
           src={`${postDetails.imageLocation}`}
           alt={`Image for ${postDetails.title}`}
@@ -82,7 +86,8 @@ export const PostDetails = () => {
         <p className="text-left px2">
           Posted By: {postDetails.userProfile.displayName}
         </p>
-        <p>Reactions:</p>
+        <p>Reactions:</p> <AddReactionToPost currentUser={currentUser} />
+        {currentUser.userTypeId === 1 ? <CreateNewReaction /> : null}
         {postReactions.map((reactionObj) => {
           return (
             <div key={reactionObj.reaction.id}>
@@ -101,7 +106,7 @@ export const PostDetails = () => {
         <div>
               <p>Tags:</p>
               {postTags.map((tagObj) => {
-                return <p>{tagObj.tag.name}</p>;
+                return <p key={tagObj.id}>{tagObj.tag.name}</p>;
               })}
         </div>
 

@@ -12,7 +12,6 @@ import { EditPost } from "../Post/EditPost.js";
 import { CommentList } from "../Comment/CommentList.js";
 import { PostTags } from "../Post/PostTags.js";
 
-
 export const GeneralUserViews = ({ currentUser }) => {
   return (
     <Routes>
@@ -34,4 +33,4 @@ export const GeneralUserViews = ({ currentUser }) => {
       <Route path="/posts/tags/:id" element={<PostTags />} />
     </Routes>
   );
-}
+};
