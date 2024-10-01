@@ -364,5 +364,25 @@ namespace TabloidFullStack.Repositories
                 }
             }
         }
+
+        public void IsApproved(Post post)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        UPDATE Post
+                               SET
+                               IsApproved = 1
+                         WHERE Id = @Id";
+
+                    DbUtils.AddParameter(cmd, "@Id", post.Id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }

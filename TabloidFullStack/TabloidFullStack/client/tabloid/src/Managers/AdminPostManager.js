@@ -9,11 +9,11 @@ export const getApprovedPosts = () => {
 
 export const approvedPosts = (post) => {
     return fetch(`${apiUrl}/post/${post.id}`, {
-        method: "PUT",
+        method: "PATCH",
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify(post)
+    body: JSON.stringify({isApproved: true})
     });
 };
 

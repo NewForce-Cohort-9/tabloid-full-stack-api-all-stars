@@ -111,5 +111,18 @@ namespace TabloidFullStack.Controllers
             }
             return Ok(posts);
         }
+
+        // PUT api/<PostController>/5
+        [HttpPatch("{id}")]
+        public IActionResult Patch( Post post)
+        {
+            //if (id != post.Id)
+            //{
+            //    return BadRequest();
+            //}
+
+            _postRepository.IsApproved(post);
+            return NoContent();
+        }
     }
 }

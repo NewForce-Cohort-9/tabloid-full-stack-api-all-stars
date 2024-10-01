@@ -1,4 +1,6 @@
-﻿namespace TabloidFullStack.Models
+﻿using Microsoft.Extensions.Hosting;
+
+namespace TabloidFullStack.Models
 {
     public class Post
     {

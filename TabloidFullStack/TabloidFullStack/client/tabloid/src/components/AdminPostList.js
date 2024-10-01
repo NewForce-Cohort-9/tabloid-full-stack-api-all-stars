@@ -8,10 +8,13 @@ export const AdminPostList = ({ isAdmin }) => {
     //Fetching & filtering posts on whether or not they have been approved or unapproved (No decision yet? will appear here)
     const getAllPosts = () => {
         getApprovedPosts().then(postList => {
+
             //Retrieving posts from backend
             const approvedPostIds = JSON.parse(localStorage.getItem('approvedPosts')) || []
+
             //Filtering through posts to exclude the ones that are in the approvedPostIds array
             const filteredPosts = postList.filter(post => !approvedPostIds.includes(post.id))
+
             setAllPosts(filteredPosts)
         })
     };
@@ -36,16 +39,20 @@ export const AdminPostList = ({ isAdmin }) => {
     
         approvedPosts(approvedPost) 
         .then(() => {
-            //retrieves approved posts array
+            console.log(approvedPosts)
+            //retrieves array AFTER post is approved
             const approvedPostIds = JSON.parse(localStorage.getItem('approvedPosts')) || []
+
             //Creates a Set from the approvedPostIds array, ensuring that no duplicate IDs exist
             const updatedPostIds = new Set(approvedPostIds)
+
             //Adds newly approved post (post.id) to the Set of approved post IDs
         updatedPostIds.add(post.id)
+
         //Converts Set back into an array and then stores the updated list
         localStorage.setItem('approvedPosts', JSON.stringify(Array.from(updatedPostIds)));
 
-            //Post being removed from state, effectively removing the newly approved post the Admin Post Management list
+            // Post being removed from state, effectively removing the newly approved post the Admin Post Management list
             setAllPosts(allPosts.filter(p => p.id !== post.id)); 
         })
     };
