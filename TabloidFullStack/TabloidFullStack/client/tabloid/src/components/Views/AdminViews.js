@@ -25,8 +25,6 @@ import { UserEditType } from "../UserProfile/UserEditType.js";
 import { DeactivatedUserList } from "../UserProfile/DeactivatedUserList.js";
 import { ReactivateUser } from "../UserProfile/ReactivateUser.js";
 
-
-
 export const AdminViews = ({ currentUser }) => {
   return (
     <Routes>
@@ -54,14 +52,14 @@ export const AdminViews = ({ currentUser }) => {
       <Route path="/newTag" element={<TagForm />} />
       <Route path="/deleteTag/:tagId" element={<DeleteTag />} />
       <Route path="/editTag/:tagId" element={<EditTag />} />
-      <Route path = "/users" element={<UserList />} />
+      <Route path="/users" element={<UserList />} />
       <Route path="/newTagAdded" element={<TagForm />} />
       <Route path="/users" element={<UserList />} />
       <Route path="/users/:userId" element={<UserDetails />} />
       <Route path="/users/deactivate/:userId" element={<DeactivateUser />} />
       <Route path="/users/editType/:userId" element={<UserEditType />} />
       <Route path="/users/deactivated" element={<DeactivatedUserList />} />
-      <Route path="/users/reactivate/:userId" element={<ReactivateUser /> } />
-   </Routes>
+      <Route path="/users/reactivate/:userId" element={<ReactivateUser />} />
+    </Routes>
   );
-}
+};
