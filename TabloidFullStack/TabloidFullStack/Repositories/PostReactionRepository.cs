@@ -6,6 +6,49 @@ namespace TabloidFullStack.Repositories
     public class PostReactionRepository : BaseRepository, IPostReactionRepository
     {
         public PostReactionRepository(IConfiguration configuration) : base(configuration) { }
+        public List<PostReaction> GetAll()
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT 
+                            pr.PostId,
+                            pr.ReactionId,
+                            pr.UserProfileId,
+                            r.Name, 
+                            r.ImageLocation
+                        FROM PostReaction pr
+                        LEFT JOIN Reaction r ON r.Id = pr.ReactionId";
+
+                    var reader = cmd.ExecuteReader();
+
+                    var postReactions = new List<PostReaction>();
+
+                    while (reader.Read())
+                    {
+                        postReactions.Add(new PostReaction()
+                        {
+                            Id = DbUtils.GetInt(reader, "ReactionId"),
+                            PostId = DbUtils.GetInt(reader, "PostId"),
+                            ReactionId = DbUtils.GetInt(reader, "ReactionId"),
+                            UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
+                            Reaction = new Reaction()
+                            {
+                                Id = DbUtils.GetInt(reader, "ReactionId"),
+                                Name = DbUtils.GetString(reader, "Name"),
+                                ImageLocation = DbUtils.GetString(reader, "ImageLocation")
+                            }
+                        });
+                    }
+
+                    reader.Close();
+
+                    return postReactions;
+                }
+            }
+        }
         public List<PostReaction> GetReactionsByPostId(int id)
         {
             using (var conn = Connection)
@@ -16,7 +59,7 @@ namespace TabloidFullStack.Repositories
                     cmd.CommandText = @"
                         SELECT 
                             pr.PostId,
-                            pr.ReactionId, 
+                            pr.ReactionId,
                             r.Name, 
                             r.ImageLocation, 
                             COUNT(pr.ReactionId) as ReactionCount
@@ -36,6 +79,7 @@ namespace TabloidFullStack.Repositories
                         {
                             Id = DbUtils.GetInt(reader, "ReactionId"),
                             PostId = DbUtils.GetInt(reader, "PostId"),
+                            ReactionId = DbUtils.GetInt(reader, "ReactionId"),
                             Reaction = new Reaction()
                             {
                                 Id = DbUtils.GetInt(reader, "ReactionId"),

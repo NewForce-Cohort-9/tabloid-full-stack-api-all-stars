@@ -4,6 +4,7 @@ namespace TabloidFullStack.Repositories
 {
     public interface IPostReactionRepository
     {
+        public List<PostReaction> GetAll();
         public List<PostReaction> GetReactionsByPostId(int id);
         public void Add(PostReaction postReaction);
     }
