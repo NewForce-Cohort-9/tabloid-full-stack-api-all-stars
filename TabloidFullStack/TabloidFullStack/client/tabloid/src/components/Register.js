@@ -72,8 +72,11 @@ export default function Register({ setIsLoggedIn }) {
           <Label htmlFor="imageLocation">Profile Image URL</Label>
           <Input
             id="imageLocation"
-            type="text"
-            onChange={(e) => setImageLocation(e.target.value)}
+            type="file"
+            onChange={(e) => {
+              console.log(e.target.files[0]);
+              setImageLocation(URL.createObjectURL(e.target.files[0]))
+            }}
           />
         </FormGroup>
         <FormGroup>
