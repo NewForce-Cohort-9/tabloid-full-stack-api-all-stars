@@ -59,6 +59,7 @@ export const UserEditType = () => {
                         })
                     }
                 } else {
+                    editedUser.demoteVotes = 0
                     updateUser(editedUser)
                     .then(() => {
                         navigate(`/users`)

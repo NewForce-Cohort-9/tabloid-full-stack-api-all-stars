@@ -26,7 +26,7 @@ export const ReactivateUser = () => {
               firstName: user.firstName,
               displayName: user.displayName,
               deactivated: false,
-              deactivateVote: user.deactivateVote--
+              deactivateVote: 0
           }
   
           updateUser(editedUser)

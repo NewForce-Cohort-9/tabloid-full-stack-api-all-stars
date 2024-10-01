@@ -51,6 +51,7 @@ export const DeactivateUser = () => {
                     })
                 }
             } else {
+                editedUser.deactivated = true
                 updateUser(editedUser)
                 .then(() => {
                     navigate(`/users/deactivated`)
