@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react"
-import { useNavigate, useParams } from "react-router-dom"
-import { Button, Container, ListGroupItemHeading } from "reactstrap"
+import { useLocation, useNavigate, useParams } from "react-router-dom"
+import { Button, Container, ListGroupItemHeading, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap"
 import { getUserById, updateUser } from "../../Managers/UserProfileManager.js";
 
 export const DeactivateUser = () => {
+    const [modal, setModal] = useState(false)
+
+    const toggle = () => setModal(!modal);
 
     const [user, setUser] = useState({});
+    const { state } = useLocation()
 
     const { userId } = useParams();
 
@@ -17,7 +21,6 @@ export const DeactivateUser = () => {
   
   
       const handleDeactivate = () => {
-  
           const editedUser = {
               id: user.id,
               userTypeId: user.userTypeId,
@@ -26,12 +29,16 @@ export const DeactivateUser = () => {
               firstName: user.firstName,
               displayName: user.displayName,
               deactivated: true
-          }
-  
-          updateUser(editedUser)
-          .then(() => {
-              navigate(`/users/deactivated`)
-          })
+            }
+        if (state.adminCount === 1 && editedUser.userTypeId === 1) {
+            toggle()
+        } else {
+            updateUser(editedUser)
+            .then(() => {
+                navigate(`/users/deactivated`)
+            })
+        }
+            
       }
 
     return(
@@ -39,6 +46,17 @@ export const DeactivateUser = () => {
             <ListGroupItemHeading>
                 Are you sure you want to DEACTIVATE {user.displayName}???
             </ListGroupItemHeading>
+            <Modal isOpen={modal} toggle={toggle}>
+                <ModalHeader toggle={toggle}>Admin Error</ModalHeader>
+                <ModalBody>
+                    Cannot deactivate last admin user. Must reactivate another admin user before deactivation is allowed.
+                </ModalBody>
+                <ModalFooter>
+                    <Button color="primary" onClick={toggle}>
+                        Close
+                    </Button>
+                </ModalFooter>
+            </Modal>
             <Button
             color="warning"
             size="sm"

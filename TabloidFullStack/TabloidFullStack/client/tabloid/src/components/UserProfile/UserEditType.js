@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react"
-import { useNavigate, useParams } from "react-router-dom"
+import { useLocation, useNavigate, useParams } from "react-router-dom"
 import { getUserById, updateUser } from "../../Managers/UserProfileManager.js";
-import { Button, Container, Form, FormGroup, Input, Label, ListGroupItemHeading } from "reactstrap";
+import { Button, Container, Form, FormGroup, Input, Label, ListGroupItemHeading, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 
 export const UserEditType = () => {
+    const [modal, setModal] = useState(false)
+
+    const toggle = () => setModal(!modal)
     
     const [user, setUser] = useState({})
     const { userId } = useParams();
+    const { state } = useLocation()
 
     const navigate = useNavigate();
 
@@ -32,11 +36,15 @@ export const UserEditType = () => {
               displayName: user.displayName,
               deactivated: user.deactivated
           }
-  
-          updateUser(editedUser)
-          .then(() => {
-              navigate(`/users`)
-          })
+
+          if (state.adminCount === 1 && user.userType?.id === 1) {
+            toggle()
+          } else {
+              updateUser(editedUser)
+              .then(() => {
+                  navigate(`/users`)
+              })
+          }
       }
   
 
@@ -47,6 +55,17 @@ export const UserEditType = () => {
                     Edit User Type: {user.displayName}
                 </ListGroupItemHeading>
             <FormGroup>
+                <Modal isOpen={modal} toggle={toggle}>
+                    <ModalHeader toggle={toggle}>Admin Error</ModalHeader>
+                    <ModalBody>
+                        Cannot reassign last admin user to author user type. Must reassign another author user to admin user type before reassigning to author user type is allowed.
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button color="primary" onClick={toggle}>
+                            Close
+                        </Button>
+                    </ModalFooter>
+                </Modal>
                 <Label for="userType">
                     User Type
                 </Label>
