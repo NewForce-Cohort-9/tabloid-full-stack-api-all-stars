@@ -56,7 +56,7 @@ export const AdminViews = ({ currentUser }) => {
       <Route path="/newTag" element={<TagForm />} />
       <Route path="/deleteTag/:tagId" element={<DeleteTag />} />
       <Route path="/editTag/:tagId" element={<EditTag />} />
-      <Route path = "/users" element={<UserList />} />
+      <Route path="/users" element={<UserList />} />
       <Route path="/newTagAdded" element={<TagForm />} />
       <Route path="/users" element={<UserList />} />
       <Route path="/users/:userId" element={<UserDetails />} />
@@ -65,7 +65,7 @@ export const AdminViews = ({ currentUser }) => {
       <Route path="/posts" element={<AdminPosts />} />
       <Route path="/adminPosts" element={<AdminPostList isAdmin={true} />} />
       <Route path="/users/deactivated" element={<DeactivatedUserList />} />
-      <Route path="/users/reactivate/:userId" element={<ReactivateUser /> } />
-   </Routes>
+      <Route path="/users/reactivate/:userId" element={<ReactivateUser />} />
+    </Routes>
   );
 }
