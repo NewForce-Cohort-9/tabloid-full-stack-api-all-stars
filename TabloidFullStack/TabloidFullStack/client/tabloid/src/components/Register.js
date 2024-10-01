@@ -69,7 +69,7 @@ export default function Register({ setIsLoggedIn }) {
           />
         </FormGroup>
         <FormGroup>
-          <Label htmlFor="imageLocation">Profile Image URL</Label>
+          <Label htmlFor="imageLocation">Profile Image</Label>
           <Input
             id="imageLocation"
             type="file"
