@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getApprovedPosts, approvedPosts } from "../Managers/AdminPostManager.js";
+import { getUnApprovedPosts, approvedPosts } from "../Managers/AdminPostManager.js";
 import { Post } from "./Post/Post.js";
 
 export const AdminPostList = ({ isAdmin }) => { 
@@ -7,13 +7,13 @@ export const AdminPostList = ({ isAdmin }) => {
 
     //Fetching & filtering posts on whether or not they have been approved or unapproved (No decision yet? will appear here)
     const getAllPosts = () => {
-        getApprovedPosts().then(postList => {
+        getUnApprovedPosts().then(postList => {
 
             //Retrieving posts from backend
             const approvedPostIds = JSON.parse(localStorage.getItem('approvedPosts')) || []
 
             //Filtering through posts to exclude the ones that are in the approvedPostIds array
-            const filteredPosts = postList.filter(post => !approvedPostIds.includes(post.id))
+            const filteredPosts = postList
 
             setAllPosts(filteredPosts)
         })
@@ -34,10 +34,10 @@ export const AdminPostList = ({ isAdmin }) => {
             publishDateTime: post.publishDateTime,
             categoryId: post.categoryId,
             userProfileId: post.userProfileId, 
-            isApproved: true 
+            isApproved: 1
         }
     
-        approvedPosts(approvedPost) 
+        approvedPosts(post.id) 
         .then(() => {
             console.log(approvedPosts)
             //retrieves array AFTER post is approved

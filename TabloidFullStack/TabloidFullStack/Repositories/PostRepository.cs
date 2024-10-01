@@ -19,7 +19,7 @@ namespace TabloidFullStack.Repositories
                                         FROM Post p
                                         LEFT JOIN Category c On c.Id = p.CategoryId
                                         LEFT JOIN UserProfile up ON up.Id = p.UserProfileId
-                                        WHERE p.IsApproved = 1 AND p.PublishDateTime <= CURRENT_TIMESTAMP
+                                        WHERE p.PublishDateTime <= CURRENT_TIMESTAMP
                                         ORDER BY p.PublishDateTime DESC";
 
                     var reader = cmd.ExecuteReader();
@@ -365,7 +365,7 @@ namespace TabloidFullStack.Repositories
             }
         }
 
-        public void IsApproved(Post post)
+        public void IsApproved(int postId)
         {
             using (var conn = Connection)
             {
@@ -378,7 +378,7 @@ namespace TabloidFullStack.Repositories
                                IsApproved = 1
                          WHERE Id = @Id";
 
-                    DbUtils.AddParameter(cmd, "@Id", post.Id);
+                    DbUtils.AddParameter(cmd, "@Id", postId);
 
                     cmd.ExecuteNonQuery();
                 }

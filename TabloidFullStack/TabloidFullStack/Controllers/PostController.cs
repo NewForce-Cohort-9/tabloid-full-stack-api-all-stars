@@ -114,14 +114,14 @@ namespace TabloidFullStack.Controllers
 
         // PUT api/<PostController>/5
         [HttpPatch("{id}")]
-        public IActionResult Patch( Post post)
+        public IActionResult Patch( int id)
         {
             //if (id != post.Id)
             //{
             //    return BadRequest();
             //}
 
-            _postRepository.IsApproved(post);
+            _postRepository.IsApproved(id);
             return NoContent();
         }
     }
