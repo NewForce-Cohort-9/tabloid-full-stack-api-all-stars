@@ -41,8 +41,6 @@ export const GeneralUserViews = ({ currentUser }) => {
       <Route path="/posts/delete/:id" element={<DeletePost />} />
       <Route path="/posts/edit/:id" element={<EditPost />} />
       <Route path="/posts/tags/:id" element={<PostTags />} />
-      <Route path="/tags" element={<TagList />} />
-      <Route path="/newTagAdded" element={<TagForm />} />
     </Routes>
   );
 }

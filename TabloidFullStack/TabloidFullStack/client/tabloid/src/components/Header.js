@@ -80,9 +80,6 @@ export default function Header({isLoggedIn, setIsLoggedIn, currentUser}) {
             {/* navbar for general users */}
             {isLoggedIn && currentUser.userTypeId !== 1 &&
               <>
-              <NavItem>
-                <NavLink tag={RRNavLink} to="/category">Category Management</NavLink>
-              </NavItem>
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
                   Posts
@@ -105,9 +102,6 @@ export default function Header({isLoggedIn, setIsLoggedIn, currentUser}) {
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
-              <NavItem>
-                  <NavLink tag={RRNavLink} to="/Tags">Tag Management</NavLink>
-              </NavItem>
                 <NavItem>
                   <a aria-current="page" className="nav-link"
                     style={{ cursor: "pointer" }} onClick={() => {
