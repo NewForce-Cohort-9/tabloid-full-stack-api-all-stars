@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { getAllUsers } from "../../Managers/UserProfileManager.js";
-import { Button, Container, List, ListGroup, ListGroupItem } from "reactstrap";
+import { Button, Container, List, ListGroup, ListGroupItem, Table } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 
 export const UserList = () => {
@@ -36,35 +36,73 @@ export const UserList = () => {
 
     return(
         <Container>
-            <List>
-                <ListGroup>
-                    All Active Users
-                </ListGroup>
+            <h2>
+                All Active Users
+            </h2>
+            <Table>
+                <thead>
+                    <tr>
+                        <th>Display Name</th>
+                        <th>Full Name</th>
+                        <th>User Type</th>
+                        <th>Deactivation Votes</th>
+                        <th>Demotion Votes</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
                 {activeUsers.map((user) => (
-                    <ListGroupItem
-                    key={user.id}
-                    >
-                        Display Name: {user.displayName} 
-                        Full Name: {user.fullName}
-                        User Type: {user.userType.name}
-                    <Button
-                    color="success"
-                    onClick={() => {navigate(`/users/editType/${user.id}`, { state: {adminCount: adminUserCounter}})}}
-                    >
-                        Edit
-                    </Button>
-                    <Button
-                    onClick={() => {navigate(`/users/${user.id}`)}}
-                    >
-                        View Details
-                    </Button>
-                    <Button
-                    color="danger"
-                    onClick={() => {navigate(`/users/deactivate/${user.id}`, { state: {adminCount: adminUserCounter}})}}
-                    >
-                        Deactivate User
-                    </Button>
-                    </ListGroupItem>
+                    user.userType.id === 1 ? 
+                    <tr> 
+                        <td>{user.displayName} </td>
+                        <td>{user.fullName}</td>
+                        <td>{user.userType.name}</td>
+                        <td>{user.deactivateVotes}</td>
+                        <td>{user.demoteVotes}</td>
+                        <Button
+                        color="success"
+                        onClick={() => {navigate(`/users/editType/${user.id}`, { state: {adminCount: adminUserCounter}})}}
+                        >
+                            Edit
+                        </Button>
+                        <Button
+                        onClick={() => {navigate(`/users/${user.id}`)}}
+                        >
+                            View Details
+                        </Button>
+                        <Button
+                        color="danger"
+                        onClick={() => {navigate(`/users/deactivate/${user.id}`, { state: {adminCount: adminUserCounter}})}}
+                        >
+                            Deactivate User
+                        </Button>
+                    </tr>
+                :
+                    <tr> 
+                        <td>{user.displayName} </td>
+                        <td>{user.fullName}</td>
+                        <td>{user.userType.name}</td>
+                        <td></td>
+                        <td></td>
+                        <Button
+                        color="success"
+                        onClick={() => {navigate(`/users/editType/${user.id}`, { state: {adminCount: adminUserCounter}})}}
+                        >
+                            Edit
+                        </Button>
+                        <Button
+                        onClick={() => {navigate(`/users/${user.id}`)}}
+                        >
+                            View Details
+                        </Button>
+                        <Button
+                        color="danger"
+                        onClick={() => {navigate(`/users/deactivate/${user.id}`, { state: {adminCount: adminUserCounter}})}}
+                        >
+                            Deactivate User
+                        </Button>
+                    </tr>
                 ))}
                 <ListGroup>
                     <ListGroupItem>
@@ -76,7 +114,7 @@ export const UserList = () => {
                         </Button>
                     </ListGroupItem>
                 </ListGroup>
-            </List>
+            </Table>
         </Container>
     )
 }

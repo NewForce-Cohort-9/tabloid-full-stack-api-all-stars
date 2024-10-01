@@ -34,16 +34,36 @@ export const UserEditType = () => {
               lastName: user.lastName,
               firstName: user.firstName,
               displayName: user.displayName,
-              deactivated: user.deactivated
+              deactivated: user.deactivated,
+              demoteVotes: user.demoteVotes,
+              deactivateVotes: user.deactivateVotes
           }
 
           if (state.adminCount === 1 && user.userType?.id === 1) {
             toggle()
           } else {
-              updateUser(editedUser)
-              .then(() => {
-                  navigate(`/users`)
-              })
+                if (user.userType.id === 1) {
+                    editedUser.demoteVotes++
+
+                    if (editedUser.demoteVotes < 2) {
+                        editedUser.userTypeId = 1
+                        updateUser(editedUser)
+                        .then(() => {
+                            navigate(`/users`)
+                        })
+                    } else {
+                        editedUser.userTypeId = 2
+                        updateUser(editedUser)
+                        .then(() => {
+                            navigate(`/users`)
+                        })
+                    }
+                } else {
+                    updateUser(editedUser)
+                    .then(() => {
+                        navigate(`/users`)
+                    })
+                }
           }
       }
   
