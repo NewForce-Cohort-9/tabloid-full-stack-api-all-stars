@@ -98,15 +98,34 @@ export const PostDetails = () => {
           );
         })}
         <p className="text-left px2">Content: {postDetails.content}</p>
-
-        {currentUser.id === postDetails.userProfileId ? (
-          <>
-            <div>
+        <div>
               <p>Tags:</p>
               {postTags.map((tagObj) => {
                 return <p>{tagObj.tag.name}</p>;
               })}
-            </div>
+        </div>
+
+            {(currentUser.id === postDetails.userProfileId) && (
+            <Button
+              color="warning"
+              onClick={() =>
+                navigate(`/posts/edit/${id}`, { state: { post: postDetails } })
+              }
+            >
+              Edit Post
+            </Button>
+            )}
+
+        {((currentUser.id === postDetails.userProfileId) || (currentUser.userTypeId === 1)) && (
+          <>
+            <Button
+                color="info"
+                onClick={() =>
+                  navigate(`/posts/tags/${id}`, { state: { post: postDetails } })
+                }
+              >
+                Manage Tags
+            </Button>
             <Button
               color="danger"
               onClick={() =>
@@ -117,26 +136,8 @@ export const PostDetails = () => {
             >
               Delete Post
             </Button>
-            <Button
-              color="warning"
-              onClick={() =>
-                navigate(`/posts/edit/${id}`, { state: { post: postDetails } })
-              }
-            >
-              Edit Post
-            </Button>
-            <Button
-              color="info"
-              onClick={() =>
-                navigate(`/posts/tags/${id}`, { state: { post: postDetails } })
-              }
-            >
-              Manage Tags
-            </Button>
-          </>
-        ) : (
-          ""
-        )}
+            </>
+            )}
         <Link to={"/myposts"}>My Posts</Link>
         <Link to={"/posts"}>All Posts</Link>
       </Card>

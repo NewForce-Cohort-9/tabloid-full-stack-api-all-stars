@@ -1,10 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Hello from "../Hello.js";
-import { CategoryList } from "../Category/CategoryList.js";
-import { CategoryForm } from "../Category/CategoryForm.js";
-import { DeleteCategory } from "../Category/DeleteCategory.js";
-import { EditCategory } from "../Category/EditCategory.js";
+
 import { PostList } from "../Post/PostList.js";
 import { AddCommentForm } from "../Comment/AddCommentForm.js";
 import { UserPostList } from "../Post/UserPostList.js";
@@ -12,8 +9,6 @@ import { PostDetails } from "../Post/PostDetails.js";
 import { CreatePost } from "../Post/CreatePost.js";
 import { DeletePost } from "../Post/DeletePost.js";
 import { EditPost } from "../Post/EditPost.js";
-import { TagList } from "../Tags/TagList.js";
-import { TagForm } from "../Tags/TagForm.js";
 import { CommentList } from "../Comment/CommentList.js";
 import { PostTags } from "../Post/PostTags.js";
 
@@ -22,10 +17,6 @@ export const GeneralUserViews = ({ currentUser }) => {
   return (
     <Routes>
       <Route path="/" element={<Hello />} />
-      <Route path="/category" element={<CategoryList />} />
-      <Route path="/newCategory" element={<CategoryForm />} />
-      <Route path="/deleteCategory/:categoryId" element={<DeleteCategory />} />
-      <Route path="/editCategory/:categoryId" element={<EditCategory />} />
       <Route path="/posts" element={<PostList />} />
       <Route
         path="/posts/:id/comments/create"

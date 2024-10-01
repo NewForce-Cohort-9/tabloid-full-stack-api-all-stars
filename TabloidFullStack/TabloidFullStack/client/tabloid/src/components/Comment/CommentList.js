@@ -47,7 +47,7 @@ export const CommentList = ({ currentUser }) => {
               <UpdateComment comment={comment} />
             </div>
           ) : null}
-          {comment.userProfile?.id === currentUser.id ? (
+          {(comment.userProfile?.id === currentUser.id || currentUser.userTypeId === 1) ? (
             <div>
               <DeleteComment comment={comment} />
             </div>
