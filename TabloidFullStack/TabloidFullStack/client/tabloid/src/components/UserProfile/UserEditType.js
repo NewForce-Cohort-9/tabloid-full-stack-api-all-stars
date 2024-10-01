@@ -25,7 +25,7 @@ export const UserEditType = () => {
           }
   
   
-      const handleEdit = (e) => {
+      const handleEdit = () => {
   
           const editedUser = {
               id: user.id,
@@ -37,8 +37,8 @@ export const UserEditType = () => {
               deactivated: user.deactivated
           }
 
-          if (state.adminCount === 1 && editedUser.userTypeId === 1) {
-            e.preventDefault().then(toggle())
+          if (state.adminCount === 1 && user.userType?.id === 1) {
+            toggle()
           } else {
               updateUser(editedUser)
               .then(() => {
