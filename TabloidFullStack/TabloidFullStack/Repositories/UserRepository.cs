@@ -16,7 +16,7 @@ namespace TabloidFullStack.Repositories
                 {
                     cmd.CommandText = @"
                         SELECT up.Id, up.FirstName, up.LastName, up.DisplayName, 
-                               up.Email, up.CreateDateTime, up.ImageLocation, up.UserTypeId, up.Deactivated,
+                               up.Email, up.CreateDateTime, up.ImageLocation, up.UserTypeId, up.Deactivated, up.DeactivateVotes, up.DemoteVotes,
                                ut.Name AS UserTypeName
                           FROM UserProfile up
                                LEFT JOIN UserType ut on up.UserTypeId = ut.Id
@@ -44,7 +44,9 @@ namespace TabloidFullStack.Repositories
                                 Id = DbUtils.GetInt(reader, "UserTypeId"),
                                 Name = DbUtils.GetString(reader, "UserTypeName"),
                             },
-                            Deactivated = DbUtils.GetBoolean(reader,"Deactivated")
+                            Deactivated = DbUtils.GetBoolean(reader,"Deactivated"),
+                            DeactivateVotes = DbUtils.GetInt(reader, "DeactivateVotes"),
+                            DemoteVotes = DbUtils.GetInt(reader, "DemoteVotes")
                         };
                     }
                     reader.Close();
@@ -62,10 +64,10 @@ namespace TabloidFullStack.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"INSERT INTO UserProfile (FirstName, LastName, DisplayName, 
-                                                                 Email, CreateDateTime, ImageLocation, UserTypeId)
+                                                                 Email, CreateDateTime, ImageLocation, UserTypeId, DeactivateVotes, DemoteVotes)
                                         OUTPUT INSERTED.ID
                                         VALUES (@FirstName, @LastName, @DisplayName, 
-                                                @Email, @CreateDateTime, @ImageLocation, @UserTypeId)";
+                                                @Email, @CreateDateTime, @ImageLocation, @UserTypeId, @DeactivateVotes, @DemoteVotes)";
                     DbUtils.AddParameter(cmd, "@FirstName", userProfile.FirstName);
                     DbUtils.AddParameter(cmd, "@LastName", userProfile.LastName);
                     DbUtils.AddParameter(cmd, "@DisplayName", userProfile.DisplayName);
@@ -73,6 +75,8 @@ namespace TabloidFullStack.Repositories
                     DbUtils.AddParameter(cmd, "@CreateDateTime", userProfile.CreateDateTime);
                     DbUtils.AddParameter(cmd, "@ImageLocation", userProfile.ImageLocation);
                     DbUtils.AddParameter(cmd, "@UserTypeId", userProfile.UserTypeId);
+                    DbUtils.AddParameter(cmd, "@DeactivateVotes", userProfile.DeactivateVotes);
+                    DbUtils.AddParameter(cmd, "@DemoteVotes", userProfile.DemoteVotes);
 
                     userProfile.Id = (int)cmd.ExecuteScalar();
                 }
@@ -88,7 +92,7 @@ namespace TabloidFullStack.Repositories
                 {
                     cmd.CommandText = @"
                         SELECT up.Id, up.FirstName, up.LastName, up.DisplayName, 
-                               up.Email, up.CreateDateTime, up.ImageLocation, up.UserTypeId, up.Deactivated,
+                               up.Email, up.CreateDateTime, up.ImageLocation, up.UserTypeId, up.Deactivated, up.DeactivateVotes, up.DemoteVotes,
                                ut.Name AS UserTypeName
                           FROM UserProfile up
                                LEFT JOIN UserType ut on up.UserTypeId = ut.Id
@@ -116,7 +120,9 @@ namespace TabloidFullStack.Repositories
                                 Id = DbUtils.GetInt(reader, "UserTypeId"),
                                 Name = DbUtils.GetString(reader, "UserTypeName"),
                             },
-                            Deactivated = DbUtils.GetBoolean(reader, "Deactivated")
+                            Deactivated = DbUtils.GetBoolean(reader, "Deactivated"),
+                            DeactivateVotes = DbUtils.GetInt(reader, "DeactivateVotes"),
+                            DemoteVotes = DbUtils.GetInt(reader, "DemoteVotes")
                         });
                     }
                     reader.Close();
@@ -134,7 +140,7 @@ namespace TabloidFullStack.Repositories
                 {
                     cmd.CommandText = @"
                         SELECT up.Id, up.FirstName, up.LastName, up.DisplayName, 
-                               up.Email, up.CreateDateTime, up.ImageLocation, up.UserTypeId, up.Deactivated,
+                               up.Email, up.CreateDateTime, up.ImageLocation, up.UserTypeId, up.Deactivated, up.DeactivateVotes, up.DemoteVotes,
                                ut.Name AS UserTypeName
                           FROM UserProfile up
                                LEFT JOIN UserType ut on up.UserTypeId = ut.Id
@@ -163,7 +169,9 @@ namespace TabloidFullStack.Repositories
                                 Id = DbUtils.GetInt(reader, "UserTypeId"),
                                 Name = DbUtils.GetString(reader, "UserTypeName"),
                             },
-                            Deactivated = DbUtils.GetBoolean(reader, "Deactivated")
+                            Deactivated = DbUtils.GetBoolean(reader, "Deactivated"),
+                            DeactivateVotes = DbUtils.GetInt(reader, "DeactivateVotes"),
+                            DemoteVotes = DbUtils.GetInt(reader, "DemoteVotes")
                         };
                     }
                     reader.Close();
@@ -184,13 +192,17 @@ namespace TabloidFullStack.Repositories
                     cmd.CommandText = @"UPDATE UserProfile
                                        SET UserTypeId = @UserTypeId,
                                            Deactivated = @Deactivated,
-                                           ImageLocation = @ImageLocation
+                                           ImageLocation = @ImageLocation,
+                                           DemoteVotes = @DemoteVotes,
+                                           DeactivateVotes = @DeactivateVotes
                                       WHERE Id = @Id";
 
                     DbUtils.AddParameter(cmd, "@UserTypeId", userProfile.UserTypeId);
                     DbUtils.AddParameter(cmd, "@Id", userProfile.Id);
                     DbUtils.AddParameter(cmd, "@Deactivated", userProfile.Deactivated);
                     DbUtils.AddParameter(cmd, "@ImageLocation", userProfile.ImageLocation);
+                    DbUtils.AddParameter(cmd, "@DeactivateVotes", userProfile.DeactivateVotes);
+                    DbUtils.AddParameter(cmd, "@DemoteVotes", userProfile.DemoteVotes);
 
                     cmd.ExecuteNonQuery();
                 }

@@ -42,5 +42,7 @@ namespace TabloidFullStack.Models
         }
 
         public bool Deactivated { get; set; }
+        public int DeactivateVotes { get; set; }
+        public int DemoteVotes { get; set; }
     }
 }

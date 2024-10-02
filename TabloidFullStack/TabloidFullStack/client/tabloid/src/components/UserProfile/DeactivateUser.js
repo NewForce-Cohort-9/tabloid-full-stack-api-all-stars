@@ -28,17 +28,36 @@ export const DeactivateUser = () => {
               lastName: user.lastName,
               firstName: user.firstName,
               displayName: user.displayName,
-              deactivated: true
+              demoteVotes: user.demoteVotes,
+              deactivateVotes: user.deactivateVotes
             }
         if (state.adminCount === 1 && editedUser.userTypeId === 1) {
             toggle()
         } else {
-            updateUser(editedUser)
-            .then(() => {
-                navigate(`/users/deactivated`)
-            })
-        }
-            
+            if (editedUser.userTypeId === 1) {
+                editedUser.deactivateVotes++
+
+                if (editedUser.deactivateVotes === 2) {
+                    editedUser.deactivated = true
+    
+                    updateUser(editedUser)
+                    .then(() => {
+                        navigate(`/users/deactivated`)
+                    })
+                } else {
+                    updateUser(editedUser)
+                    .then(() => {
+                        navigate(`/users/deactivated`)
+                    })
+                }
+            } else {
+                editedUser.deactivated = true
+                updateUser(editedUser)
+                .then(() => {
+                    navigate(`/users/deactivated`)
+                })
+            }
+        }    
       }
 
     return(

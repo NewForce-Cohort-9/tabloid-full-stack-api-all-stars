@@ -34,6 +34,8 @@ namespace TabloidFullStack.Controllers
         {
             userProfile.CreateDateTime = DateTime.Now;
             userProfile.UserTypeId = UserType.AUTHOR_ID;
+            userProfile.DeactivateVotes = 0;
+            userProfile.DemoteVotes = 0;
             _userRepository.Add(userProfile);
             return CreatedAtAction(
                 "GetByEmail",
