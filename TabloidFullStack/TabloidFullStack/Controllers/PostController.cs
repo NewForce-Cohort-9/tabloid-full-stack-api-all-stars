@@ -124,5 +124,16 @@ namespace TabloidFullStack.Controllers
             _postRepository.IsApproved(id);
             return NoContent();
         }
+
+        [HttpGet("GetPostsBySubscriberId/{id}")]
+        public IActionResult GetPostsBySubscriberId(int id)
+        {
+            var posts = _postRepository.GetPostsBySubscriberId(id);
+            if (posts == null)
+            {
+                return NotFound();
+            }
+            return Ok(posts);
+        }
     }
 }

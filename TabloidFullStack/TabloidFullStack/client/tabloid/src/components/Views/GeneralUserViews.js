@@ -11,11 +11,12 @@ import { DeletePost } from "../Post/DeletePost.js";
 import { EditPost } from "../Post/EditPost.js";
 import { CommentList } from "../Comment/CommentList.js";
 import { PostTags } from "../Post/PostTags.js";
+import { SubscribedPostList } from "../Post/SubscribedPostList.js";
 
 export const GeneralUserViews = ({ currentUser }) => {
   return (
     <Routes>
-      <Route path="/" element={<Hello />} />
+      <Route path="/" element={<SubscribedPostList currentUser={currentUser} />} />
       <Route path="/posts" element={<PostList />} />
       <Route
         path="/posts/:id/comments/create"

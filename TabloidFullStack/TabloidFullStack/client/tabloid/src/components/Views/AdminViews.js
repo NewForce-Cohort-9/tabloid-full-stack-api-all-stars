@@ -26,11 +26,15 @@ import { AdminPosts } from "../AdminPosts.js";
 import { AdminPostList } from "../AdminPostList.js";
 import { DeactivatedUserList } from "../UserProfile/DeactivatedUserList.js";
 import { ReactivateUser } from "../UserProfile/ReactivateUser.js";
+import { SubscribedPostList } from "../Post/SubscribedPostList.js";
 
 export const AdminViews = ({ currentUser }) => {
   return (
     <Routes>
-      <Route path="/" element={<Hello />} />
+      <Route
+        path="/"
+        element={<SubscribedPostList currentUser={currentUser} />}
+      />
       <Route path="/category" element={<CategoryList />} />
       <Route path="/newCategory" element={<CategoryForm />} />
       <Route path="/deleteCategory/:categoryId" element={<DeleteCategory />} />
