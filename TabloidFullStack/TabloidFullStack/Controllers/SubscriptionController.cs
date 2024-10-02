@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TabloidFullStack.Models;
 using TabloidFullStack.Repositories;
 
 namespace TabloidFullStack.Controllers
@@ -19,6 +20,27 @@ namespace TabloidFullStack.Controllers
         public IActionResult Get()
         {
             return Ok(_subscriptionRepository.GetAll());
+        }
+
+        [HttpGet("GetByUserId/{id}")]
+        public IActionResult GetAllByUserId(int id)
+        {
+            var subscriptions = _subscriptionRepository.GetByUserId(id);
+            if (subscriptions == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(subscriptions);
+        }
+
+        [HttpPost]
+        public IActionResult Post(Subscription subscription)
+        {
+            subscription.BeginDateTime = DateTime.Now;
+            subscription.EndDateTime = null;
+            _subscriptionRepository.Add(subscription);
+            return CreatedAtAction("Get", new { id = subscription.Id }, subscription);
         }
     }
 }
