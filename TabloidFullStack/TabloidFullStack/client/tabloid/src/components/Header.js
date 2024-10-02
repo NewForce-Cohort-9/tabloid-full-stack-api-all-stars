@@ -63,6 +63,9 @@ export default function Header({isLoggedIn, setIsLoggedIn, currentUser}) {
                 </DropdownMenu>
               </UncontrolledDropdown>
               <NavItem>
+                  <NavLink tag={RRNavLink} to="/subscriptions">Subscriptions</NavLink>
+              </NavItem>
+              <NavItem>
                   <NavLink tag={RRNavLink} to="/Tags">Tag Management</NavLink>
               </NavItem>
               <NavItem>

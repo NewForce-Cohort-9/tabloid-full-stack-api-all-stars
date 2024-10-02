@@ -6,6 +6,7 @@ import { getPostTagsByPostId } from "../../Managers/PostTagManager.js";
 import { getReactionsByPostId } from "../../Managers/PostReactionManager.js";
 import AddReactionToPost from "./AddPostReaction.js";
 import CreateNewReaction from "./CreateNewReaction.js";
+import AddNewSubscription from "../Subscriptions/AddSubscription.js";
 
 export const PostDetails = () => {
   const [postDetails, setPostDetails] = useState({});
@@ -86,6 +87,7 @@ export const PostDetails = () => {
         <p className="text-left px2">
           Posted By: {postDetails.userProfile.displayName}
         </p>
+        <AddNewSubscription currentUser={currentUser} />
         <p>Reactions:</p> <AddReactionToPost currentUser={currentUser} />
         {currentUser.userTypeId === 1 ? <CreateNewReaction /> : null}
         {postReactions.map((reactionObj) => {
