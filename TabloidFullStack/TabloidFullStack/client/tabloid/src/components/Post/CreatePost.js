@@ -15,7 +15,7 @@ export const CreatePost = () => {
         
         let postCopy = {...post}
         postCopy.UserProfileId = parsedUser.id
-        postCopy.IsApproved = true
+        postCopy.IsApproved = false
 
         addPost(postCopy).then(postId => navigate(`/post/${postId}`))
     }
