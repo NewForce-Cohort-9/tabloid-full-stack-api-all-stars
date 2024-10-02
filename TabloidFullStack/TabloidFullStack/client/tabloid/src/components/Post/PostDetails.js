@@ -86,6 +86,7 @@ export const PostDetails = () => {
         <p className="text-left px2">
           Posted By: {postDetails.userProfile.displayName}
         </p>
+        <Button>Subscribe</Button>
         <p>Reactions:</p> <AddReactionToPost currentUser={currentUser} />
         {currentUser.userTypeId === 1 ? <CreateNewReaction /> : null}
         {postReactions.map((reactionObj) => {
