@@ -16,5 +16,6 @@ export const ApplicationViews = () => {
     <AdminViews currentUser={currentUser} />
   ) : (
     <GeneralUserViews currentUser={currentUser} />
+    
   )
 }

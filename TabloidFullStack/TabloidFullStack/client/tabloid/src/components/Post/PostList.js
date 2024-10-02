@@ -77,7 +77,9 @@ export const PostList = () => {
                 <div className="row justify-content-center">
                     <div className="cards-column">
                         {posts?.length > 0 ? posts.map((post) => (
-                            <Post key={post.id} post={post} />
+                            // Check using a ternary operator to display only approved posts
+                            post.isApproved ? 
+                            <Post key={post.id} post={post} /> : null
                         )) : ""}
                     </div>
                 </div>

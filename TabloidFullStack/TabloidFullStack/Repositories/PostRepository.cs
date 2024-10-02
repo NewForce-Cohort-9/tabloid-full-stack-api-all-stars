@@ -15,11 +15,11 @@ namespace TabloidFullStack.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT p.Id, p.Title, p.PublishDateTime, p.IsApproved, p.CategoryId, p.UserProfileId, c.Name, up.DisplayName
+                    cmd.CommandText = @"SELECT p.Id, p.Title, p.PublishDateTime, p.IsApproved, p.CategoryId, p.UserProfileId, p.Content, p.ImageLocation, c.Name, up.DisplayName
                                         FROM Post p
                                         LEFT JOIN Category c On c.Id = p.CategoryId
                                         LEFT JOIN UserProfile up ON up.Id = p.UserProfileId
-                                        WHERE p.IsApproved = 1 AND p.PublishDateTime <= CURRENT_TIMESTAMP
+                                        WHERE p.PublishDateTime <= CURRENT_TIMESTAMP
                                         ORDER BY p.PublishDateTime DESC";
 
                     var reader = cmd.ExecuteReader();
@@ -34,6 +34,8 @@ namespace TabloidFullStack.Repositories
                             Title = DbUtils.GetString(reader, "Title"),
                             PublishDateTime = DbUtils.GetDateTime(reader, "PublishDateTime"),
                             IsApproved = reader.GetBoolean(reader.GetOrdinal("IsApproved")),
+                            Content = DbUtils.GetString(reader, "Content"),
+                            ImageLocation = DbUtils.GetString(reader, "ImageLocation"),
                             CategoryId = DbUtils.GetInt(reader, "CategoryId"),
                             UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
                             Category = new Category()
@@ -198,13 +200,15 @@ namespace TabloidFullStack.Repositories
                            SET Title = @Title,
                                Content = @Content,
                                ImageLocation = @ImageLocation,
-                               CategoryId = @CategoryId
+                               CategoryId = @CategoryId,
+                               IsApproved = @IsApproved
                          WHERE Id = @Id";
 
                     DbUtils.AddParameter(cmd, "@Title", post.Title);
                     DbUtils.AddParameter(cmd, "@Content", post.Content);
                     DbUtils.AddParameter(cmd, "@ImageLocation", post.ImageLocation);
                     DbUtils.AddParameter(cmd, "@CategoryId", post.CategoryId);
+                    DbUtils.AddParameter(cmd, "@IsApproved", post.IsApproved);
                     DbUtils.AddParameter(cmd, "@Id", post.Id);
 
                     cmd.ExecuteNonQuery();
@@ -357,6 +361,26 @@ namespace TabloidFullStack.Repositories
                     reader.Close();
 
                     return posts;
+                }
+            }
+        }
+
+        public void IsApproved(int postId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        UPDATE Post
+                               SET
+                               IsApproved = 1
+                         WHERE Id = @Id";
+
+                    DbUtils.AddParameter(cmd, "@Id", postId);
+
+                    cmd.ExecuteNonQuery();
                 }
             }
         }
