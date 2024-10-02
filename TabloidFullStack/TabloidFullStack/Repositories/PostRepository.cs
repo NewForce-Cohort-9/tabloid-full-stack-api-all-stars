@@ -384,5 +384,60 @@ namespace TabloidFullStack.Repositories
                 }
             }
         }
+
+        public List<Post> GetPostsBySubscriberId(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT p.Id AS 'PostId', p.Title, p.Content, p.CategoryId, p.ImageLocation, p.CreateDateTime, p.PublishDateTime, up.Id AS 'UserProfileId', up.DisplayName, c.Name
+                        FROM Post p
+                        INNER JOIN UserProfile up
+                        ON p.UserProfileId = up.Id
+                        INNER JOIN Subscription s
+                        ON up.Id = s.ProviderUserProfileId
+                        LEFT JOIN Category c
+                        ON c.Id = p.CategoryId
+                        WHERE s.SubscriberUserProfileId = @Id AND p.IsApproved = 1
+                        ORDER BY p.PublishDateTime DESC";
+
+                    DbUtils.AddParameter(cmd, "@Id", id);
+
+                    List<Post> posts = new List<Post>();
+
+                    var reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        posts.Add(new Post()
+                        {
+                            Id = DbUtils.GetInt(reader, "PostId"),
+                            Title = DbUtils.GetString(reader, "Title"),
+                            Content = DbUtils.GetString(reader, "Content"),
+                            ImageLocation = reader.GetString(reader.GetOrdinal("ImageLocation")),
+                            CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
+                            PublishDateTime = DbUtils.GetDateTime(reader, "PublishDateTime"),
+                            CategoryId = DbUtils.GetInt(reader, "CategoryId"),
+                            Category = new Category()
+                            {
+                                Name = DbUtils.GetString(reader, "Name")
+                            },
+                            UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
+                            UserProfile = new UserProfile()
+                            {
+                                Id = DbUtils.GetInt(reader, "UserProfileId"),
+                                DisplayName = DbUtils.GetString(reader, "DisplayName")
+                            }
+                        });
+                    }
+
+                    reader.Close();
+
+                    return posts;
+                }
+            }
+        }
     }
 }

@@ -14,5 +14,6 @@ namespace TabloidFullStack.Repositories
         List<Post> GetAllApprovedPostsByCategoryId(int id);
         List<Post> GetAllApprovedPostsByUserId(int id);
         void IsApproved(int postId);
+        public List<Post> GetPostsBySubscriberId (int id);
     }
 }
