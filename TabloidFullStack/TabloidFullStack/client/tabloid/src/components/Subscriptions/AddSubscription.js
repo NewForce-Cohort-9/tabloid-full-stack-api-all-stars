@@ -67,6 +67,10 @@ function AddNewSubscription({ args, currentUser }) {
     });
   };
 
+  if (currentUser.id === postDetails.userProfileId) {
+    return null;
+  }
+
   return (
     <div>
       {isSubscribed ? (
