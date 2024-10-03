@@ -17,3 +17,13 @@ export const addSubscription = (subscription) => {
       return data.id;
     });
 };
+
+export const updateSubscription = (subscription) => {
+  return fetch(`${baseUrl}/${subscription.id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(subscription),
+  });
+};

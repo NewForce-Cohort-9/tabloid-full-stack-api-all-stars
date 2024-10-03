@@ -392,16 +392,16 @@ namespace TabloidFullStack.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT p.Id AS 'PostId', p.Title, p.Content, p.CategoryId, p.ImageLocation, p.CreateDateTime, p.PublishDateTime, up.Id AS 'UserProfileId', up.DisplayName, c.Name
-                        FROM Post p
-                        INNER JOIN UserProfile up
-                        ON p.UserProfileId = up.Id
-                        INNER JOIN Subscription s
-                        ON up.Id = s.ProviderUserProfileId
-                        LEFT JOIN Category c
-                        ON c.Id = p.CategoryId
-                        WHERE s.SubscriberUserProfileId = @Id AND p.IsApproved = 1
-                        ORDER BY p.PublishDateTime DESC";
+                    cmd.CommandText = @"SELECT p.Id AS 'PostId', p.Title, p.Content, p.CategoryId, p.ImageLocation, p.CreateDateTime, p.PublishDateTime, up.Id AS 'UserProfileId', up.DisplayName, c.Name, s.BeginDateTime, s.EndDateTime
+                            FROM Post p
+                            INNER JOIN UserProfile up
+                            ON p.UserProfileId = up.Id
+                            INNER JOIN Subscription s
+                            ON up.Id = s.ProviderUserProfileId
+                            LEFT JOIN Category c
+                            ON c.Id = p.CategoryId
+                            WHERE s.SubscriberUserProfileId = @Id AND p.IsApproved = 1 AND s.EndDateTime IS NULL
+                            ORDER BY p.PublishDateTime DESC";
 
                     DbUtils.AddParameter(cmd, "@Id", id);
 

@@ -68,7 +68,6 @@ export const AdminViews = ({ currentUser }) => {
       <Route path="/adminPosts" element={<AdminPostList isAdmin={true} />} />
       <Route path="/users/deactivated" element={<DeactivatedUserList />} />
       <Route path="/users/reactivate/:userId" element={<ReactivateUser />} />
-      {/* <Route path="/subscriptions" element={<TO DO />} /> */}
     </Routes>
   );
 };
